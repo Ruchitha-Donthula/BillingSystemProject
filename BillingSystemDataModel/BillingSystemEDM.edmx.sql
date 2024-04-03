@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/03/2024 14:55:26
+-- Date Created: 04/03/2024 03:43:29
 -- Generated from EDMX file: C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\BillingSystemEDM.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,53 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_BillAccountBillAccountPolicy]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BillAccountPolicies] DROP CONSTRAINT [FK_BillAccountBillAccountPolicy];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BillAccountBillingTransaction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BillingTransactions] DROP CONSTRAINT [FK_BillAccountBillingTransaction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BillAccountInstallmentSummary]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InstallmentSummaries] DROP CONSTRAINT [FK_BillAccountInstallmentSummary];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InstallmentSummaryInstallment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Installments] DROP CONSTRAINT [FK_InstallmentSummaryInstallment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvoiceInstallment1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Installments] DROP CONSTRAINT [FK_InvoiceInstallment1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BillAccountPayment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Payments] DROP CONSTRAINT [FK_BillAccountPayment];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[BillAccounts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BillAccounts];
+GO
+IF OBJECT_ID(N'[dbo].[BillAccountPolicies]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BillAccountPolicies];
+GO
+IF OBJECT_ID(N'[dbo].[BillingTransactions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BillingTransactions];
+GO
+IF OBJECT_ID(N'[dbo].[InstallmentSummaries]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InstallmentSummaries];
+GO
+IF OBJECT_ID(N'[dbo].[Installments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Installments];
+GO
+IF OBJECT_ID(N'[dbo].[Invoices]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Invoices];
+GO
+IF OBJECT_ID(N'[dbo].[InvoiceInstallments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvoiceInstallments];
+GO
+IF OBJECT_ID(N'[dbo].[Payments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Payments];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -211,7 +253,7 @@ ADD CONSTRAINT [FK_BillAccountBillingTransaction]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([Id])
-     ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountBillingTransaction'
@@ -226,7 +268,7 @@ ADD CONSTRAINT [FK_BillAccountInstallmentSummary]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([Id])
-     ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountInstallmentSummary'
@@ -271,7 +313,7 @@ ADD CONSTRAINT [FK_BillAccountPayment]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([Id])
-     ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountPayment'
