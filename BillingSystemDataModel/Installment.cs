@@ -14,7 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class Installment
     {
-        public int Id { get; set; }
         public int InstallmentId { get; set; }
         public int InstallmentSequenceNumber { get; set; }
         public System.DateTime InstallmentSendDate { get; set; }
@@ -24,9 +23,7 @@ namespace BillingSystemDataModel
         public Nullable<double> BalanceAmount { get; set; }
         public string InvoiceStatus { get; set; }
         public int InstallmentSummaryId { get; set; }
-        public int InvoiceId { get; set; }
     
         public virtual InstallmentSummary InstallmentSummary { get; set; }
-        public virtual Invoice Invoice { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class BillingTransaction
     {
-        public int Id { get; set; }
         public int BillingTransactionId { get; set; }
         public System.DateTime ActivityDate { get; set; }
         public string TransactionType { get; set; }

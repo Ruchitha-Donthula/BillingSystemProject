@@ -20,7 +20,6 @@ namespace BillingSystemDataModel
             this.Installments = new HashSet<Installment>();
         }
     
-        public int Id { get; set; }
         public int InstallmentSummaryId { get; set; }
         public string PolicyNumber { get; set; }
         public string Status { get; set; }

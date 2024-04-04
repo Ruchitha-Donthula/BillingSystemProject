@@ -50,29 +50,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillAccount.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillAccountPolicy.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillingSystemEDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingSystemEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillingSystemEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="BillingSystemEDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BillingSystemEDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="BillingTransaction.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Installment.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InstallmentSummary.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceInstallment.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.cs">
+      <DependentUpon>BillingSystemEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="BillingSystemEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BillingSystemEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="BillingSystemEDM.edmx.diagram">
       <DependentUpon>BillingSystemEDM.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="BillingSystemEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BillingSystemEDM.Context.cs</LastGenOutput>
+      <DependentUpon>BillingSystemEDM.edmx</DependentUpon>
+    </Content>
+    <Content Include="BillingSystemEDM.edmx.sql" />
+    <Content Include="BillingSystemEDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BillingSystemEDM.cs</LastGenOutput>
+      <DependentUpon>BillingSystemEDM.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

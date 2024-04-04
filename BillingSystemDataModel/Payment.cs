@@ -14,7 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class Payment
     {
-        public int Id { get; set; }
         public int PaymentId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentFrom { get; set; }

@@ -14,13 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class Invoice
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Invoice()
-        {
-            this.Installments = new HashSet<Installment>();
-        }
-    
-        public int Id { get; set; }
         public int InvoiceId { get; set; }
         public string InvoiceNumber { get; set; }
         public System.DateTime InvoiceDate { get; set; }
@@ -28,8 +21,5 @@ namespace BillingSystemDataModel
         public int BillAccountId { get; set; }
         public string Status { get; set; }
         public double InvoiceAmount { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Installment> Installments { get; set; }
     }
 }

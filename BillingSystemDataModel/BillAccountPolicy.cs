@@ -14,7 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class BillAccountPolicy
     {
-        public int Id { get; set; }
         public int BillAccountPolicyId { get; set; }
         public string PolicyNumber { get; set; }
         public int BillAccountId { get; set; }

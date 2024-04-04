@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/03/2024 03:43:29
+-- Date Created: 04/04/2024 03:48:11
 -- Generated from EDMX file: C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\BillingSystemEDM.edmx
 -- --------------------------------------------------
 
@@ -26,14 +26,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BillAccountInstallmentSummary]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InstallmentSummaries] DROP CONSTRAINT [FK_BillAccountInstallmentSummary];
 GO
-IF OBJECT_ID(N'[dbo].[FK_InstallmentSummaryInstallment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Installments] DROP CONSTRAINT [FK_InstallmentSummaryInstallment];
-GO
-IF OBJECT_ID(N'[dbo].[FK_InvoiceInstallment1]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Installments] DROP CONSTRAINT [FK_InvoiceInstallment1];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BillAccountPayment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Payments] DROP CONSTRAINT [FK_BillAccountPayment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InstallmentSummaryInstallment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Installments] DROP CONSTRAINT [FK_InstallmentSummaryInstallment];
 GO
 
 -- --------------------------------------------------
@@ -71,8 +68,7 @@ GO
 
 -- Creating table 'BillAccounts'
 CREATE TABLE [dbo].[BillAccounts] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [BillAccountId] int  NOT NULL,
+    [BillAccountId] int IDENTITY(1,1) NOT NULL,
     [BillAccountNumber] nvarchar(max)  NOT NULL,
     [BillingType] nvarchar(max)  NOT NULL,
     [Status] nvarchar(max)  NOT NULL,
@@ -92,8 +88,7 @@ GO
 
 -- Creating table 'BillAccountPolicies'
 CREATE TABLE [dbo].[BillAccountPolicies] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [BillAccountPolicyId] int  NOT NULL,
+    [BillAccountPolicyId] int IDENTITY(1,1) NOT NULL,
     [PolicyNumber] nvarchar(max)  NOT NULL,
     [BillAccountId] int  NOT NULL
 );
@@ -101,8 +96,7 @@ GO
 
 -- Creating table 'BillingTransactions'
 CREATE TABLE [dbo].[BillingTransactions] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [BillingTransactionId] int  NOT NULL,
+    [BillingTransactionId] int IDENTITY(1,1) NOT NULL,
     [ActivityDate] datetime  NOT NULL,
     [TransactionType] nvarchar(max)  NOT NULL,
     [TransactionAmount] float  NULL,
@@ -114,8 +108,7 @@ GO
 
 -- Creating table 'InstallmentSummaries'
 CREATE TABLE [dbo].[InstallmentSummaries] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [InstallmentSummaryId] int  NOT NULL,
+    [installmentSummaryId] int IDENTITY(1,1) NOT NULL,
     [PolicyNumber] nvarchar(max)  NOT NULL,
     [Status] nvarchar(max)  NOT NULL,
     [BillAccountId] int  NOT NULL
@@ -124,8 +117,7 @@ GO
 
 -- Creating table 'Installments'
 CREATE TABLE [dbo].[Installments] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [InstallmentId] int  NOT NULL,
+    [installmentId] int IDENTITY(1,1) NOT NULL,
     [InstallmentSequenceNumber] int  NOT NULL,
     [InstallmentSendDate] datetime  NOT NULL,
     [InstallmentDueDate] datetime  NOT NULL,
@@ -133,15 +125,13 @@ CREATE TABLE [dbo].[Installments] (
     [PaidAmount] float  NULL,
     [BalanceAmount] float  NULL,
     [InvoiceStatus] nvarchar(max)  NULL,
-    [InstallmentSummaryId] int  NOT NULL,
-    [InvoiceId] int  NOT NULL
+    [InstallmentSummaryId] int  NOT NULL
 );
 GO
 
 -- Creating table 'Invoices'
 CREATE TABLE [dbo].[Invoices] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [InvoiceId] int  NOT NULL,
+    [InvoiceId] int IDENTITY(1,1) NOT NULL,
     [InvoiceNumber] nvarchar(max)  NOT NULL,
     [InvoiceDate] datetime  NOT NULL,
     [SendDate] datetime  NOT NULL,
@@ -153,8 +143,7 @@ GO
 
 -- Creating table 'InvoiceInstallments'
 CREATE TABLE [dbo].[InvoiceInstallments] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [InvoiceInstallmentId] int  NOT NULL,
+    [invoiceInstallmentId] int IDENTITY(1,1) NOT NULL,
     [InvoiceId] int  NOT NULL,
     [InstallmentId] int  NOT NULL
 );
@@ -162,8 +151,7 @@ GO
 
 -- Creating table 'Payments'
 CREATE TABLE [dbo].[Payments] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [PaymentId] int  NOT NULL,
+    [PaymentId] int IDENTITY(1,1) NOT NULL,
     [PaymentMethod] nvarchar(max)  NOT NULL,
     [PaymentFrom] nvarchar(max)  NOT NULL,
     [Amount] float  NOT NULL,
@@ -180,52 +168,52 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'BillAccounts'
+-- Creating primary key on [BillAccountId] in table 'BillAccounts'
 ALTER TABLE [dbo].[BillAccounts]
 ADD CONSTRAINT [PK_BillAccounts]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([BillAccountId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'BillAccountPolicies'
+-- Creating primary key on [BillAccountPolicyId] in table 'BillAccountPolicies'
 ALTER TABLE [dbo].[BillAccountPolicies]
 ADD CONSTRAINT [PK_BillAccountPolicies]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([BillAccountPolicyId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'BillingTransactions'
+-- Creating primary key on [BillingTransactionId] in table 'BillingTransactions'
 ALTER TABLE [dbo].[BillingTransactions]
 ADD CONSTRAINT [PK_BillingTransactions]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([BillingTransactionId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'InstallmentSummaries'
+-- Creating primary key on [installmentSummaryId] in table 'InstallmentSummaries'
 ALTER TABLE [dbo].[InstallmentSummaries]
 ADD CONSTRAINT [PK_InstallmentSummaries]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([installmentSummaryId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Installments'
+-- Creating primary key on [installmentId] in table 'Installments'
 ALTER TABLE [dbo].[Installments]
 ADD CONSTRAINT [PK_Installments]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([installmentId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Invoices'
+-- Creating primary key on [InvoiceId] in table 'Invoices'
 ALTER TABLE [dbo].[Invoices]
 ADD CONSTRAINT [PK_Invoices]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([InvoiceId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'InvoiceInstallments'
+-- Creating primary key on [invoiceInstallmentId] in table 'InvoiceInstallments'
 ALTER TABLE [dbo].[InvoiceInstallments]
 ADD CONSTRAINT [PK_InvoiceInstallments]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([invoiceInstallmentId] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Payments'
+-- Creating primary key on [PaymentId] in table 'Payments'
 ALTER TABLE [dbo].[Payments]
 ADD CONSTRAINT [PK_Payments]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([PaymentId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -237,7 +225,7 @@ ALTER TABLE [dbo].[BillAccountPolicies]
 ADD CONSTRAINT [FK_BillAccountBillAccountPolicy]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
-        ([Id])
+        ([BillAccountId])
     ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
@@ -252,8 +240,8 @@ ALTER TABLE [dbo].[BillingTransactions]
 ADD CONSTRAINT [FK_BillAccountBillingTransaction]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+        ([BillAccountId])
+     ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountBillingTransaction'
@@ -267,7 +255,7 @@ ALTER TABLE [dbo].[InstallmentSummaries]
 ADD CONSTRAINT [FK_BillAccountInstallmentSummary]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
-        ([Id])
+        ([BillAccountId])
     ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
@@ -277,42 +265,12 @@ ON [dbo].[InstallmentSummaries]
     ([BillAccountId]);
 GO
 
--- Creating foreign key on [InstallmentSummaryId] in table 'Installments'
-ALTER TABLE [dbo].[Installments]
-ADD CONSTRAINT [FK_InstallmentSummaryInstallment]
-    FOREIGN KEY ([InstallmentSummaryId])
-    REFERENCES [dbo].[InstallmentSummaries]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE CASCADE;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InstallmentSummaryInstallment'
-CREATE INDEX [IX_FK_InstallmentSummaryInstallment]
-ON [dbo].[Installments]
-    ([InstallmentSummaryId]);
-GO
-
--- Creating foreign key on [InvoiceId] in table 'Installments'
-ALTER TABLE [dbo].[Installments]
-ADD CONSTRAINT [FK_InvoiceInstallment1]
-    FOREIGN KEY ([InvoiceId])
-    REFERENCES [dbo].[Invoices]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE CASCADE;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InvoiceInstallment1'
-CREATE INDEX [IX_FK_InvoiceInstallment1]
-ON [dbo].[Installments]
-    ([InvoiceId]);
-GO
-
 -- Creating foreign key on [BillAccountId] in table 'Payments'
 ALTER TABLE [dbo].[Payments]
 ADD CONSTRAINT [FK_BillAccountPayment]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
-        ([Id])
+        ([BillAccountId])
     ON DELETE CASCADE ON UPDATE CASCADE;
 GO
 
@@ -320,6 +278,21 @@ GO
 CREATE INDEX [IX_FK_BillAccountPayment]
 ON [dbo].[Payments]
     ([BillAccountId]);
+GO
+
+-- Creating foreign key on [InstallmentSummaryId] in table 'Installments'
+ALTER TABLE [dbo].[Installments]
+ADD CONSTRAINT [FK_InstallmentSummaryInstallment]
+    FOREIGN KEY ([InstallmentSummaryId])
+    REFERENCES [dbo].[InstallmentSummaries]
+        ([installmentSummaryId])
+    ON DELETE CASCADE ON UPDATE CASCADE;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InstallmentSummaryInstallment'
+CREATE INDEX [IX_FK_InstallmentSummaryInstallment]
+ON [dbo].[Installments]
+    ([InstallmentSummaryId]);
 GO
 
 -- --------------------------------------------------

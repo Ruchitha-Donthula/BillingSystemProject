@@ -23,7 +23,6 @@ namespace BillingSystemDataModel
             this.Payments = new HashSet<Payment>();
         }
     
-        public int Id { get; set; }
         public int BillAccountId { get; set; }
         public string BillAccountNumber { get; set; }
         public string BillingType { get; set; }

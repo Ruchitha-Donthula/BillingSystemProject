@@ -14,7 +14,6 @@ namespace BillingSystemDataModel
     
     public partial class InvoiceInstallment
     {
-        public int Id { get; set; }
         public int InvoiceInstallmentId { get; set; }
         public int InvoiceId { get; set; }
         public int InstallmentId { get; set; }
