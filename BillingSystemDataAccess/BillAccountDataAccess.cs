@@ -30,6 +30,20 @@ namespace BillingSystemDataAccess
             }
         }
 
+        public BillAccount GetBillAccountByNumber(String billAccountNumber)
+        {
+            try
+            {
+                return _context.BillAccounts.FirstOrDefault(b => b.BillAccountNumber == billAccountNumber);
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception
+                Console.WriteLine("Error occurred while retrieving BillAccount by Id: " + ex.Message);
+                return null;
+            }
+        }
+
         public List<BillAccount> GetAllBillAccounts()
         {
             try
@@ -58,19 +72,29 @@ namespace BillingSystemDataAccess
             }
         }
 
-        public void UpdateBillAccount(BillAccount billAccount)
+        public void UpdateBillAccount(BillAccount updatedBillAccount)
         {
             try
             {
-                var existingBillAccount = _context.BillAccounts.Find(billAccount.BillAccountId);
-                if (existingBillAccount != null)
+                var billAccountToUpdate = GetBillAccountByNumber(updatedBillAccount.BillAccountNumber);
+                if (billAccountToUpdate != null)
                 {
                     // Update properties
-                    existingBillAccount.BillAccountNumber = billAccount.BillAccountNumber;
-                    existingBillAccount.BillingType = billAccount.BillingType;
-                    existingBillAccount.Status = billAccount.Status;
+                   
+                    billAccountToUpdate.BillingType = updatedBillAccount.BillingType;
+                    billAccountToUpdate.Status = updatedBillAccount.Status;
+                    billAccountToUpdate.PayorName = updatedBillAccount.PayorName;
+                    billAccountToUpdate.PayorAddress = updatedBillAccount.PayorAddress;
+                    billAccountToUpdate.PaymentMethod = updatedBillAccount.PaymentMethod;
+                    billAccountToUpdate.DueDay = updatedBillAccount.DueDay;
+                    billAccountToUpdate.AccountTotal = updatedBillAccount.AccountTotal;
+                    billAccountToUpdate.AccountPaid = updatedBillAccount.AccountPaid;
+                    billAccountToUpdate.AccountBalance = updatedBillAccount.AccountBalance;
+                    billAccountToUpdate.LastPaymentDate = updatedBillAccount.LastPaymentDate;
+                    billAccountToUpdate.LastPaymentAmount = updatedBillAccount.LastPaymentAmount;
+                    billAccountToUpdate.PastDue = updatedBillAccount.PastDue;
+                    billAccountToUpdate.FutureDue = updatedBillAccount.FutureDue;
                     // Update other properties similarly
-
                     _context.SaveChanges();
                 }
             }
@@ -98,6 +122,21 @@ namespace BillingSystemDataAccess
                 Console.WriteLine("Error occurred while deleting BillAccount: " + ex.Message);
             }
         }
+
+       public void SuspendBillAccount(BillAccount billAccount)
+        {
+           BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
+            billAccountToSuspend.Status = "Suspend";
+            _context.SaveChanges();
+        }
+
+        public void ReleaseBillAccount(BillAccount billAccount)
+        {
+            BillAccount billAccountToRelease = GetBillAccountById(billAccount.BillAccountId);
+            billAccountToRelease.Status = "Active";
+            _context.SaveChanges();
+        }
+
     }
 
 }

@@ -54,6 +54,7 @@
     <Compile Include="BillAccountDataAccess.cs" />
     <Compile Include="BillAccountPolicyDataAccess.cs" />
     <Compile Include="BillingTransactionDataAccess.cs" />
+    <Compile Include="GetNextSequenceNumberFromDataBase.cs" />
     <Compile Include="InstallmentDataAccess.cs" />
     <Compile Include="InstallmentSummaryDataAccess.cs" />
     <Compile Include="InvoiceDataAccess.cs" />

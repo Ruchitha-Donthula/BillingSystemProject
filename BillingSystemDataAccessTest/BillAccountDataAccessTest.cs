@@ -43,7 +43,7 @@ namespace BillingSystemDataAccessTest
             Console.WriteLine("\nTesting UpdateBillAccount:");
 
             // Get an existing BillAccount by Id
-            var billAccount = billAccountDataAccess.GetBillAccountById(2);
+            var billAccount = billAccountDataAccess.GetBillAccountByNumber("BA123457");
 
             if (billAccount != null)
             {
@@ -86,6 +86,23 @@ namespace BillingSystemDataAccessTest
             }
         }
 
+        public void TestGetBillAccountByNumber(BillAccountDataAccess billAccountDataAccess)
+        {
+            Console.WriteLine("\nTesting GetBillAccountByNumber:");
+
+            // Assuming there's a BillAccount with Id = 2 in the database
+            var billAccount = billAccountDataAccess.GetBillAccountByNumber("BA123457");
+
+            if (billAccount != null)
+            {
+                Console.WriteLine($"BillAccount found: Id = {billAccount.BillAccountId}, BillAccountNumber = {billAccount.BillAccountNumber}");
+            }
+            else
+            {
+                Console.WriteLine("BillAccount not found.");
+            }
+        }
+
         public void TestGetAllBillAccounts(BillAccountDataAccess billAccountDataAccess)
         {
             Console.WriteLine("\nTesting GetAllBillAccounts:");
@@ -104,6 +121,54 @@ namespace BillingSystemDataAccessTest
             {
                 Console.WriteLine("No BillAccounts found.");
             }
+        }
+
+        public void TestSuspendBillAccount()
+        {
+            var billAccount = new BillAccount
+            {
+                BillAccountId=5,
+                BillAccountNumber = "BA123457",
+                BillingType = "Monthly",
+                Status = "Active",
+                PayorName = "MahalaxmiGouda",
+                PayorAddress = "123 Main Street,Apollopharmacy",
+                PaymentMethod = "CreditCard",
+                DueDay = 5,
+                AccountTotal = 1900.0,
+                AccountPaid = 50.0,
+                AccountBalance = 1850.0,
+                LastPaymentDate = DateTime.Now.AddDays(-30),
+                LastPaymentAmount = 500.0,
+                PastDue = 0.0,
+                FutureDue = 0.0
+            };
+            new BillAccountDataAccess().SuspendBillAccount(billAccount);
+            Console.WriteLine("BillAccount suspended Successfully");
+        }
+
+        public void TestReleaseBillAccount()
+        {
+            var billAccount = new BillAccount
+            {
+                BillAccountId = 5,
+                BillAccountNumber = "BA123457",
+                BillingType = "Monthly",
+                Status = "Active",
+                PayorName = "MahalaxmiGouda",
+                PayorAddress = "123 Main Street,Apollopharmacy",
+                PaymentMethod = "CreditCard",
+                DueDay = 5,
+                AccountTotal = 1900.0,
+                AccountPaid = 50.0,
+                AccountBalance = 1850.0,
+                LastPaymentDate = DateTime.Now.AddDays(-30),
+                LastPaymentAmount = 500.0,
+                PastDue = 0.0,
+                FutureDue = 0.0
+            };
+            new BillAccountDataAccess().SuspendBillAccount(billAccount);
+            Console.WriteLine("BillAccount suspended Successfully");
         }
     }
 }

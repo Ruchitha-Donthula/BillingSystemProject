@@ -16,9 +16,13 @@ namespace BillingSystemDataAccessTest
             //new BillAccountDataAccessTest().TestUpdateBillAccount(billAccountDataAccess);
             //new BillAccountDataAccessTest().TestDeleteBillAccount(billAccountDataAccess);
             //new BillAccountDataAccessTest().TestGetBillAccountById(billAccountDataAccess);
-           // new BillAccountDataAccessTest().TestGetAllBillAccounts(billAccountDataAccess);
+            //new BillAccountDataAccessTest().TestGetBillAccountByNumber(billAccountDataAccess);
+            // new BillAccountDataAccessTest().TestGetAllBillAccounts(billAccountDataAccess);
+            //new BillAccountDataAccessTest().TestSuspendBillAccount();
+            //new BillAccountDataAccessTest().TestReleaseBillAccount();
 
-         
+
+
             var billAccountPolicyDataAccess = new BillAccountPolicyDataAccess();
             //new BillAccountPolicyDataAccessTest().TestAddBillAccountPolicy(billAccountPolicyDataAccess);
             //new BillAccountPolicyDataAccessTest().TestGetBillAccountPolicyById(billAccountPolicyDataAccess);
@@ -39,7 +43,7 @@ namespace BillingSystemDataAccessTest
             new InstallmentDataAccessTest().TestUpdateInstallment(installmentDataAccess);
             new InstallmentDataAccessTest().TestDeleteInstallment(installmentDataAccess);
             */
-            
+
             /*
             var installmentSummaryDataAccess = new InstallmentSummaryDataAccess();
             new InstallmentSummaryDataAccessTest().TestAddInstallmentSummary(installmentSummaryDataAccess);
@@ -66,14 +70,20 @@ namespace BillingSystemDataAccessTest
             new InvoiceInstallmentDataAccessTest().TestDeleteInvoiceInstallment(invoiceInstallmentDataAccess);
             */
 
-            
+            /*
             var paymentDataAccess = new PaymentDataAccess();
             new PaymentDataAccessTest().TestAddPayment(paymentDataAccess);
             new PaymentDataAccessTest().TestGetPaymentById(paymentDataAccess);
             new PaymentDataAccessTest().TestGetAllPayments(paymentDataAccess);
             new PaymentDataAccessTest().TestUpdatePayment(paymentDataAccess);
             new PaymentDataAccessTest().TestDeletePayment(paymentDataAccess);
+            */
 
+            /*
+            int nextSequenceNumber= new GetNextSequenceNumberFromDataBase().GetNextSequenceNumber();
+            Console.WriteLine(nextSequenceNumber);
+            */
+            Console.ReadLine();
         }
     }
 }

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystemDataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystemDataAccessTest", "BillingSystemDataAccessTest\BillingSystemDataAccessTest.csproj", "{29D3CA60-BE1A-4628-A4D4-DEE008108DC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystemBusiness", "BillingSystemBusiness\BillingSystemBusiness.csproj", "{63313B30-1DA0-4433-8E0C-7BE455EF7E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystemBusinessTest", "BillingSystemBusinessTest\BillingSystemBusinessTest.csproj", "{E5E2D75F-AEE2-4CAC-B2C5-8309576A3A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{29D3CA60-BE1A-4628-A4D4-DEE008108DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D3CA60-BE1A-4628-A4D4-DEE008108DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D3CA60-BE1A-4628-A4D4-DEE008108DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63313B30-1DA0-4433-8E0C-7BE455EF7E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63313B30-1DA0-4433-8E0C-7BE455EF7E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63313B30-1DA0-4433-8E0C-7BE455EF7E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63313B30-1DA0-4433-8E0C-7BE455EF7E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E2D75F-AEE2-4CAC-B2C5-8309576A3A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E2D75F-AEE2-4CAC-B2C5-8309576A3A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E2D75F-AEE2-4CAC-B2C5-8309576A3A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E2D75F-AEE2-4CAC-B2C5-8309576A3A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
