@@ -10,12 +10,12 @@ namespace BillingSystemDataAccessTest
 {
     public class InvoiceDataAccessTest
     {
-       public  void TestGetInvoiceById(InvoiceDataAccess invoiceDataAccess)
+       public  void TestGetInvoiceById()
         {
             Console.WriteLine("Testing GetInvoiceById:");
 
             // Assuming there's an Invoice with Id = 1 in the database
-            var invoice = invoiceDataAccess.GetInvoiceById(1);
+            var invoice = new InvoiceDataAccess().GetInvoiceById(1);
 
             if (invoice != null)
             {
@@ -27,11 +27,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestGetAllInvoices(InvoiceDataAccess invoiceDataAccess)
+        public void TestGetAllInvoices()
         {
             Console.WriteLine("\nTesting GetAllInvoices:");
 
-            var invoices = invoiceDataAccess.GetAllInvoices();
+            var invoices = new InvoiceDataAccess().GetAllInvoices();
 
             if (invoices.Count > 0)
             {
@@ -47,7 +47,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddInvoice(InvoiceDataAccess invoiceDataAccess)
+       public void TestAddInvoice()
         {
             Console.WriteLine("\nTesting AddInvoice:");
 
@@ -64,11 +64,11 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new Invoice
-            invoiceDataAccess.AddInvoice(newInvoice);
+            new InvoiceDataAccess().AddInvoice(newInvoice);
             Console.WriteLine("Invoice added successfully.");
         }
 
-       public void TestUpdateInvoice(InvoiceDataAccess invoiceDataAccess)
+       public void TestUpdateInvoice()
         {
             Console.WriteLine("\nTesting UpdateInvoice:");
 
@@ -81,7 +81,7 @@ namespace BillingSystemDataAccessTest
                 invoice.Status = "Paid";
 
                 // Update the Invoice
-                invoiceDataAccess.UpdateInvoice(invoice);
+                new InvoiceDataAccess().UpdateInvoice(invoice);
                 Console.WriteLine("Invoice updated successfully.");
             }
             else
@@ -90,12 +90,12 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestDeleteInvoice(InvoiceDataAccess invoiceDataAccess)
+       public void TestDeleteInvoice()
         {
             Console.WriteLine("\nTesting DeleteInvoice:");
 
             // Assuming there's an Invoice with Id = 1 in the database
-            invoiceDataAccess.DeleteInvoice(1);
+            invoinew InvoiceDataAccess()ceDataAccess.DeleteInvoice(1);
             Console.WriteLine("Invoice deleted successfully.");
         }
     }

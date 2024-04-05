@@ -11,12 +11,12 @@ namespace BillingSystemDataAccessTest
     public class PaymentDataAccessTest
     {
 
-       public void TestGetPaymentById(PaymentDataAccess paymentDataAccess)
+       public void TestGetPaymentById()
         {
             Console.WriteLine("Testing GetPaymentById:");
 
             // Assuming there's a Payment with Id = 1 in the database
-            var payment = paymentDataAccess.GetPaymentById(1);
+            var payment = new PaymentDataAccess().GetPaymentById(1);
 
             if (payment != null)
             {
@@ -28,11 +28,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestGetAllPayments(PaymentDataAccess paymentDataAccess)
+       public void TestGetAllPayments()
         {
             Console.WriteLine("\nTesting GetAllPayments:");
 
-            var payments = paymentDataAccess.GetAllPayments();
+            var payments = new PaymentDataAccess().GetAllPayments();
 
             if (payments.Count > 0)
             {
@@ -48,7 +48,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddPayment(PaymentDataAccess paymentDataAccess)
+       public void TestAddPayment()
         {
             Console.WriteLine("\nTesting AddPayment:");
 
@@ -68,16 +68,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new Payment
-            paymentDataAccess.AddPayment(newPayment);
+            new PaymentDataAccess().AddPayment(newPayment);
             Console.WriteLine("Payment added successfully.");
         }
 
-        public void TestUpdatePayment(PaymentDataAccess paymentDataAccess)
+        public void TestUpdatePayment()
         {
             Console.WriteLine("\nTesting UpdatePayment:");
 
             // Get an existing Payment by Id
-            var payment = paymentDataAccess.GetPaymentById(1);
+            var payment = new PaymentDataAccess().GetPaymentById(1);
 
             if (payment != null)
             {
@@ -85,7 +85,7 @@ namespace BillingSystemDataAccessTest
                 payment.PaymentStatus = "Pending";
 
                 // Update the Payment
-                paymentDataAccess.UpdatePayment(payment);
+                new PaymentDataAccess().UpdatePayment(payment);
                 Console.WriteLine("Payment updated successfully.");
             }
             else
@@ -94,12 +94,12 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestDeletePayment(PaymentDataAccess paymentDataAccess)
+       public void TestDeletePayment()
         {
             Console.WriteLine("\nTesting DeletePayment:");
 
             // Assuming there's a Payment with Id = 1 in the database
-            paymentDataAccess.DeletePayment(1);
+            new PaymentDataAccess().DeletePayment(1);
             Console.WriteLine("Payment deleted successfully.");
         }
     }

@@ -10,7 +10,7 @@ namespace BillingSystemDataAccessTest
 {
     public class BillAccountDataAccessTest
     { 
-       public void TestAddBillAccount(BillAccountDataAccess billAccountDataAccess)
+       public void TestAddBillAccount()
         {
             Console.WriteLine("Testing AddBillAccount:");
 
@@ -34,16 +34,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new BillAccount
-            billAccountDataAccess.AddBillAccount(newBillAccount);
+            new BillAccountDataAccess().AddBillAccount(newBillAccount);
             Console.WriteLine("BillAccount added successfully.");
         }
 
-        public void TestUpdateBillAccount(BillAccountDataAccess billAccountDataAccess)
+        public void TestUpdateBillAccount()
         {
             Console.WriteLine("\nTesting UpdateBillAccount:");
 
             // Get an existing BillAccount by Id
-            var billAccount = billAccountDataAccess.GetBillAccountByNumber("BA123457");
+            var billAccount = new BillAccountDataAccess().GetBillAccountByNumber("BA123457");
 
             if (billAccount != null)
             {
@@ -51,7 +51,7 @@ namespace BillingSystemDataAccessTest
                 billAccount.BillingType = "Yearly";
 
                 // Update the BillAccount
-                billAccountDataAccess.UpdateBillAccount(billAccount);
+                new BillAccountDataAccess().UpdateBillAccount(billAccount);
                 Console.WriteLine("BillAccount updated successfully.");
             }
             else
@@ -60,21 +60,21 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestDeleteBillAccount(BillAccountDataAccess billAccountDataAccess)
+        public void TestDeleteBillAccount()
         {
             Console.WriteLine("\nTesting DeleteBillAccount:");
 
             // Assuming there's a BillAccount with Id = 2 in the database
-            billAccountDataAccess.DeleteBillAccount(2);
+            new BillAccountDataAccess().DeleteBillAccount(2);
             Console.WriteLine("BillAccount deleted successfully.");
         }
 
-        public void TestGetBillAccountById(BillAccountDataAccess billAccountDataAccess)
+        public void TestGetBillAccountById()
         {
             Console.WriteLine("\nTesting GetBillAccountById:");
 
             // Assuming there's a BillAccount with Id = 2 in the database
-            var billAccount = billAccountDataAccess.GetBillAccountById(4);
+            var billAccount = new BillAccountDataAccess().GetBillAccountById(4);
 
             if (billAccount != null)
             {
@@ -86,12 +86,12 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestGetBillAccountByNumber(BillAccountDataAccess billAccountDataAccess)
+        public void TestGetBillAccountByNumber()
         {
             Console.WriteLine("\nTesting GetBillAccountByNumber:");
 
             // Assuming there's a BillAccount with Id = 2 in the database
-            var billAccount = billAccountDataAccess.GetBillAccountByNumber("BA123457");
+            var billAccount = new BillAccountDataAccess().GetBillAccountByNumber("BA123457");
 
             if (billAccount != null)
             {
@@ -103,11 +103,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestGetAllBillAccounts(BillAccountDataAccess billAccountDataAccess)
+        public void TestGetAllBillAccounts()
         {
             Console.WriteLine("\nTesting GetAllBillAccounts:");
 
-            var billAccounts = billAccountDataAccess.GetAllBillAccounts();
+            var billAccounts = new BillAccountDataAccess().GetAllBillAccounts();
 
             if (billAccounts.Count > 0)
             {

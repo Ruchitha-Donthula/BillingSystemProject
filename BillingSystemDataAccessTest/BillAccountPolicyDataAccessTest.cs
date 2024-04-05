@@ -7,12 +7,12 @@ namespace BillingSystemDataAccessTest
     public class BillAccountPolicyDataAccessTest
     {
        
-       public void TestGetBillAccountPolicyById(BillAccountPolicyDataAccess billAccountPolicyDataAccess)
+       public void TestGetBillAccountPolicyById()
         {
             Console.WriteLine("Testing GetBillAccountPolicyById:");
 
             // Assuming there's a BillAccountPolicy with Id = 2 in the database
-            var billAccountPolicy = billAccountPolicyDataAccess.GetBillAccountPolicyById(2);
+            var billAccountPolicy = new BillAccountPolicyDataAccess().GetBillAccountPolicyById(2);
 
             if (billAccountPolicy != null)
             {
@@ -24,11 +24,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestGetAllBillAccountPolicies(BillAccountPolicyDataAccess billAccountPolicyDataAccess)
+       public void TestGetAllBillAccountPolicies()
         {
             Console.WriteLine("\nTesting GetAllBillAccountPolicies:");
 
-            var billAccountPolicies = billAccountPolicyDataAccess.GetAllBillAccountPolicies();
+            var billAccountPolicies = new BillAccountPolicyDataAccess().GetAllBillAccountPolicies();
 
             if (billAccountPolicies.Count > 0)
             {
@@ -44,7 +44,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddBillAccountPolicy(BillAccountPolicyDataAccess billAccountPolicyDataAccess)
+       public void TestAddBillAccountPolicy()
         {
             Console.WriteLine("\nTesting AddBillAccountPolicy:");
 
@@ -57,16 +57,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new BillAccountPolicy
-            billAccountPolicyDataAccess.AddBillAccountPolicy(newBillAccountPolicy);
+            new BillAccountPolicyDataAccess().AddBillAccountPolicy(newBillAccountPolicy);
             Console.WriteLine("BillAccountPolicy added successfully.");
         }
 
-       public void TestDeleteBillAccountPolicy(BillAccountPolicyDataAccess billAccountPolicyDataAccess)
+       public void TestDeleteBillAccountPolicy()
         {
             Console.WriteLine("\nTesting DeleteBillAccountPolicy:");
 
             // Assuming there's a BillAccountPolicy with Id = 2 in the database
-            billAccountPolicyDataAccess.DeleteBillAccountPolicy(2);
+           new BillAccountPolicyDataAccess().DeleteBillAccountPolicy(2);
             Console.WriteLine("BillAccountPolicy deleted successfully.");
         }
     }

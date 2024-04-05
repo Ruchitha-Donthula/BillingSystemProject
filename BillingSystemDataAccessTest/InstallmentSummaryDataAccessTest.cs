@@ -10,12 +10,12 @@ namespace BillingSystemDataAccessTest
 {
     public class InstallmentSummaryDataAccessTest
     {
-        public void TestGetInstallmentSummaryById(InstallmentSummaryDataAccess installmentSummaryDataAccess)
+        public void TestGetInstallmentSummaryById()
         {
             Console.WriteLine("Testing GetInstallmentSummaryById:");
 
             // Assuming there's an InstallmentSummary with Id = 1 in the database
-            var installmentSummary = installmentSummaryDataAccess.GetInstallmentSummaryById(1);
+            var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
             {
@@ -27,11 +27,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestGetAllInstallmentSummaries(InstallmentSummaryDataAccess installmentSummaryDataAccess)
+        public void TestGetAllInstallmentSummaries()
         {
             Console.WriteLine("\nTesting GetAllInstallmentSummaries:");
 
-            var installmentSummaries = installmentSummaryDataAccess.GetAllInstallmentSummaries();
+            var installmentSummaries = new InstallmentSummaryDataAccess().GetAllInstallmentSummaries();
 
             if (installmentSummaries.Count > 0)
             {
@@ -47,7 +47,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestAddInstallmentSummary(InstallmentSummaryDataAccess installmentSummaryDataAccess)
+        public void TestAddInstallmentSummary()
         {
             Console.WriteLine("\nTesting AddInstallmentSummary:");
 
@@ -62,16 +62,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new InstallmentSummary
-            installmentSummaryDataAccess.AddInstallmentSummary(newInstallmentSummary);
+            new InstallmentSummaryDataAccess().AddInstallmentSummary(newInstallmentSummary);
             Console.WriteLine("InstallmentSummary added successfully.");
         }
 
-        public void TestUpdateInstallmentSummary(InstallmentSummaryDataAccess installmentSummaryDataAccess)
+        public void TestUpdateInstallmentSummary()
         {
             Console.WriteLine("\nTesting UpdateInstallmentSummary:");
 
             // Get an existing InstallmentSummary by Id
-            var installmentSummary = installmentSummaryDataAccess.GetInstallmentSummaryById(1);
+            var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
             {
@@ -79,7 +79,7 @@ namespace BillingSystemDataAccessTest
                 installmentSummary.Status = "Inactive";
 
                 // Update the InstallmentSummary
-                installmentSummaryDataAccess.UpdateInstallmentSummary(installmentSummary);
+                new InstallmentSummaryDataAccess().UpdateInstallmentSummary(installmentSummary);
                 Console.WriteLine("InstallmentSummary updated successfully.");
             }
             else
@@ -88,12 +88,12 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public  void TestDeleteInstallmentSummary(InstallmentSummaryDataAccess installmentSummaryDataAccess)
+       public  void TestDeleteInstallmentSummary()
         {
             Console.WriteLine("\nTesting DeleteInstallmentSummary:");
 
             // Assuming there's an InstallmentSummary with Id = 1 in the database
-            installmentSummaryDataAccess.DeleteInstallmentSummary(1);
+            new InstallmentSummaryDataAccess().DeleteInstallmentSummary(1);
             Console.WriteLine("InstallmentSummary deleted successfully.");
         }
     }

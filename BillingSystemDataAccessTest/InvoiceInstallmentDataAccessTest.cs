@@ -10,12 +10,12 @@ namespace BillingSystemDataAccessTest
 {
     public class InvoiceInstallmentDataAccessTest
     {
-        public void TestGetInvoiceInstallmentById(InvoiceInstallmentDataAccess invoiceInstallmentDataAccess)
+        public void TestGetInvoiceInstallmentById()
         {
             Console.WriteLine("Testing GetInvoiceInstallmentById:");
 
             // Assuming there's an InvoiceInstallment with Id = 1 in the database
-            var invoiceInstallment = invoiceInstallmentDataAccess.GetInvoiceInstallmentById(1);
+            var invoiceInstallment = new InvoiceInstallmentDataAccess().GetInvoiceInstallmentById(1);
 
             if (invoiceInstallment != null)
             {
@@ -27,11 +27,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestGetAllInvoiceInstallments(InvoiceInstallmentDataAccess invoiceInstallmentDataAccess)
+       public void TestGetAllInvoiceInstallments()
         {
             Console.WriteLine("\nTesting GetAllInvoiceInstallments:");
 
-            var invoiceInstallments = invoiceInstallmentDataAccess.GetAllInvoiceInstallments();
+            var invoiceInstallments = new InvoiceInstallmentDataAccess().GetAllInvoiceInstallments();
 
             if (invoiceInstallments.Count > 0)
             {
@@ -47,7 +47,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddInvoiceInstallment(InvoiceInstallmentDataAccess invoiceInstallmentDataAccess)
+       public void TestAddInvoiceInstallment()
         {
             Console.WriteLine("\nTesting AddInvoiceInstallment:");
 
@@ -60,16 +60,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new InvoiceInstallment
-            invoiceInstallmentDataAccess.AddInvoiceInstallment(newInvoiceInstallment);
+            new InvoiceInstallmentDataAccess().AddInvoiceInstallment(newInvoiceInstallment);
             Console.WriteLine("InvoiceInstallment added successfully.");
         }
 
-       public  void TestDeleteInvoiceInstallment(InvoiceInstallmentDataAccess invoiceInstallmentDataAccess)
+       public  void TestDeleteInvoiceInstallment()
         {
             Console.WriteLine("\nTesting DeleteInvoiceInstallment:");
 
             // Assuming there's an InvoiceInstallment with Id = 1 in the database
-            invoiceInstallmentDataAccess.DeleteInvoiceInstallment(1);
+            new InvoiceInstallmentDataAccess().DeleteInvoiceInstallment(1);
             Console.WriteLine("InvoiceInstallment deleted successfully.");
         }
     }

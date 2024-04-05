@@ -7,12 +7,12 @@ namespace BillingSystemDataAccessTest
     public class BillingTransactionDataAccessTest
     {
 
-        public void TestGetBillingTransactionById(BillingTransactionDataAccess billingTransactionDataAccess)
+        public void TestGetBillingTransactionById()
         {
             Console.WriteLine("Testing GetBillingTransactionById:");
 
             // Assuming there's a BillingTransaction with Id = 1 in the database
-            var billingTransaction = billingTransactionDataAccess.GetBillingTransactionById(1);
+            var billingTransaction = new BillingTransactionDataAccess().GetBillingTransactionById(1);
 
             if (billingTransaction != null)
             {
@@ -24,11 +24,11 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestGetAllBillingTransactions(BillingTransactionDataAccess billingTransactionDataAccess)
+        public void TestGetAllBillingTransactions()
         {
             Console.WriteLine("\nTesting GetAllBillingTransactions:");
 
-            var billingTransactions = billingTransactionDataAccess.GetAllBillingTransactions();
+            var billingTransactions = new BillingTransactionDataAccess().GetAllBillingTransactions();
 
             if (billingTransactions.Count > 0)
             {
@@ -44,7 +44,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddBillingTransaction(BillingTransactionDataAccess billingTransactionDataAccess)
+       public void TestAddBillingTransaction()
         {
             Console.WriteLine("\nTesting AddBillingTransaction:");
 
@@ -59,16 +59,16 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new BillingTransaction
-            billingTransactionDataAccess.AddBillingTransaction(newBillingTransaction);
+            new BillingTransactionDataAccess().AddBillingTransaction(newBillingTransaction);
             Console.WriteLine("BillingTransaction added successfully.");
         }
 
-        public void TestDeleteBillingTransaction(BillingTransactionDataAccess billingTransactionDataAccess)
+        public void TestDeleteBillingTransaction()
         {
             Console.WriteLine("\nTesting DeleteBillingTransaction:");
 
             // Assuming there's a BillingTransaction with Id = 1 in the database
-            billingTransactionDataAccess.DeleteBillingTransaction(1);
+            new BillingTransactionDataAccess().DeleteBillingTransaction(1);
             Console.WriteLine("BillingTransaction deleted successfully.");
         }
     }
