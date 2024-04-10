@@ -96,5 +96,15 @@ namespace BillingSystemDataAccessTest
             new InstallmentSummaryDataAccess().DeleteInstallmentSummary(1);
             Console.WriteLine("InstallmentSummary deleted successfully.");
         }
+
+        public void PrintInstallmentsInSummary()
+        {
+            Console.WriteLine("\nTesting printingInstallmentSummary:");
+
+            // Get an existing InstallmentSummary by Id
+            new InstallmentSummaryDataAccess().PrintInstallmentsInSummary(11);
+
+        }
+        
     }
 }

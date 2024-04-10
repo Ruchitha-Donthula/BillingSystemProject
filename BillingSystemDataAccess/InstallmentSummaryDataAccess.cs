@@ -95,5 +95,33 @@ namespace BillingSystemDataAccess
                 Console.WriteLine("Error occurred while deleting InstallmentSummary: " + ex.Message);
             }
         }
+
+        /*
+        public void PrintInstallmentsInSummary(int summaryId)
+        {
+            try
+            {
+                var summary = _context.InstallmentSummaries.Find(summaryId); // Find the summary by its ID
+                if (summary != null)
+                {
+                    Console.WriteLine($"Installments in Summary with ID {summaryId}:");
+                    foreach (var installment in summary.Installments)
+                    {
+                        Console.WriteLine($"Installment ID: {installment.InstallmentId}, Sequence Number: {installment.InstallmentSequenceNumber}, Due Amount: {installment.DueAmount}");
+                        // Print other installment properties as needed
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Installment Summary with ID {summaryId} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception
+                Console.WriteLine("Error occurred while printing installments: " + ex.Message);
+            }
+        }
+        */
     }
 }

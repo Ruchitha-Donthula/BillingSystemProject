@@ -73,7 +73,7 @@ namespace BillingSystemDataAccessTest
             Console.WriteLine("\nTesting UpdateInvoice:");
 
             // Get an existing Invoice by Id
-            var invoice = invoiceDataAccess.GetInvoiceById(1);
+            var invoice = new InvoiceDataAccess().GetInvoiceById(1);
 
             if (invoice != null)
             {
@@ -95,7 +95,7 @@ namespace BillingSystemDataAccessTest
             Console.WriteLine("\nTesting DeleteInvoice:");
 
             // Assuming there's an Invoice with Id = 1 in the database
-            invoinew InvoiceDataAccess()ceDataAccess.DeleteInvoice(1);
+            new InvoiceDataAccess().DeleteInvoice(1);
             Console.WriteLine("Invoice deleted successfully.");
         }
     }

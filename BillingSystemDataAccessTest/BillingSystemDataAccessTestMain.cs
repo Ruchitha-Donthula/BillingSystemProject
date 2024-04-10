@@ -11,7 +11,7 @@ namespace BillingSystemDataAccessTest
     {
         public static void Main(String[] args)
         {
-            new BillAccountDataAccessTest().TestAddBillAccount();
+            //new BillAccountDataAccessTest().TestAddBillAccount();
             //new BillAccountDataAccessTest().TestUpdateBillAccount();
             //new BillAccountDataAccessTest().TestDeleteBillAccount();
             //new BillAccountDataAccessTest().TestGetBillAccountById();
@@ -42,6 +42,7 @@ namespace BillingSystemDataAccessTest
             //new InstallmentSummaryDataAccessTest().TestAddInstallmentSummary();
             //new InstallmentSummaryDataAccessTest().TestUpdateInstallmentSummary();
             //new InstallmentSummaryDataAccessTest().TestDeleteInstallmentSummary();
+           // new InstallmentSummaryDataAccessTest().PrintInstallmentsInSummary();
 
             //new InvoiceDataAccessTest().TestGetInvoiceById();
             //new InvoiceDataAccessTest().TestGetAllInvoices();
@@ -59,7 +60,7 @@ namespace BillingSystemDataAccessTest
             //new PaymentDataAccessTest().TestAddPayment();
             //new PaymentDataAccessTest().TestUpdatePayment();
             //new PaymentDataAccessTest().TestDeletePayment();
-            
+
             Console.ReadLine();
         }
     }

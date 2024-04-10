@@ -6,7 +6,7 @@ namespace BillingSystemDataAccessTest
 {
     public class InstallmentDataAccessTest
     {
-       public void TestAddInstallment(InstallmentDataAccess installmentDataAccess)
+       public void TestAddInstallment()
         {
             // Test adding a new installment
 
@@ -28,11 +28,11 @@ namespace BillingSystemDataAccessTest
             };
 
             // Add the new Installment
-            installmentDataAccess.AddInstallment(newInstallment);
+            new InstallmentDataAccess().AddInstallment(newInstallment);
             Console.WriteLine("Installment added successfully.");
         }
 
-       public void TestGetInstallmentById(InstallmentDataAccess installmentDataAccess)
+       public void TestGetInstallmentById()
         {
             // Test getting an installment by ID
 
@@ -41,7 +41,7 @@ namespace BillingSystemDataAccessTest
             int installmentId = 12; // Assuming there's an installment with this ID in the database
 
             // Get the installment by ID
-            var installment = installmentDataAccess.GetInstallmentById(installmentId);
+            var installment = new InstallmentDataAccess().GetInstallmentById(installmentId);
 
             if (installment != null)
             {
@@ -56,7 +56,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestUpdateInstallment(InstallmentDataAccess installmentDataAccess)
+        public void TestUpdateInstallment()
         {
             // Test updating an installment
 
@@ -64,7 +64,7 @@ namespace BillingSystemDataAccessTest
 
             // Get an existing installment by Id
             int installmentId = 12; // Assuming there's an installment with this ID in the database
-            var installment = installmentDataAccess.GetInstallmentById(installmentId);
+            var installment = new InstallmentDataAccess().GetInstallmentById(installmentId);
 
             if (installment != null)
             {
@@ -73,7 +73,7 @@ namespace BillingSystemDataAccessTest
                 installment.InvoiceStatus = "Paid";
 
                 // Update the installment
-                installmentDataAccess.UpdateInstallment(installment);
+                new InstallmentDataAccess().UpdateInstallment(installment);
                 Console.WriteLine("Installment updated successfully.");
             }
             else
@@ -82,7 +82,7 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-        public void TestDeleteInstallment(InstallmentDataAccess installmentDataAccess)
+        public void TestDeleteInstallment()
         {
             // Test deleting an installment
 
@@ -91,7 +91,7 @@ namespace BillingSystemDataAccessTest
             int installmentId = 1; // Assuming there's an installment with this ID in the database
 
             // Delete the installment
-            installmentDataAccess.DeleteInstallmentById(installmentId);
+            new InstallmentDataAccess().DeleteInstallmentById(installmentId);
             Console.WriteLine("Installment deleted successfully.");
         }
     }

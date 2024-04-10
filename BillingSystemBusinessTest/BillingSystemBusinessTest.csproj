@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BillAccountBusinessTest.cs" />
+    <Compile Include="BillingSystemBusinessTestMain.cs" />
+    <Compile Include="InstallmentBusinessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

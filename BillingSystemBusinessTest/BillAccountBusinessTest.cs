@@ -10,16 +10,6 @@ namespace BillingSystemBusinessTest
 {
     class BillAccountBusinessTest
     {
-        public static void Main(string[] args)
-        {
-            //new BillAccountBusinessTest().TestCreateBillAccount();
-            //new BillAccountBusinessTest().TestBillAccountPolicy();
-            // new BillAccountBusinessTest().TestGetBillAccountById();
-            //new BillAccountBusinessTest().TestGetBillAccountByNumber();
-            //new BillAccountBusinessTest().TestUpdateBillAccount();
-            //new BillAccountBusinessTest().TestSuspendBillAccount();
-            new BillAccountBusinessTest().TestReleaseBillAccount();
-        }
         public void TestCreateBillAccount()
         {
             Console.WriteLine("Testing AddBillAccount:");
@@ -132,12 +122,12 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 5,
+                BillAccountId = 15,
                 BillAccountNumber = "BA123457",
                 BillingType = "Monthly",
                 Status = "Active",
-                PayorName = "MahalaxmiGouda",
-                PayorAddress = "123 Main Street,Apollopharmacy",
+                PayorName = "Ruchitha",
+                PayorAddress = "Hanmakonda",
                 PaymentMethod = "CreditCard",
                 DueDay = 5,
                 AccountTotal = 1900.0,
@@ -151,6 +141,5 @@ namespace BillingSystemBusinessTest
             new BillAccountBusiness().ReleaseBillAccount(billAccount);
             Console.WriteLine("BillAccount released Successfully");
         }
-
     }
 }
