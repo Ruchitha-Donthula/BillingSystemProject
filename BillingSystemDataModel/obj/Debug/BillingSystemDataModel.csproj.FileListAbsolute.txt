@@ -9,3 +9,4 @@ C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\Billi
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.CopyComplete
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.dll
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.AssemblyReference.cache

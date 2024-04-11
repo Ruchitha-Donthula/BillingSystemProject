@@ -61,8 +61,28 @@ namespace BillingSystemDataAccess
         public void ActivateInstallmentStatus(Installment installment)
         {
            Installment installmentToBeActivated = GetInstallmentById(installment.InstallmentId);
-           installmentToBeActivated.InvoiceStatus = "Active";
+           installmentToBeActivated.InvoiceStatus = "Billed";
             _dbContext.SaveChanges();
         }
+        public List<Installment> GetInstallmentsByInvoiceNumber(string invoiceNumber)
+        {
+            List<Installment> installments = new List<Installment>();
+
+            using (var dbContext = new BillingSystemEDMContainer())
+            {
+                var query = from invoiceInstallment in dbContext.InvoiceInstallments
+                            join invoice in dbContext.Invoices
+                            on invoiceInstallment.InvoiceId equals invoice.InvoiceId
+                            join installment in dbContext.Installments
+                            on invoiceInstallment.InstallmentId equals installment.InstallmentId
+                            where invoice.InvoiceNumber == invoiceNumber
+                            select installment;
+
+                installments = query.ToList();
+            }
+
+            return installments;
+        }
+
     }
 }

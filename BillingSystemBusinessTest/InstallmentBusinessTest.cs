@@ -1,19 +1,29 @@
-﻿using System;
-using BillingSystemBusiness;
+﻿using BillingSystemBusiness;
 using BillingSystemDataModel;
-using BillingSystemBusiness;
 
 namespace BillingSystemBusinessTest
 {
     class InstallmentBusinessTest
     {
-        public void CreateInstallmentSchedules()
+        public void CreateInstallmentSchedule()
         {
-            InstallmentBusiness installmentBusiness = new InstallmentBusiness();
             var billAccount = new BillAccount
             {
                 BillAccountId = 8,
-                DueDay=15,
+                BillAccountNumber="BA000001",
+                BillingType = "Direct",
+                Status = "Active",
+                PayorName = "Prakash",
+                PayorAddress = "SubashNagar",
+                PaymentMethod = "Credit Card",
+                DueDay = 21,
+                AccountTotal = 0.0,
+                AccountPaid = 0.0,
+                AccountBalance = 0.0,
+                LastPaymentDate = null,
+                LastPaymentAmount = 0.0,
+                PastDue = 0.0,
+                FutureDue = 0.0
             };
 
             BillAccountPolicy billAccountPolicy = new BillAccountPolicy

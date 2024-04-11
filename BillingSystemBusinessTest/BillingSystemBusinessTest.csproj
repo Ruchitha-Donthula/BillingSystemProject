@@ -57,6 +57,7 @@
     <Compile Include="BillingSystemBusinessTestMain.cs" />
     <Compile Include="InstallmentBusinessTest.cs" />
     <Compile Include="InvoiceBusinessTest.cs" />
+    <Compile Include="PaymentBusinessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

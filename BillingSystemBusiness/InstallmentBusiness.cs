@@ -13,6 +13,9 @@ namespace BillingSystemBusiness
         public void CreateInstallmentSchedule(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
             ValidateInputParameters(billAccount, billAccountPolicy, premium);
+
+            InitializeBillAccount(billAccount, premium);
+
             InstallmentSummary parentRecord = new InstallmentSummary
             {
                 PolicyNumber = billAccountPolicy.PolicyNumber,
@@ -26,7 +29,13 @@ namespace BillingSystemBusiness
                 new InstallmentDataAccess().AddInstallment(installment);
             }
         }
-
+        private void InitializeBillAccount(BillAccount billAccount,double premium)
+        {
+            billAccount.AccountTotal += premium;
+            billAccount.AccountPaid = 0.0;
+            billAccount.AccountBalance = billAccount.AccountTotal;
+            new BillAccountDataAccess().UpdateBillAccount(billAccount);
+        }
         private List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
         {
             List<Installment> installments = new List<Installment>();
@@ -78,8 +87,8 @@ namespace BillingSystemBusiness
                 InstallmentSequenceNumber = installmentNumber,
                 InstallmentDueDate = installmentDueDate,
                 InstallmentSendDate = installmentSendDate,
-                DueAmount = 0.0,
-                PaidAmount = null,
+                DueAmount = dueAmount,
+                PaidAmount = 0.0,
                 BalanceAmount = dueAmount,
                 InvoiceStatus = "Pending",
                 InstallmentSummaryId = parentRecord.InstallmentSummaryId,

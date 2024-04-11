@@ -29,6 +29,18 @@ namespace BillingSystemDataAccess
             }
         }
 
+        public Invoice GetInvoiceByNumber(string number)
+        {
+            try
+            {
+                return _context.Invoices.FirstOrDefault(i => i.InvoiceNumber == number);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error occurred while retrieving Invoice by Number: " + ex.Message);
+                return null;
+            }
+        }
         public List<Invoice> GetAllInvoices()
         {
             try

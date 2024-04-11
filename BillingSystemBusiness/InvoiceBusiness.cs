@@ -10,14 +10,14 @@ namespace BillingSystemBusiness
     {
         public Invoice CreateInvoice(BillAccount billAccount)
         {
-            var currentDate = new DateTime(2025, 03, 05);
+            var currentDate = DateTime.Now;
             var installmentSummaries = new InstallmentSummaryDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
             var pendingInstallments = new List<Installment>();
 
             foreach (var summary in installmentSummaries)
             {
                 pendingInstallments.AddRange(summary.Installments
-                    .Where(installment => installment.InstallmentSendDate.Date == currentDate));
+                    .Where(installment => installment.InstallmentSendDate.Date == currentDate.Date));
             }
 
             if (!pendingInstallments.Any())
@@ -28,11 +28,11 @@ namespace BillingSystemBusiness
             Invoice invoice = new Invoice
             {
                 InvoiceNumber = GenerateInvoiceNumber(),
-                InvoiceDate = DateTime.Now,
-                SendDate = DateTime.Now,
+                InvoiceDate = DateTime.Now.Date,
+                SendDate = DateTime.Now.Date,
                 InvoiceAmount = CalculateTotalAmount(pendingInstallments),
                 BillAccountId = billAccount.BillAccountId,
-                Status = "Pending"
+                Status = "Invoice Sent"
             };
 
             new InvoiceDataAccess().AddInvoice(invoice);

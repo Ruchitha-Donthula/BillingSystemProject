@@ -17,8 +17,8 @@ namespace BillingSystemBusinessTest
                 PayorName = "Prakash",
                 PayorAddress = "SubashNagar",
                 PaymentMethod = "Credit Card",
-                DueDay = 15,
-                AccountTotal = 1000.0,
+                DueDay = 21,
+                AccountTotal = 0.0,
                 AccountPaid = 0.0,
                 AccountBalance = 0.0,
                 LastPaymentDate = null,
@@ -69,7 +69,7 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 5,
+                BillAccountId = 7,
             };
             new BillAccountBusiness().SuspendBillAccount(billAccount);
             Console.WriteLine("BillAccount suspended Successfully");
@@ -79,7 +79,7 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 5,
+                BillAccountId = 7,
             };
             new BillAccountBusiness().ReleaseBillAccount(billAccount);
             Console.WriteLine("BillAccount released Successfully");
