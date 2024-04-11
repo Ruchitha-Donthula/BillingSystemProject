@@ -74,7 +74,7 @@
       <Name>BillingSystemDataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\BillingSystemDataModel\BillingSystemDataModel.csproj">
-      <Project>{835f289b-d022-4a43-b5a9-e0b660a860e4}</Project>
+      <Project>{d785744b-27d4-4992-990a-f6599bd9528b}</Project>
       <Name>BillingSystemDataModel</Name>
     </ProjectReference>
   </ItemGroup>

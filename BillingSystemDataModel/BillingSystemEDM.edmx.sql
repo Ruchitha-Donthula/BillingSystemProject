@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/04/2024 03:48:11
+-- Date Created: 04/10/2024 02:54:10
 -- Generated from EDMX file: C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\BillingSystemEDM.edmx
 -- --------------------------------------------------
 
@@ -90,7 +90,8 @@ GO
 CREATE TABLE [dbo].[BillAccountPolicies] (
     [BillAccountPolicyId] int IDENTITY(1,1) NOT NULL,
     [PolicyNumber] nvarchar(max)  NOT NULL,
-    [BillAccountId] int  NOT NULL
+    [BillAccountId] int  NOT NULL,
+    [PayPlan] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -108,7 +109,7 @@ GO
 
 -- Creating table 'InstallmentSummaries'
 CREATE TABLE [dbo].[InstallmentSummaries] (
-    [installmentSummaryId] int IDENTITY(1,1) NOT NULL,
+    [InstallmentSummaryId] int IDENTITY(1,1) NOT NULL,
     [PolicyNumber] nvarchar(max)  NOT NULL,
     [Status] nvarchar(max)  NOT NULL,
     [BillAccountId] int  NOT NULL
@@ -117,7 +118,7 @@ GO
 
 -- Creating table 'Installments'
 CREATE TABLE [dbo].[Installments] (
-    [installmentId] int IDENTITY(1,1) NOT NULL,
+    [InstallmentId] int IDENTITY(1,1) NOT NULL,
     [InstallmentSequenceNumber] int  NOT NULL,
     [InstallmentSendDate] datetime  NOT NULL,
     [InstallmentDueDate] datetime  NOT NULL,
@@ -143,7 +144,7 @@ GO
 
 -- Creating table 'InvoiceInstallments'
 CREATE TABLE [dbo].[InvoiceInstallments] (
-    [invoiceInstallmentId] int IDENTITY(1,1) NOT NULL,
+    [InvoiceInstallmentId] int IDENTITY(1,1) NOT NULL,
     [InvoiceId] int  NOT NULL,
     [InstallmentId] int  NOT NULL
 );
@@ -186,16 +187,16 @@ ADD CONSTRAINT [PK_BillingTransactions]
     PRIMARY KEY CLUSTERED ([BillingTransactionId] ASC);
 GO
 
--- Creating primary key on [installmentSummaryId] in table 'InstallmentSummaries'
+-- Creating primary key on [InstallmentSummaryId] in table 'InstallmentSummaries'
 ALTER TABLE [dbo].[InstallmentSummaries]
 ADD CONSTRAINT [PK_InstallmentSummaries]
-    PRIMARY KEY CLUSTERED ([installmentSummaryId] ASC);
+    PRIMARY KEY CLUSTERED ([InstallmentSummaryId] ASC);
 GO
 
--- Creating primary key on [installmentId] in table 'Installments'
+-- Creating primary key on [InstallmentId] in table 'Installments'
 ALTER TABLE [dbo].[Installments]
 ADD CONSTRAINT [PK_Installments]
-    PRIMARY KEY CLUSTERED ([installmentId] ASC);
+    PRIMARY KEY CLUSTERED ([InstallmentId] ASC);
 GO
 
 -- Creating primary key on [InvoiceId] in table 'Invoices'
@@ -204,10 +205,10 @@ ADD CONSTRAINT [PK_Invoices]
     PRIMARY KEY CLUSTERED ([InvoiceId] ASC);
 GO
 
--- Creating primary key on [invoiceInstallmentId] in table 'InvoiceInstallments'
+-- Creating primary key on [InvoiceInstallmentId] in table 'InvoiceInstallments'
 ALTER TABLE [dbo].[InvoiceInstallments]
 ADD CONSTRAINT [PK_InvoiceInstallments]
-    PRIMARY KEY CLUSTERED ([invoiceInstallmentId] ASC);
+    PRIMARY KEY CLUSTERED ([InvoiceInstallmentId] ASC);
 GO
 
 -- Creating primary key on [PaymentId] in table 'Payments'
@@ -226,7 +227,7 @@ ADD CONSTRAINT [FK_BillAccountBillAccountPolicy]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([BillAccountId])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE  CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountBillAccountPolicy'
@@ -241,7 +242,7 @@ ADD CONSTRAINT [FK_BillAccountBillingTransaction]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([BillAccountId])
-     ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE  CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountBillingTransaction'
@@ -256,7 +257,7 @@ ADD CONSTRAINT [FK_BillAccountInstallmentSummary]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([BillAccountId])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE  CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountInstallmentSummary'
@@ -271,7 +272,7 @@ ADD CONSTRAINT [FK_BillAccountPayment]
     FOREIGN KEY ([BillAccountId])
     REFERENCES [dbo].[BillAccounts]
         ([BillAccountId])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE  CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillAccountPayment'
@@ -285,8 +286,8 @@ ALTER TABLE [dbo].[Installments]
 ADD CONSTRAINT [FK_InstallmentSummaryInstallment]
     FOREIGN KEY ([InstallmentSummaryId])
     REFERENCES [dbo].[InstallmentSummaries]
-        ([installmentSummaryId])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+        ([InstallmentSummaryId])
+   ON DELETE CASCADE ON UPDATE  CASCADE;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_InstallmentSummaryInstallment'

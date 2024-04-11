@@ -9,38 +9,22 @@ namespace BillingSystemBusinessTest
     {
         public void CreateInstallmentSchedules()
         {
-            // Arrange
             InstallmentBusiness installmentBusiness = new InstallmentBusiness();
-            var newBillAccount = new BillAccount
+            var billAccount = new BillAccount
             {
-
-                BillingType = "quarterly",
-                Status = "Active",
-                PayorName = "ravaliDonthula",
-                PayorAddress = "Hanamkonda",
-                PaymentMethod = "Credit Card",
-                DueDay = 15,
-                AccountTotal = 1000.0,
-                AccountPaid = 500.0,
-                AccountBalance = 500.0,
-                LastPaymentDate = DateTime.Now.AddDays(-30),
-                LastPaymentAmount = 500.0,
-                PastDue = 0.0,
-                FutureDue = 0.0
+                BillAccountId = 8,
+                DueDay=15,
             };
 
-            // Add the new BillAccount
-            new BillAccountBusiness().CreateBillAccount(newBillAccount);
+            BillAccountPolicy billAccountPolicy = new BillAccountPolicy
+            {
+                BillAccountId = billAccount.BillAccountId,
+                PayPlan = "Monthly",
+                PolicyNumber = "POL123"
+            };
+            double premium = 1200.00;
 
-            string policy = "Policy1238989";
-            string payPlan = "quarterly";
-            double premium = 60000.00;
-
-            // Act
-            installmentBusiness.CreateInstallmentSchedule(newBillAccount, policy, payPlan, premium);
-
-            // Assert
-            // You can add assertions here to verify the expected behavior, such as checking if records are properly saved to the database
+           new InstallmentBusiness().CreateInstallmentSchedule(billAccount, billAccountPolicy, premium);
         }
 
         /*

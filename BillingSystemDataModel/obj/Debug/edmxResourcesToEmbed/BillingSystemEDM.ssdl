@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BillingSystemEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="BillingSystemEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="BillingSystemEDMStoreContainer">
     <EntitySet Name="BillAccounts" EntityType="BillingSystemEDM.Store.BillAccounts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BillAccountPolicies" EntityType="BillingSystemEDM.Store.BillAccountPolicies" store:Type="Tables" Schema="dbo" />
@@ -57,6 +57,7 @@
     <Property Name="BillAccountPolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BillAccountId" Type="int" Nullable="false" />
+    <Property Name="PayPlan" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BillingTransactions">
     <Key>
@@ -72,18 +73,18 @@
   </EntityType>
   <EntityType Name="InstallmentSummaries">
     <Key>
-      <PropertyRef Name="installmentSummaryId" />
+      <PropertyRef Name="InstallmentSummaryId" />
     </Key>
-    <Property Name="installmentSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BillAccountId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Installments">
     <Key>
-      <PropertyRef Name="installmentId" />
+      <PropertyRef Name="InstallmentId" />
     </Key>
-    <Property Name="installmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InstallmentSequenceNumber" Type="int" Nullable="false" />
     <Property Name="InstallmentSendDate" Type="datetime" Nullable="false" />
     <Property Name="InstallmentDueDate" Type="datetime" Nullable="false" />
@@ -107,9 +108,9 @@
   </EntityType>
   <EntityType Name="InvoiceInstallments">
     <Key>
-      <PropertyRef Name="invoiceInstallmentId" />
+      <PropertyRef Name="InvoiceInstallmentId" />
     </Key>
-    <Property Name="invoiceInstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceInstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InvoiceId" Type="int" Nullable="false" />
     <Property Name="InstallmentId" Type="int" Nullable="false" />
   </EntityType>
@@ -181,7 +182,7 @@
     <End Role="Installment" Type="BillingSystemEDM.Store.Installments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="InstallmentSummary">
-        <PropertyRef Name="installmentSummaryId" />
+        <PropertyRef Name="InstallmentSummaryId" />
       </Principal>
       <Dependent Role="Installment">
         <PropertyRef Name="InstallmentSummaryId" />

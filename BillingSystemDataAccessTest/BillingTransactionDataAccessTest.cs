@@ -6,12 +6,10 @@ namespace BillingSystemDataAccessTest
 {
     public class BillingTransactionDataAccessTest
     {
-
         public void TestGetBillingTransactionById()
         {
             Console.WriteLine("Testing GetBillingTransactionById:");
 
-            // Assuming there's a BillingTransaction with Id = 1 in the database
             var billingTransaction = new BillingTransactionDataAccess().GetBillingTransactionById(1);
 
             if (billingTransaction != null)
@@ -44,21 +42,17 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public void TestAddBillingTransaction()
+        public void TestAddBillingTransaction()
         {
             Console.WriteLine("\nTesting AddBillingTransaction:");
 
-            // Create a new BillingTransaction object
             var newBillingTransaction = new BillingTransaction
             {
                 ActivityDate = DateTime.Now,
                 TransactionType = "TypeA",
                 TransactionAmount = 100.0,
-                BillAccountId = 3 // Assuming BillAccountId exists in the database
-                // Add other properties as needed
+                BillAccountId = 3 
             };
-
-            // Add the new BillingTransaction
             new BillingTransactionDataAccess().AddBillingTransaction(newBillingTransaction);
             Console.WriteLine("BillingTransaction added successfully.");
         }
@@ -67,7 +61,6 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting DeleteBillingTransaction:");
 
-            // Assuming there's a BillingTransaction with Id = 1 in the database
             new BillingTransactionDataAccess().DeleteBillingTransaction(1);
             Console.WriteLine("BillingTransaction deleted successfully.");
         }

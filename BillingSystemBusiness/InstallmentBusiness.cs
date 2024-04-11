@@ -10,23 +10,22 @@ namespace BillingSystemBusiness
 {
     public class InstallmentBusiness
     {
-        public void CreateInstallmentSchedule(BillAccount billAccount, string policyNumber, string payPlan, double premium)
+        public void CreateInstallmentSchedule(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
-            ValidateInputParameters(billAccount, policyNumber, payPlan, premium);
+            ValidateInputParameters(billAccount, billAccountPolicy, premium);
             InstallmentSummary parentRecord = new InstallmentSummary
             {
-                PolicyNumber = policyNumber,
+                PolicyNumber = billAccountPolicy.PolicyNumber,
                 Status = "Active",
                 BillAccountId = billAccount.BillAccountId
             };
             new InstallmentSummaryDataAccess().AddInstallmentSummary(parentRecord);
-            List<Installment> installments = GenerateInstallments(parentRecord, payPlan, premium, billAccount.DueDay);
+            List<Installment> installments = GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billAccount.DueDay);
             foreach (var installment in installments)
             {
                 new InstallmentDataAccess().AddInstallment(installment);
             }
         }
-
 
         private List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
         {
@@ -34,33 +33,33 @@ namespace BillingSystemBusiness
             Installment installment;
             switch (payPlan)
             {
-                case "monthly":
+                case "Monthly":
                     double monthlyPremium = premium / 12;
-                    for (int i = 1; i <= 12; i++)
+                    for (int installmentNumber = 1; installmentNumber <= 12; installmentNumber++)
                     {
-                        installment = CreateInstallment(parentRecord, i, monthlyPremium, payPlan, dueDay);
+                        installment = CreateInstallment(parentRecord, installmentNumber, monthlyPremium, payPlan, dueDay);
                         installments.Add(installment);
                     }
                     break;
-                case "quarterly":
+                case "Quarterly":
                     double quarterlyPremium = premium / 4;
-                    for (int i = 1; i <= 4; i++)
+                    for (int installmentNumber = 1; installmentNumber <= 4; installmentNumber++)
                     {
-                        installment = CreateInstallment(parentRecord, i, quarterlyPremium, payPlan, dueDay);
+                        installment = CreateInstallment(parentRecord, installmentNumber, quarterlyPremium, payPlan, dueDay);
                         installments.Add(installment);
                     }
                     break;
-                case "semiannual":
-                    double semiannualpremium = premium / 2;
-                    for (int i = 1; i <= 2; i++)
+                case "Semiannual":
+                    double semiannualPremium = premium / 2;
+                    for (int installmentNumber = 1; installmentNumber <= 2; installmentNumber++)
                     {
-                        installment = CreateInstallment(parentRecord, i, semiannualpremium, payPlan, dueDay);
+                        installment = CreateInstallment(parentRecord, installmentNumber, semiannualPremium, payPlan, dueDay);
                         installments.Add(installment);
                     }
                     break;
-                case "annual":
-                    double annualpremium = premium;
-                    installment = CreateInstallment(parentRecord, 1, annualpremium, payPlan, dueDay);
+                case "Annual":
+                    double annualPremium = premium;
+                    installment = CreateInstallment(parentRecord, 1, annualPremium, payPlan, dueDay);
                     installments.Add(installment);
                     break;
                 default:
@@ -79,59 +78,54 @@ namespace BillingSystemBusiness
                 InstallmentSequenceNumber = installmentNumber,
                 InstallmentDueDate = installmentDueDate,
                 InstallmentSendDate = installmentSendDate,
-                DueAmount = dueAmount,
+                DueAmount = 0.0,
                 PaidAmount = null,
                 BalanceAmount = dueAmount,
                 InvoiceStatus = "Pending",
                 InstallmentSummaryId = parentRecord.InstallmentSummaryId,
             };
         }
-        private DateTime CalculateSendDate(DateTime InstallmentDueDate)
+
+        private DateTime CalculateSendDate(DateTime installmentDueDate)
         {
-            return InstallmentDueDate.AddDays(-10);
+            return installmentDueDate.AddDays(-10);
         }
 
         private DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay)
         {
-            DateTime DueDate = DateTime.MinValue;
+            DateTime dueDate = DateTime.MinValue;
             switch (payPlan)
             {
-                case "monthly":
-                    DueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths(installmentNumber - 1);
+                case "Monthly":
+                    dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths(installmentNumber - 1);
                     break;
-                case "quarterly":
-                    DueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
+                case "Quarterly":
+                    dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
                     break;
-                case "semiannual":
-                    DueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
+                case "Semiannual":
+                    dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
                     break;
-                case "annual":
-                    DueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
+                case "Annual":
+                    dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
                     break;
             }
-            return DueDate;
+            return dueDate;
         }
-        private void ValidateInputParameters(BillAccount billAccount, string policyNumber, string payPlan, double premium)
+
+        private void ValidateInputParameters(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
-            // Perform validation on input parameters
             if (billAccount == null)
             {
                 throw new ArgumentNullException(nameof(billAccount), "BillAccount cannot be null");
             }
-            if (policyNumber == null)
+            if (billAccountPolicy == null)
             {
-                throw new ArgumentNullException(nameof(policyNumber), "PolicyNumber cannot be null");
-            }
-            if (payPlan == null)
-            {
-                throw new ArgumentNullException(nameof(payPlan), "payPlan cannot be null");
+                throw new ArgumentNullException(nameof(billAccountPolicy), "PolicyNumber cannot be null");
             }
             if (premium <= 0)
             {
                 throw new ArgumentNullException(nameof(premium), "premium cannot be null");
             }
         }
-
     }
-
 }

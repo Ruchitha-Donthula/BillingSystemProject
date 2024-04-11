@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BillingSystemDataModel;
 
-
 namespace BillingSystemDataAccess
 {
     public class BillAccountPolicyDataAccess
@@ -12,7 +11,7 @@ namespace BillingSystemDataAccess
 
         public BillAccountPolicyDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); // Assuming you have a DbContext named BillingSystemContext
+            _context = new BillingSystemEDMContainer();
         }
 
         public BillAccountPolicy GetBillAccountPolicyById(int id)
@@ -23,7 +22,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving BillAccountPolicy by Id: " + ex.Message);
                 return null;
             }
@@ -37,7 +35,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all BillAccountPolicies: " + ex.Message);
                 return new List<BillAccountPolicy>();
             }
@@ -52,7 +49,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding BillAccountPolicy: " + ex.Message);
             }
         }
@@ -70,10 +66,8 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting BillAccountPolicy: " + ex.Message);
             }
         }
     }
 }
-

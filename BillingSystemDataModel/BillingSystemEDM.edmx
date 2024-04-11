@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BillingSystemEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BillingSystemEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="BillingSystemEDMStoreContainer">
     <EntitySet Name="BillAccounts" EntityType="BillingSystemEDM.Store.BillAccounts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BillAccountPolicies" EntityType="BillingSystemEDM.Store.BillAccountPolicies" store:Type="Tables" Schema="dbo" />
@@ -62,6 +62,7 @@
     <Property Name="BillAccountPolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BillAccountId" Type="int" Nullable="false" />
+    <Property Name="PayPlan" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BillingTransactions">
     <Key>
@@ -77,18 +78,18 @@
   </EntityType>
   <EntityType Name="InstallmentSummaries">
     <Key>
-      <PropertyRef Name="installmentSummaryId" />
+      <PropertyRef Name="InstallmentSummaryId" />
     </Key>
-    <Property Name="installmentSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BillAccountId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Installments">
     <Key>
-      <PropertyRef Name="installmentId" />
+      <PropertyRef Name="InstallmentId" />
     </Key>
-    <Property Name="installmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InstallmentSequenceNumber" Type="int" Nullable="false" />
     <Property Name="InstallmentSendDate" Type="datetime" Nullable="false" />
     <Property Name="InstallmentDueDate" Type="datetime" Nullable="false" />
@@ -112,9 +113,9 @@
   </EntityType>
   <EntityType Name="InvoiceInstallments">
     <Key>
-      <PropertyRef Name="invoiceInstallmentId" />
+      <PropertyRef Name="InvoiceInstallmentId" />
     </Key>
-    <Property Name="invoiceInstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceInstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InvoiceId" Type="int" Nullable="false" />
     <Property Name="InstallmentId" Type="int" Nullable="false" />
   </EntityType>
@@ -186,7 +187,7 @@
     <End Role="Installment" Type="BillingSystemEDM.Store.Installments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="InstallmentSummary">
-        <PropertyRef Name="installmentSummaryId" />
+        <PropertyRef Name="InstallmentSummaryId" />
       </Principal>
       <Dependent Role="Installment">
         <PropertyRef Name="InstallmentSummaryId" />
@@ -258,6 +259,7 @@
           <Property Name="BillAccountPolicyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PolicyNumber" Type="String" Nullable="false" />
           <Property Name="BillAccountId" Type="Int32" Nullable="false" />
+          <Property Name="PayPlan" Type="String" Nullable="false" />
           <NavigationProperty Name="BillAccount" Relationship="BillingSystemEDM.BillAccountBillAccountPolicy" FromRole="BillAccountPolicy" ToRole="BillAccount" />
         </EntityType>
         <EntityType Name="BillingTransaction">
@@ -428,6 +430,7 @@
           <ScalarProperty Name="BillAccountPolicyId" ColumnName="BillAccountPolicyId" />
           <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
           <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+          <ScalarProperty Name="PayPlan" ColumnName="PayPlan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -447,7 +450,7 @@
     <EntitySetMapping Name="InstallmentSummaries">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InstallmentSummary)">
         <MappingFragment StoreEntitySet="InstallmentSummaries">
-          <ScalarProperty Name="InstallmentSummaryId" ColumnName="installmentSummaryId" />
+          <ScalarProperty Name="InstallmentSummaryId" ColumnName="InstallmentSummaryId" />
           <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
@@ -457,7 +460,7 @@
     <EntitySetMapping Name="Installments">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.Installment)">
         <MappingFragment StoreEntitySet="Installments">
-          <ScalarProperty Name="InstallmentId" ColumnName="installmentId" />
+          <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
           <ScalarProperty Name="InstallmentSequenceNumber" ColumnName="InstallmentSequenceNumber" />
           <ScalarProperty Name="InstallmentSendDate" ColumnName="InstallmentSendDate" />
           <ScalarProperty Name="InstallmentDueDate" ColumnName="InstallmentDueDate" />
@@ -485,7 +488,7 @@
     <EntitySetMapping Name="InvoiceInstallments">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InvoiceInstallment)">
         <MappingFragment StoreEntitySet="InvoiceInstallments">
-          <ScalarProperty Name="InvoiceInstallmentId" ColumnName="invoiceInstallmentId" />
+          <ScalarProperty Name="InvoiceInstallmentId" ColumnName="InvoiceInstallmentId" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
         </MappingFragment>
@@ -522,7 +525,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

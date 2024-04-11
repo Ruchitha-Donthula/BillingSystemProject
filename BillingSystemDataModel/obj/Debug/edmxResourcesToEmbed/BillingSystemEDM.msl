@@ -28,6 +28,7 @@
           <ScalarProperty Name="BillAccountPolicyId" ColumnName="BillAccountPolicyId" />
           <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
           <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+          <ScalarProperty Name="PayPlan" ColumnName="PayPlan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -47,7 +48,7 @@
     <EntitySetMapping Name="InstallmentSummaries">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InstallmentSummary)">
         <MappingFragment StoreEntitySet="InstallmentSummaries">
-          <ScalarProperty Name="InstallmentSummaryId" ColumnName="installmentSummaryId" />
+          <ScalarProperty Name="InstallmentSummaryId" ColumnName="InstallmentSummaryId" />
           <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
@@ -57,7 +58,7 @@
     <EntitySetMapping Name="Installments">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.Installment)">
         <MappingFragment StoreEntitySet="Installments">
-          <ScalarProperty Name="InstallmentId" ColumnName="installmentId" />
+          <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
           <ScalarProperty Name="InstallmentSequenceNumber" ColumnName="InstallmentSequenceNumber" />
           <ScalarProperty Name="InstallmentSendDate" ColumnName="InstallmentSendDate" />
           <ScalarProperty Name="InstallmentDueDate" ColumnName="InstallmentDueDate" />
@@ -85,7 +86,7 @@
     <EntitySetMapping Name="InvoiceInstallments">
       <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InvoiceInstallment)">
         <MappingFragment StoreEntitySet="InvoiceInstallments">
-          <ScalarProperty Name="InvoiceInstallmentId" ColumnName="invoiceInstallmentId" />
+          <ScalarProperty Name="InvoiceInstallmentId" ColumnName="InvoiceInstallmentId" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
         </MappingFragment>

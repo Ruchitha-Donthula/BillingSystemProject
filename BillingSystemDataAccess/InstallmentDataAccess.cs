@@ -58,5 +58,11 @@ namespace BillingSystemDataAccess
         {
             return _dbContext.Installments.ToList();
         }
+        public void ActivateInstallmentStatus(Installment installment)
+        {
+           Installment installmentToBeActivated = GetInstallmentById(installment.InstallmentId);
+           installmentToBeActivated.InvoiceStatus = "Active";
+            _dbContext.SaveChanges();
+        }
     }
 }

@@ -36,13 +36,14 @@ namespace BillingSystemDataAccessTest
             //new InstallmentDataAccessTest().TestGetInstallmentById();
             //new InstallmentDataAccessTest().TestUpdateInstallment();
             //new InstallmentDataAccessTest().TestDeleteInstallment();
+            
 
             //new InstallmentSummaryDataAccessTest().TestGetInstallmentSummaryById();
             //new InstallmentSummaryDataAccessTest().TestGetAllInstallmentSummaries();
             //new InstallmentSummaryDataAccessTest().TestAddInstallmentSummary();
             //new InstallmentSummaryDataAccessTest().TestUpdateInstallmentSummary();
             //new InstallmentSummaryDataAccessTest().TestDeleteInstallmentSummary();
-           // new InstallmentSummaryDataAccessTest().PrintInstallmentsInSummary();
+            //new InstallmentSummaryDataAccessTest().GetInstallmentSummariesByBillAccountId();
 
             //new InvoiceDataAccessTest().TestGetInvoiceById();
             //new InvoiceDataAccessTest().TestGetAllInvoices();

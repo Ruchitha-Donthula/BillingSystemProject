@@ -13,7 +13,7 @@ namespace BillingSystemDataAccess
 
         public BillAccountDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); // Assuming you have a DbContext named BillingSystemContext
+            _context = new BillingSystemEDMContainer();
         }
 
         public BillAccount GetBillAccountById(int id)
@@ -24,7 +24,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving BillAccount by Id: " + ex.Message);
                 return null;
             }
@@ -38,7 +37,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving BillAccount by Id: " + ex.Message);
                 return null;
             }
@@ -52,7 +50,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all BillAccounts: " + ex.Message);
                 return new List<BillAccount>();
             }
@@ -67,7 +64,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding BillAccount: " + ex.Message);
             }
         }
@@ -79,8 +75,6 @@ namespace BillingSystemDataAccess
                 var billAccountToUpdate = GetBillAccountByNumber(updatedBillAccount.BillAccountNumber);
                 if (billAccountToUpdate != null)
                 {
-                    // Update properties
-                   
                     billAccountToUpdate.BillingType = updatedBillAccount.BillingType;
                     billAccountToUpdate.Status = updatedBillAccount.Status;
                     billAccountToUpdate.PayorName = updatedBillAccount.PayorName;
@@ -94,13 +88,11 @@ namespace BillingSystemDataAccess
                     billAccountToUpdate.LastPaymentAmount = updatedBillAccount.LastPaymentAmount;
                     billAccountToUpdate.PastDue = updatedBillAccount.PastDue;
                     billAccountToUpdate.FutureDue = updatedBillAccount.FutureDue;
-                    // Update other properties similarly
                     _context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while updating BillAccount: " + ex.Message);
             }
         }
@@ -118,14 +110,13 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting BillAccount: " + ex.Message);
             }
         }
 
-       public void SuspendBillAccount(BillAccount billAccount)
+        public void SuspendBillAccount(BillAccount billAccount)
         {
-           BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
+            BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
             billAccountToSuspend.Status = "Suspend";
             _context.SaveChanges();
         }
@@ -136,7 +127,5 @@ namespace BillingSystemDataAccess
             billAccountToRelease.Status = "Active";
             _context.SaveChanges();
         }
-
     }
-
 }

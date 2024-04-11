@@ -11,7 +11,7 @@ namespace BillingSystemDataAccess
 
         public BillingTransactionDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); // Assuming you have a DbContext named BillingSystemEDMContainer
+            _context = new BillingSystemEDMContainer();
         }
 
         public BillingTransaction GetBillingTransactionById(int id)
@@ -22,7 +22,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving BillingTransaction by Id: " + ex.Message);
                 return null;
             }
@@ -36,7 +35,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all BillingTransactions: " + ex.Message);
                 return new List<BillingTransaction>();
             }
@@ -51,7 +49,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding BillingTransaction: " + ex.Message);
             }
         }
@@ -69,7 +66,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting BillingTransaction: " + ex.Message);
             }
         }

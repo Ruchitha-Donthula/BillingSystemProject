@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="aea5c47ab1394af3a24d1eab0d2aae3d" Name="Diagram1" ZoomLevel="86" >
-        <EntityTypeShape EntityType="BillingSystemEDM.BillAccount" Width="1.5" PointX="0.75" PointY="5.5" />
-        <EntityTypeShape EntityType="BillingSystemEDM.BillAccountPolicy" Width="2" PointX="3" PointY="1.5" />
-        <EntityTypeShape EntityType="BillingSystemEDM.BillingTransaction" Width="2" PointX="3" PointY="4" />
-        <EntityTypeShape EntityType="BillingSystemEDM.InstallmentSummary" Width="1.5" PointX="3" PointY="7.75" />
-        <EntityTypeShape EntityType="BillingSystemEDM.Installment" Width="2.625" PointX="5.25" PointY="7.25" />
-        <EntityTypeShape EntityType="BillingSystemEDM.Invoice" Width="2" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BillingSystemEDM.InvoiceInstallment" Width="2" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="BillingSystemEDM.Payment" Width="1.5" PointX="3" PointY="11" />
+      <Diagram DiagramId="9313e9b6d31b49d993ba449a2ef5ad8e" Name="Diagram1" ZoomLevel="96" >
+        <EntityTypeShape EntityType="BillingSystemEDM.BillAccount" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="BillingSystemEDM.BillAccountPolicy" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="BillingSystemEDM.BillingTransaction" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="BillingSystemEDM.InstallmentSummary" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="BillingSystemEDM.Installment" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="BillingSystemEDM.Invoice" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BillingSystemEDM.InvoiceInstallment" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="BillingSystemEDM.Payment" Width="1.5" PointX="3" PointY="11.25" />
         <AssociationConnector Association="BillingSystemEDM.BillAccountBillAccountPolicy" />
         <AssociationConnector Association="BillingSystemEDM.BillAccountBillingTransaction" />
         <AssociationConnector Association="BillingSystemEDM.BillAccountInstallmentSummary" />

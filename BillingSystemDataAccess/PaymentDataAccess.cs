@@ -13,7 +13,7 @@ namespace BillingSystemDataAccess
 
         public PaymentDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); // Assuming you have a DbContext named BillingSystemContext
+            _context = new BillingSystemEDMContainer(); 
         }
 
         public Payment GetPaymentById(int id)
@@ -24,7 +24,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving Payment by Id: " + ex.Message);
                 return null;
             }
@@ -38,7 +37,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all Payments: " + ex.Message);
                 return new List<Payment>();
             }
@@ -53,7 +51,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding Payment: " + ex.Message);
             }
         }
@@ -65,7 +62,6 @@ namespace BillingSystemDataAccess
                 var existingPayment = _context.Payments.Find(payment.PaymentId);
                 if (existingPayment != null)
                 {
-                    // Update properties
                     existingPayment.PaymentMethod = payment.PaymentMethod;
                     existingPayment.PaymentFrom = payment.PaymentFrom;
                     existingPayment.Amount = payment.Amount;
@@ -75,14 +71,11 @@ namespace BillingSystemDataAccess
                     existingPayment.PaymentStatus = payment.PaymentStatus;
                     existingPayment.PaymentReference = payment.PaymentReference;
                     existingPayment.BillAccountId = payment.BillAccountId;
-                    // Update other properties similarly
-
                     _context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while updating Payment: " + ex.Message);
             }
         }
@@ -100,7 +93,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting Payment: " + ex.Message);
             }
         }

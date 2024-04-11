@@ -17,6 +17,7 @@ namespace BillingSystemDataModel
         public int BillAccountPolicyId { get; set; }
         public string PolicyNumber { get; set; }
         public int BillAccountId { get; set; }
+        public string PayPlan { get; set; }
     
         public virtual BillAccount BillAccount { get; set; }
     }

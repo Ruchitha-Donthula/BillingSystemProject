@@ -30,14 +30,15 @@ namespace BillingSystemBusiness
             return nextSequenceNumberFromDataBase;
         }
 
-        public void AssociateBillAccountWithPolicy(BillAccount billAccount,List<string> policyNumbers)
+        public void AssociateBillAccountWithPolicy(BillAccount billAccount, List<string> policyNumbers, string payplan)
         {
             foreach (var policyNumber in policyNumbers)
             {
                 BillAccountPolicy billAccountPolicy = new BillAccountPolicy
                 {
                     BillAccountId = billAccount.BillAccountId,
-                    PolicyNumber = policyNumber
+                    PolicyNumber = policyNumber,
+                    PayPlan=payplan
                 };
                 new BillAccountPolicyDataAccess().AddBillAccountPolicy(billAccountPolicy);
             }

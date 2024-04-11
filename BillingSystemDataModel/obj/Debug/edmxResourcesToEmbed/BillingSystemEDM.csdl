@@ -61,6 +61,7 @@
     <Property Name="BillAccountPolicyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PolicyNumber" Type="String" Nullable="false" />
     <Property Name="BillAccountId" Type="Int32" Nullable="false" />
+    <Property Name="PayPlan" Type="String" Nullable="false" />
     <NavigationProperty Name="BillAccount" Relationship="BillingSystemEDM.BillAccountBillAccountPolicy" FromRole="BillAccountPolicy" ToRole="BillAccount" />
   </EntityType>
   <EntityType Name="BillingTransaction">

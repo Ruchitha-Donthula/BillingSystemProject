@@ -24,7 +24,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving Invoice by Id: " + ex.Message);
                 return null;
             }
@@ -38,7 +37,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all Invoices: " + ex.Message);
                 return new List<Invoice>();
             }
@@ -53,7 +51,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding Invoice: " + ex.Message);
             }
         }
@@ -65,21 +62,17 @@ namespace BillingSystemDataAccess
                 var existingInvoice = _context.Invoices.Find(invoice.InvoiceId);
                 if (existingInvoice != null)
                 {
-                    // Update properties
                     existingInvoice.InvoiceNumber = invoice.InvoiceNumber;
                     existingInvoice.InvoiceDate = invoice.InvoiceDate;
                     existingInvoice.SendDate = invoice.SendDate;
                     existingInvoice.BillAccountId = invoice.BillAccountId;
                     existingInvoice.Status = invoice.Status;
                     existingInvoice.InvoiceAmount = invoice.InvoiceAmount;
-                    // Update other properties similarly
-
                     _context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while updating Invoice: " + ex.Message);
             }
         }
@@ -97,9 +90,25 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting Invoice: " + ex.Message);
             }
+        }
+
+        public int GetNextSequenceNumber()
+        {
+            var _dbContext = new BillingSystemEDMContainer();
+            int nextSequenceNumber = 1; // Default if no records exist
+            var latestInvoiceNumber = _dbContext.Invoices.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
+            if (latestInvoiceNumber != null)
+            {
+                // Extract the numeric part and increment by 1
+                string numericPart = latestInvoiceNumber.InvoiceNumber.Substring(2);
+                if (int.TryParse(numericPart, out int numericValue))
+                {
+                    nextSequenceNumber = numericValue + 1;
+                }
+            }
+            return nextSequenceNumber;
         }
     }
 }

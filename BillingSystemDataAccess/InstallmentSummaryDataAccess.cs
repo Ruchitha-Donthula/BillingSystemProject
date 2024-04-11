@@ -11,7 +11,7 @@ namespace BillingSystemDataAccess
 
         public InstallmentSummaryDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); // Assuming you have a DbContext named BillingSystemContext
+            _context = new BillingSystemEDMContainer(); 
         }
 
         public InstallmentSummary GetInstallmentSummaryById(int id)
@@ -22,7 +22,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving InstallmentSummary by Id: " + ex.Message);
                 return null;
             }
@@ -36,7 +35,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while retrieving all InstallmentSummaries: " + ex.Message);
                 return new List<InstallmentSummary>();
             }
@@ -51,7 +49,6 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while adding InstallmentSummary: " + ex.Message);
             }
         }
@@ -63,17 +60,13 @@ namespace BillingSystemDataAccess
                 var existingInstallmentSummary = _context.InstallmentSummaries.Find(installmentSummary.InstallmentSummaryId);
                 if (existingInstallmentSummary != null)
                 {
-                    // Update properties
                     existingInstallmentSummary.PolicyNumber = installmentSummary.PolicyNumber;
                     existingInstallmentSummary.Status = installmentSummary.Status;
-                    // Update other properties similarly
-
                     _context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while updating InstallmentSummary: " + ex.Message);
             }
         }
@@ -91,37 +84,24 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
                 Console.WriteLine("Error occurred while deleting InstallmentSummary: " + ex.Message);
             }
         }
 
-        /*
-        public void PrintInstallmentsInSummary(int summaryId)
+        public List<InstallmentSummary> GetInstallmentSummariesByBillAccountId(int billAccountId)
         {
             try
             {
-                var summary = _context.InstallmentSummaries.Find(summaryId); // Find the summary by its ID
-                if (summary != null)
-                {
-                    Console.WriteLine($"Installments in Summary with ID {summaryId}:");
-                    foreach (var installment in summary.Installments)
-                    {
-                        Console.WriteLine($"Installment ID: {installment.InstallmentId}, Sequence Number: {installment.InstallmentSequenceNumber}, Due Amount: {installment.DueAmount}");
-                        // Print other installment properties as needed
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Installment Summary with ID {summaryId} not found.");
-                }
+                // Filter InstallmentSummaries by BillAccountId
+                var summaries = _context.InstallmentSummaries.Where(summary => summary.BillAccountId == billAccountId).ToList();
+
+                return summaries;
             }
             catch (Exception ex)
             {
-                // Handle or log the exception
-                Console.WriteLine("Error occurred while printing installments: " + ex.Message);
+                Console.WriteLine("Error occurred while fetching installment summaries: " + ex.Message);
+                return null;
             }
         }
-        */
     }
 }

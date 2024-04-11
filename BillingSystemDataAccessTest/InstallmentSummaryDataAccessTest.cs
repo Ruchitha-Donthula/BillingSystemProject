@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BillingSystemDataAccess;
 using BillingSystemDataModel;
 
@@ -14,7 +11,6 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("Testing GetInstallmentSummaryById:");
 
-            // Assuming there's an InstallmentSummary with Id = 1 in the database
             var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
@@ -51,17 +47,13 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting AddInstallmentSummary:");
 
-            // Create a new InstallmentSummary object
             var newInstallmentSummary = new InstallmentSummary
             {
                 BillAccountId = 3,
                 PolicyNumber = "POL123456",
                 Status = "Active",
-               // Assuming BillAccountId exists in the database
-                // Add other properties as needed
             };
 
-            // Add the new InstallmentSummary
             new InstallmentSummaryDataAccess().AddInstallmentSummary(newInstallmentSummary);
             Console.WriteLine("InstallmentSummary added successfully.");
         }
@@ -70,15 +62,12 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting UpdateInstallmentSummary:");
 
-            // Get an existing InstallmentSummary by Id
             var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
             {
-                // Update InstallmentSummary properties
                 installmentSummary.Status = "Inactive";
 
-                // Update the InstallmentSummary
                 new InstallmentSummaryDataAccess().UpdateInstallmentSummary(installmentSummary);
                 Console.WriteLine("InstallmentSummary updated successfully.");
             }
@@ -88,23 +77,30 @@ namespace BillingSystemDataAccessTest
             }
         }
 
-       public  void TestDeleteInstallmentSummary()
+        public void TestDeleteInstallmentSummary()
         {
             Console.WriteLine("\nTesting DeleteInstallmentSummary:");
 
-            // Assuming there's an InstallmentSummary with Id = 1 in the database
             new InstallmentSummaryDataAccess().DeleteInstallmentSummary(1);
             Console.WriteLine("InstallmentSummary deleted successfully.");
         }
 
-        public void PrintInstallmentsInSummary()
+        public void GetInstallmentSummariesByBillAccountId()
         {
-            Console.WriteLine("\nTesting printingInstallmentSummary:");
+            var summaries = new InstallmentSummaryDataAccess().GetInstallmentSummariesByBillAccountId(5);
 
-            // Get an existing InstallmentSummary by Id
-            new InstallmentSummaryDataAccess().PrintInstallmentsInSummary(11);
-
+            if (summaries != null && summaries.Any())
+            {
+                foreach (var summary in summaries)
+                {
+                    Console.WriteLine($"Installment Summary ID: {summary.InstallmentSummaryId}, Policy Number: {summary.PolicyNumber}, Status: {summary.Status}");
+                   
+                }
+            }
+            else
+            {
+                Console.WriteLine("No installment summaries found for the provided BillAccountId.");
+            }
         }
-        
     }
 }
