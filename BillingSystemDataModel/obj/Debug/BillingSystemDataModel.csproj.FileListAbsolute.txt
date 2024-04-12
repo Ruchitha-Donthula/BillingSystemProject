@@ -21,3 +21,6 @@ D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.cs
 D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.dll
 D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.pdb
 D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.AssemblyReference.cache

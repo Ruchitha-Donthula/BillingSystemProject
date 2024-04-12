@@ -9,6 +9,7 @@
 
 namespace BillingSystemDataModel
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -21,7 +22,8 @@ namespace BillingSystemDataModel
         public Nullable<int> InvoiceId { get; set; }
         public Nullable<int> PaymentId { get; set; }
         public int BillAccountId { get; set; }
-    
+        
+        [JsonIgnore]
         public virtual BillAccount BillAccount { get; set; }
     }
 }

@@ -13,3 +13,5 @@ C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\Bi
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.csproj.CopyComplete
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.dll
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\Newtonsoft.Json.xml

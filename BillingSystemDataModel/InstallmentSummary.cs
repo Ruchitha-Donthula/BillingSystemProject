@@ -9,6 +9,7 @@
 
 namespace BillingSystemDataModel
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -25,6 +26,7 @@ namespace BillingSystemDataModel
         public string Status { get; set; }
         public int BillAccountId { get; set; }
     
+        [JsonIgnore]
         public virtual BillAccount BillAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Installment> Installments { get; set; }

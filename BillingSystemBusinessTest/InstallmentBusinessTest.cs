@@ -9,14 +9,14 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 9,
-                BillAccountNumber="BA000001",
-                BillingType = "Direct",
+                BillAccountId = 11,
+                BillAccountNumber="BA000003",
+                BillingType = "Agent",
                 Status = "Active",
-                PayorName = "Prakash",
-                PayorAddress = "SubashNagar",
+                PayorName = "Mahalaxmi",
+                PayorAddress = "Knr",
                 PaymentMethod = "Credit Card",
-                DueDay = 21,
+                DueDay = 23,
                 AccountTotal = 0.0,
                 AccountPaid = 0.0,
                 AccountBalance = 0.0,
@@ -28,11 +28,12 @@ namespace BillingSystemBusinessTest
 
             BillAccountPolicy billAccountPolicy = new BillAccountPolicy
             {
-                BillAccountId = billAccount.BillAccountId,
-                PayPlan = "Monthly",
-                PolicyNumber = "POL123"
+                BillAccountPolicyId=9,
+                BillAccountId = 11,
+                PayPlan = "Semiannual",
+                PolicyNumber = "POL124"
             };
-            double premium = 1200.00;
+            double premium = 2000.00;
 
            new InstallmentBusiness().CreateInstallmentSchedule(billAccount, billAccountPolicy, premium);
         }

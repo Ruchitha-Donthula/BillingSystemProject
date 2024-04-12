@@ -20,11 +20,11 @@ namespace BillingSystemBusinessTest
             //new BillAccountBusinessTest().TestSuspendBillAccount();
             //new BillAccountBusinessTest().TestReleaseBillAccount();
 
-            //new InstallmentBusinessTest().CreateInstallmentSchedule();
+            new InstallmentBusinessTest().CreateInstallmentSchedule();
 
-//            new InvoiceBusinessTest().TestCreateInvoice();
+            //new InvoiceBusinessTest().TestCreateInvoice();
 
-            new PaymentBusinessTest().TestApplyPayment();
+            //new PaymentBusinessTest().TestApplyPayment();
         }
     }
 }

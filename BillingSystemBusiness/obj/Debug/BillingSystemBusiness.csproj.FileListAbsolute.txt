@@ -28,3 +28,5 @@ D:\Work\BillingSystem\BillingSystemBusiness\obj\Debug\BillingSystemBusiness.cspr
 D:\Work\BillingSystem\BillingSystemBusiness\obj\Debug\BillingSystemBusiness.csproj.CopyComplete
 D:\Work\BillingSystem\BillingSystemBusiness\obj\Debug\BillingSystemBusiness.dll
 D:\Work\BillingSystem\BillingSystemBusiness\obj\Debug\BillingSystemBusiness.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemBusiness\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemBusiness\bin\Debug\Newtonsoft.Json.xml

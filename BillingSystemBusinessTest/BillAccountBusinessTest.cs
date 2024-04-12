@@ -12,10 +12,10 @@ namespace BillingSystemBusinessTest
             Console.WriteLine("Testing AddBillAccount:");
             var newBillAccount = new BillAccount
             {
-                BillingType = "Direct",
+                BillingType = "Agent",
                 Status = "Active",
-                PayorName = "Prakash",
-                PayorAddress = "SubashNagar",
+                PayorName = "Mahalaxmi",
+                PayorAddress = "Ramnagar",
                 PaymentMethod = "Credit Card",
                 DueDay = 21,
                 AccountTotal = 0.0,

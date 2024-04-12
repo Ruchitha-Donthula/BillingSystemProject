@@ -38,3 +38,5 @@ D:\Work\BillingSystem\BillingSystemBusinessTest\obj\Debug\BillingSystemBusinessT
 D:\Work\BillingSystem\BillingSystemBusinessTest\obj\Debug\BillingSystemBusinessTest.csproj.CopyComplete
 D:\Work\BillingSystem\BillingSystemBusinessTest\obj\Debug\BillingSystemBusinessTest.exe
 D:\Work\BillingSystem\BillingSystemBusinessTest\obj\Debug\BillingSystemBusinessTest.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemBusinessTest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemBusinessTest\bin\Debug\Newtonsoft.Json.xml

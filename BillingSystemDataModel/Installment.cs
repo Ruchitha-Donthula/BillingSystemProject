@@ -9,6 +9,7 @@
 
 namespace BillingSystemDataModel
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,6 +25,7 @@ namespace BillingSystemDataModel
         public string InvoiceStatus { get; set; }
         public int InstallmentSummaryId { get; set; }
     
+        [JsonIgnore]
         public virtual InstallmentSummary InstallmentSummary { get; set; }
     }
 }

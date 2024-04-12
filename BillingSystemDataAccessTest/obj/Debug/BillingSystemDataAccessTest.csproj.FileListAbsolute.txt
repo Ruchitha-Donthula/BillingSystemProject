@@ -34,3 +34,5 @@ D:\Work\BillingSystem\BillingSystemDataAccessTest\obj\Debug\BillingSystemDataAcc
 D:\Work\BillingSystem\BillingSystemDataAccessTest\obj\Debug\BillingSystemDataAccessTest.csproj.CopyComplete
 D:\Work\BillingSystem\BillingSystemDataAccessTest\obj\Debug\BillingSystemDataAccessTest.exe
 D:\Work\BillingSystem\BillingSystemDataAccessTest\obj\Debug\BillingSystemDataAccessTest.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccessTest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccessTest\bin\Debug\Newtonsoft.Json.xml
