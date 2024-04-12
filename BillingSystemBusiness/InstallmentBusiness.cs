@@ -12,8 +12,6 @@ namespace BillingSystemBusiness
     {
         public void CreateInstallmentSchedule(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
-            ValidateInputParameters(billAccount, billAccountPolicy, premium);
-
             InitializeBillAccount(billAccount, premium);
 
             InstallmentSummary parentRecord = new InstallmentSummary
@@ -119,22 +117,6 @@ namespace BillingSystemBusiness
                     break;
             }
             return dueDate;
-        }
-
-        private void ValidateInputParameters(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
-        {
-            if (billAccount == null)
-            {
-                throw new ArgumentNullException(nameof(billAccount), "BillAccount cannot be null");
-            }
-            if (billAccountPolicy == null)
-            {
-                throw new ArgumentNullException(nameof(billAccountPolicy), "PolicyNumber cannot be null");
-            }
-            if (premium <= 0)
-            {
-                throw new ArgumentNullException(nameof(premium), "premium cannot be null");
-            }
         }
     }
 }

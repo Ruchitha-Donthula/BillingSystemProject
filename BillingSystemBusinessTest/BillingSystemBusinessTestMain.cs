@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BillingSystemDataModel;
+using BillingSystemDataAccess;
 
 namespace BillingSystemBusinessTest
 {
@@ -19,9 +21,8 @@ namespace BillingSystemBusinessTest
             //new BillAccountBusinessTest().TestReleaseBillAccount();
 
             //new InstallmentBusinessTest().CreateInstallmentSchedule();
-            //new InstallmentBusinessTest().TestInstallmentsInSummary();
 
-            //new InvoiceBusinessTest().TestCreateInvoice();
+//            new InvoiceBusinessTest().TestCreateInvoice();
 
             new PaymentBusinessTest().TestApplyPayment();
         }

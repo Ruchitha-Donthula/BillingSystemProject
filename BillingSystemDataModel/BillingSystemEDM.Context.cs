@@ -18,6 +18,7 @@ namespace BillingSystemDataModel
         public BillingSystemEDMContainer()
             : base("name=BillingSystemEDMContainer")
         {
+            //Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

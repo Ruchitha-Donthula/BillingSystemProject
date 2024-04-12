@@ -1,0 +1,15 @@
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataAccess.dll.config
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataAccess.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataAccess.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataModel.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\EntityFramework.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataModel.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\BillingSystemDataModel.dll.config
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\EntityFramework.xml
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.csproj.CopyComplete
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataAccess\obj\Release\BillingSystemDataAccess.pdb

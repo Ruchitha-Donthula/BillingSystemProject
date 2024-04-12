@@ -9,4 +9,15 @@ C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\Billi
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.CopyComplete
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.dll
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.pdb
-C:\Users\Admin\source\repos\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.AssemblyReference.cache
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\BillingSystemDataModel.dll.config
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\BillingSystemDataModel.dll
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\BillingSystemDataModel.pdb
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\EntityFramework.dll
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\EntityFramework.SqlServer.dll
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\EntityFramework.xml
+D:\Work\BillingSystem\BillingSystemDataModel\bin\Debug\EntityFramework.SqlServer.xml
+D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.CoreCompileInputs.cache
+D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.CopyComplete
+D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.dll
+D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.pdb
+D:\Work\BillingSystem\BillingSystemDataModel\obj\Debug\BillingSystemDataModel.csproj.AssemblyReference.cache

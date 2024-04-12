@@ -32,7 +32,7 @@ namespace BillingSystemBusiness
                     };
                     new BillingTransactionDataAccess().AddBillingTransaction(billingTransaction);
 
-                    UpdateBillAccount(payment, billAccount);
+                    UpdateBillAccount(payment, billAccount,invoice);
 
                     UpdateInstallments(payment, billAccount);
                 }
@@ -47,10 +47,16 @@ namespace BillingSystemBusiness
                 throw new Exception("ApplyPaymentFailed", ex);
             }
         }
-        private void UpdateBillAccount(Payment payment, BillAccount billAccount)
+        private void UpdateBillAccount(Payment payment, BillAccount billAccount,Invoice invoice)
         {
+            if (payment.Amount < invoice.InvoiceAmount)
+            {
+                billAccount.PastDue = invoice.InvoiceAmount - payment.Amount;
+            }
+            billAccount.FutureDue = billAccount.AccountTotal - payment.Amount;
+
             double newAmountPaid = (double)(billAccount.AccountPaid + payment.Amount);
-            double newBalanceAmount = (double)(billAccount.AccountTotal - newAmountPaid);
+            double newBalanceAmount = (double)(billAccount.AccountTotal - payment.Amount);
 
             billAccount.LastPaymentDate = DateTime.Now;
             billAccount.LastPaymentAmount = payment.Amount;
