@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BillingSystemDataModel;
-using BillingSystemDataAccess;
 
 namespace BillingSystemBusinessTest
 {
@@ -20,11 +19,13 @@ namespace BillingSystemBusinessTest
             //new BillAccountBusinessTest().TestSuspendBillAccount();
             //new BillAccountBusinessTest().TestReleaseBillAccount();
 
-            new InstallmentBusinessTest().CreateInstallmentSchedule();
+            //new InstallmentBusinessTest().CreateInstallmentSchedule();
 
             //new InvoiceBusinessTest().TestCreateInvoice();
 
-            //new PaymentBusinessTest().TestApplyPayment();
+            new PaymentBusinessTest().TestApplyPayment();
+            
+            Console.ReadLine();
         }
     }
 }

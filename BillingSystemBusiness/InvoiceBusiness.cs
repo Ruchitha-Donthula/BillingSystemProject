@@ -37,7 +37,6 @@ namespace BillingSystemBusiness
 
             new InvoiceDataAccess().AddInvoice(invoice);
 
-            // Update InvoiceInstallment table
             foreach (var installment in pendingInstallments)
             {
                 new InstallmentDataAccess().ActivateInstallmentStatus(installment);

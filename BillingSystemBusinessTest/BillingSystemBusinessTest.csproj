@@ -69,10 +69,6 @@
       <Project>{63313b30-1da0-4433-8e0c-7be455ef7e7b}</Project>
       <Name>BillingSystemBusiness</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BillingSystemDataAccess\BillingSystemDataAccess.csproj">
-      <Project>{73673f44-c981-4fbb-b3aa-c895af476da6}</Project>
-      <Name>BillingSystemDataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BillingSystemDataModel\BillingSystemDataModel.csproj">
       <Project>{d785744b-27d4-4992-990a-f6599bd9528b}</Project>
       <Name>BillingSystemDataModel</Name>

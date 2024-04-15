@@ -17,7 +17,7 @@ namespace BillingSystemBusinessTest
                 PayorName = "Mahalaxmi",
                 PayorAddress = "Ramnagar",
                 PaymentMethod = "Credit Card",
-                DueDay = 21,
+                DueDay = 25,
                 AccountTotal = 0.0,
                 AccountPaid = 0.0,
                 AccountBalance = 0.0,
@@ -34,10 +34,10 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 9,
+                BillAccountId = 16,
             };
-            List<string> policyNumbers = new List<string> { "POL123" };
-            string payplan = "Monthly";
+            List<string> policyNumbers = new List<string> { "POL124" };
+            string payplan = "Semiannual";
             new BillAccountBusiness().AssociateBillAccountWithPolicy(billAccount, policyNumbers, payplan);
             Console.WriteLine("BillAccountPolicies added successfully.");
 

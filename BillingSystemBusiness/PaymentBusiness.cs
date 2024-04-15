@@ -49,17 +49,22 @@ namespace BillingSystemBusiness
         }
         private void UpdateBillAccount(Payment payment, BillAccount billAccount,Invoice invoice)
         {
-            if (payment.Amount < invoice.InvoiceAmount)
-            {
-                billAccount.PastDue = invoice.InvoiceAmount - payment.Amount;
-            }
-            billAccount.FutureDue = billAccount.AccountTotal - payment.Amount;
-
             double newAmountPaid = (double)(billAccount.AccountPaid + payment.Amount);
-            double newBalanceAmount = (double)(billAccount.AccountTotal - payment.Amount);
+            double newBalanceAmount = (double)(billAccount.AccountTotal - newAmountPaid);
 
             billAccount.LastPaymentDate = DateTime.Now;
             billAccount.LastPaymentAmount = payment.Amount;
+
+            double pastDue = 0;
+            if (newBalanceAmount > 0)
+            {
+                pastDue = invoice.InvoiceAmount - newAmountPaid;
+            }
+
+            double futureDue = GetTotalFutureDueAmount(billAccount);
+
+            billAccount.PastDue = pastDue;
+            billAccount.FutureDue = futureDue;
 
             billAccount.AccountPaid = newAmountPaid;
             billAccount.AccountBalance = newBalanceAmount;
@@ -85,6 +90,14 @@ namespace BillingSystemBusiness
 
                 new InstallmentDataAccess().UpdateInstallment(installment);
             }
+        }
+        public double GetTotalFutureDueAmount(BillAccount billAccount)
+        {
+            List<Installment> futureInstallments = new InstallmentDataAccess().GetFutureInstallmentsByBillAccountId(billAccount.BillAccountId);
+
+            double totalFutureDue = futureInstallments.Sum(installment => installment.DueAmount);
+
+            return totalFutureDue;
         }
     }
 }

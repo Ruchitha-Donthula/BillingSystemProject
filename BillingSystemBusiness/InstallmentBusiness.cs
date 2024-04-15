@@ -10,8 +10,9 @@ namespace BillingSystemBusiness
 {
     public class InstallmentBusiness
     {
-        public void CreateInstallmentSchedule(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
+        public void CreateInstallmentSchedule(BillAccount BillAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
+            BillAccount billAccount = new BillAccountDataAccess().GetBillAccountById(BillAccount.BillAccountId);
             InitializeBillAccount(billAccount, premium);
 
             InstallmentSummary parentRecord = new InstallmentSummary
@@ -29,9 +30,10 @@ namespace BillingSystemBusiness
         }
         private void InitializeBillAccount(BillAccount billAccount,double premium)
         {
-            billAccount.AccountTotal += premium;
-            billAccount.AccountPaid = 0.0;
-            billAccount.AccountBalance = billAccount.AccountTotal;
+            double accountTotal = (double)(billAccount.AccountTotal + premium);
+            billAccount.AccountTotal =accountTotal;
+            //billAccount.AccountPaid = 0.0;
+            billAccount.AccountBalance = billAccount.AccountTotal-billAccount.AccountPaid;
             new BillAccountDataAccess().UpdateBillAccount(billAccount);
         }
         private List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)

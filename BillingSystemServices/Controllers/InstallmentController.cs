@@ -14,19 +14,19 @@ namespace BillingSystemServices.Controllers
         [HttpPost]
         public IHttpActionResult CreateInstallmentSchedule(CreateInstallmentScheduleRequest request)
         {
-            if (request==null || request.billAccount == null || request.billAccountPolicy == null || request.premium == 0.0)
+            if (request==null || request.BillAccount == null || request.BillAccountPolicy == null || request.Premium == 0.0)
             {
                 return BadRequest("Invalid bill account data");
             }
 
-            new InstallmentBusiness().CreateInstallmentSchedule(request.billAccount, request.billAccountPolicy, request.premium);
+            new InstallmentBusiness().CreateInstallmentSchedule(request.BillAccount, request.BillAccountPolicy, request.Premium);
             return Ok("Installments scheduled successfully");
         }
         public class CreateInstallmentScheduleRequest
         {
-            public BillAccount billAccount { get; set; }
-            public BillAccountPolicy billAccountPolicy { get; set; }
-            public double premium { get; set; }
+            public BillAccount BillAccount { get; set; }
+            public BillAccountPolicy BillAccountPolicy { get; set; }
+            public double Premium { get; set; }
         }
     }
 }

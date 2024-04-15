@@ -83,6 +83,26 @@ namespace BillingSystemDataAccess
 
             return installments;
         }
+        public List<Installment> GetFutureInstallmentsByBillAccountId(int billAccountId)
+        {
+            using (var dbContext = new BillingSystemEDMContainer())
+            {
+                var installmentSummaries = dbContext.InstallmentSummaries
+                    .Where(summary => summary.BillAccountId == billAccountId)
+                    .ToList();
 
+                var futureInstallments = new List<Installment>();
+                foreach (var summary in installmentSummaries)
+                {
+                    var futureInstallmentsForSummary = dbContext.Installments
+                        .Where(installment => installment.InstallmentSummaryId == summary.InstallmentSummaryId && installment.InstallmentSendDate > DateTime.Now)
+                        .ToList();
+
+                    futureInstallments.AddRange(futureInstallmentsForSummary);
+                }
+
+                return futureInstallments;
+            }
+        }
     }
 }
