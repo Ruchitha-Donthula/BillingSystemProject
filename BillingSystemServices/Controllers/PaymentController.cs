@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Http;
 using BillingSystemBusiness;
 using BillingSystemDataModel;
+using BillingSystemServices.Filters;
 
 namespace BillingSystemServices.Controllers
 {
     public class PaymentController : ApiController
     {
+        [RequestResponseLoggingFilter]
         [Route("api/ApplyPayment")]
         [HttpPost]
         public IHttpActionResult ApplyPayment(Payment payment)

@@ -5,11 +5,13 @@ using System.Web;
 using BillingSystemDataModel;
 using BillingSystemBusiness;
 using System.Web.Http;
+using BillingSystemServices.Filters;
 
 namespace BillingSystemServices.Controllers
 {
     public class BillAccountController : ApiController
     {
+        [RequestResponseLoggingFilter]
         [HttpPost]
         [Route("api/CreateBillAccount")]
         public IHttpActionResult CreateBillAccount(BillAccount billAccount)
@@ -23,7 +25,7 @@ namespace BillingSystemServices.Controllers
             return Ok("BillAccount added successfully");
         }
 
-
+        [RequestResponseLoggingFilter]
         [Route("api/AssociateBillAccountWithPolicy")]
         [HttpPost]
         public IHttpActionResult AssociateBillAccountWithPolicy(BillAccountAndPolicyRequest request)
@@ -44,6 +46,7 @@ namespace BillingSystemServices.Controllers
             public string Payplan { get; set; }
         }
 
+        [RequestResponseLoggingFilter]
         [Route("api/GetBillAccountById")]
         [HttpGet]
         public IHttpActionResult GetBillAccountById(int billAccountId)
@@ -56,6 +59,7 @@ namespace BillingSystemServices.Controllers
             return Json(billAccount);
         }
 
+        [RequestResponseLoggingFilter]
         [Route("api/GetBillAccountByNumber")]
         [HttpGet]
         public IHttpActionResult GetBillAccountByNumber(string billAccountNumber)
@@ -68,6 +72,7 @@ namespace BillingSystemServices.Controllers
             return Json(billAccount);
         }
 
+        [RequestResponseLoggingFilter]
         [Route("api/UpdateBillAccount")]
         [HttpPost]
         public IHttpActionResult UpdateBillAccount(BillAccount billAccount)
@@ -80,6 +85,7 @@ namespace BillingSystemServices.Controllers
             return Ok("Bill account updated successfully");
         }
 
+        [RequestResponseLoggingFilter]
         [Route("api/SuspendBillAccount")]
         [HttpPost]
         public IHttpActionResult SuspendBillAccount(BillAccount billAccount)
@@ -92,6 +98,7 @@ namespace BillingSystemServices.Controllers
             return Ok("Bill account suspended successfully");
         }
 
+        [RequestResponseLoggingFilter]
         [Route("api/ReleaseBillAccount")]
         [HttpPost]
         public IHttpActionResult ReleaseBillAccount(BillAccount billAccount)

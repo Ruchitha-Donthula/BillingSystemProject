@@ -95,3 +95,5 @@ C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\obj\Release\Bill
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\obj\Release\BillingSystemServices.csproj.CopyComplete
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\obj\Release\BillingSystemServices.dll
 C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\obj\Release\BillingSystemServices.pdb
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\bin\log4net.dll
+C:\Users\Admin\source\repos\BillingSystem\BillingSystemServices\bin\log4net.xml

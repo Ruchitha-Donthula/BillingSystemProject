@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Http;
 using BillingSystemBusiness;
 using BillingSystemDataModel;
+using BillingSystemServices.Filters;
 
 namespace BillingSystemServices.Controllers
 {
     public class InstallmentController : ApiController
     {
+        [RequestResponseLoggingFilter]
         [Route("api/CreateInstallmentSchedule")]
         [HttpPost]
         public IHttpActionResult CreateInstallmentSchedule(CreateInstallmentScheduleRequest request)
