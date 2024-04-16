@@ -1,24 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
+﻿// <copyright file="InvoiceDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with Invoice entities.
+    /// </summary>
     public class InvoiceDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceDataAccess"/> class.
+        /// </summary>
         public InvoiceDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves an Invoice entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Invoice to retrieve.</param>
+        /// <returns>The Invoice entity corresponding to the provided ID, or null if not found.</returns>
         public Invoice GetInvoiceById(int id)
         {
             try
             {
-                return _context.Invoices.FirstOrDefault(i => i.InvoiceId == id);
+                return this.context.Invoices.FirstOrDefault(i => i.InvoiceId == id);
             }
             catch (Exception ex)
             {
@@ -26,11 +41,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves an Invoice entity by its number.
+        /// </summary>
+        /// <param name="number">The number of the Invoice to retrieve.</param>
+        /// <returns>The Invoice entity corresponding to the provided number, or null if not found.</returns>
         public Invoice GetInvoiceByNumber(string number)
         {
             try
             {
-                return _context.Invoices.FirstOrDefault(i => i.InvoiceNumber == number);
+                return this.context.Invoices.FirstOrDefault(i => i.InvoiceNumber == number);
             }
             catch (Exception ex)
             {
@@ -38,11 +58,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all Invoice entities.
+        /// </summary>
+        /// <returns>A list of all Invoice entities.</returns>
         public List<Invoice> GetAllInvoices()
         {
             try
             {
-                return _context.Invoices.ToList();
+                return this.context.Invoices.ToList();
             }
             catch (Exception ex)
             {
@@ -50,12 +74,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new Invoice entity.
+        /// </summary>
+        /// <param name="invoice">The Invoice entity to add.</param>
         public void AddInvoice(Invoice invoice)
         {
             try
             {
-                _context.Invoices.Add(invoice);
-                _context.SaveChanges();
+                this.context.Invoices.Add(invoice);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -63,11 +91,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates an existing Invoice entity.
+        /// </summary>
+        /// <param name="invoice">The updated Invoice entity.</param>
         public void UpdateInvoice(Invoice invoice)
         {
             try
             {
-                var existingInvoice = _context.Invoices.Find(invoice.InvoiceId);
+                var existingInvoice = this.context.Invoices.Find(invoice.InvoiceId);
                 if (existingInvoice != null)
                 {
                     existingInvoice.InvoiceNumber = invoice.InvoiceNumber;
@@ -76,7 +108,7 @@ namespace BillingSystemDataAccess
                     existingInvoice.BillAccountId = invoice.BillAccountId;
                     existingInvoice.Status = invoice.Status;
                     existingInvoice.InvoiceAmount = invoice.InvoiceAmount;
-                    _context.SaveChanges();
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -85,15 +117,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes an Invoice entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Invoice to delete.</param>
         public void DeleteInvoice(int id)
         {
             try
             {
-                var invoice = _context.Invoices.Find(id);
+                var invoice = this.context.Invoices.Find(id);
                 if (invoice != null)
                 {
-                    _context.Invoices.Remove(invoice);
-                    _context.SaveChanges();
+                    this.context.Invoices.Remove(invoice);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -102,12 +138,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Gets the next sequence number for creating a new invoice number.
+        /// </summary>
+        /// <returns>The next sequence number for invoice number generation.</returns>
         public int GetNextSequenceNumber()
         {
             try
             {
                 int nextSequenceNumber = 1; // Default if no records exist
-                var latestInvoiceNumber = _context.Invoices.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
+                var latestInvoiceNumber = this.context.Invoices.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
                 if (latestInvoiceNumber != null)
                 {
                     // Extract the numeric part and increment by 1
@@ -117,6 +157,7 @@ namespace BillingSystemDataAccess
                         nextSequenceNumber = numericValue + 1;
                     }
                 }
+
                 return nextSequenceNumber;
             }
             catch (Exception ex)

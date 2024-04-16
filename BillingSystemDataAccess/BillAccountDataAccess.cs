@@ -1,24 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
+﻿// <copyright file="BillAccountDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with BillAccount entities.
+    /// </summary>
     public class BillAccountDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BillAccountDataAccess"/> class.
+        /// </summary>
         public BillAccountDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves a BillAccount entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the BillAccount to retrieve.</param>
+        /// <returns>The BillAccount entity corresponding to the provided ID, or null if not found.</returns>
         public BillAccount GetBillAccountById(int id)
         {
             try
             {
-                return _context.BillAccounts.FirstOrDefault(b => b.BillAccountId == id);
+                return this.context.BillAccounts.FirstOrDefault(b => b.BillAccountId == id);
             }
             catch (Exception ex)
             {
@@ -26,11 +41,16 @@ namespace BillingSystemDataAccess
             }
         }
 
-        public BillAccount GetBillAccountByNumber(String billAccountNumber)
+        /// <summary>
+        /// Retrieves a BillAccount entity by its account number.
+        /// </summary>
+        /// <param name="billAccountNumber">The account number of the BillAccount to retrieve.</param>
+        /// <returns>The BillAccount entity corresponding to the provided account number, or null if not found.</returns>
+        public BillAccount GetBillAccountByNumber(string billAccountNumber)
         {
             try
             {
-                return _context.BillAccounts.FirstOrDefault(b => b.BillAccountNumber == billAccountNumber);
+                return this.context.BillAccounts.FirstOrDefault(b => b.BillAccountNumber == billAccountNumber);
             }
             catch (Exception ex)
             {
@@ -38,11 +58,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all BillAccount entities.
+        /// </summary>
+        /// <returns>A list of all BillAccount entities.</returns>
         public List<BillAccount> GetAllBillAccounts()
         {
             try
             {
-                return _context.BillAccounts.ToList();
+                return this.context.BillAccounts.ToList();
             }
             catch (Exception ex)
             {
@@ -50,12 +74,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new BillAccount entity.
+        /// </summary>
+        /// <param name="billAccount">The BillAccount entity to add.</param>
         public void AddBillAccount(BillAccount billAccount)
         {
             try
             {
-                _context.BillAccounts.Add(billAccount);
-                _context.SaveChanges();
+                this.context.BillAccounts.Add(billAccount);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -63,11 +91,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates an existing BillAccount entity.
+        /// </summary>
+        /// <param name="updatedBillAccount">The updated BillAccount entity.</param>
         public void UpdateBillAccount(BillAccount updatedBillAccount)
         {
             try
             {
-                var billAccountToUpdate = GetBillAccountByNumber(updatedBillAccount.BillAccountNumber);
+                var billAccountToUpdate = this.GetBillAccountByNumber(updatedBillAccount.BillAccountNumber);
                 if (billAccountToUpdate != null)
                 {
                     // Update properties
@@ -84,7 +116,7 @@ namespace BillingSystemDataAccess
                     billAccountToUpdate.LastPaymentAmount = updatedBillAccount.LastPaymentAmount;
                     billAccountToUpdate.PastDue = updatedBillAccount.PastDue;
                     billAccountToUpdate.FutureDue = updatedBillAccount.FutureDue;
-                    _context.SaveChanges();
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -93,15 +125,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes a BillAccount entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the BillAccount to delete.</param>
         public void DeleteBillAccount(int id)
         {
             try
             {
-                var billAccount = _context.BillAccounts.Find(id);
+                var billAccount = this.context.BillAccounts.Find(id);
                 if (billAccount != null)
                 {
-                    _context.BillAccounts.Remove(billAccount);
-                    _context.SaveChanges();
+                    this.context.BillAccounts.Remove(billAccount);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -110,13 +146,17 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Suspends a BillAccount entity.
+        /// </summary>
+        /// <param name="billAccount">The BillAccount entity to suspend.</param>
         public void SuspendBillAccount(BillAccount billAccount)
         {
             try
             {
-                BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
+                BillAccount billAccountToSuspend = this.GetBillAccountById(billAccount.BillAccountId);
                 billAccountToSuspend.Status = "Suspend";
-                _context.SaveChanges();
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -124,19 +164,51 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Releases a suspended BillAccount entity.
+        /// </summary>
+        /// <param name="billAccount">The suspended BillAccount entity to release.</param>
         public void ReleaseBillAccount(BillAccount billAccount)
         {
             try
             {
-                BillAccount billAccountToRelease = GetBillAccountById(billAccount.BillAccountId);
+                BillAccount billAccountToRelease = this.GetBillAccountById(billAccount.BillAccountId);
                 billAccountToRelease.Status = "Active";
-                _context.SaveChanges();
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while releasing BillAccount.", ex);
             }
         }
+
+        /// <summary>
+        /// To get next sequence number from billaccount table in database.
+        /// </summary>
+        /// <returns>NextSequenceNumber.</returns>
+        public int GetNextSequenceNumber()
+        {
+            try
+            {
+                var context = new BillingSystemEDMContainer();
+                int nextSequenceNumber = 1; // Default if no records exist
+                var latestBillAccount = this.context.BillAccounts.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
+                if (latestBillAccount != null)
+                {
+                    // Extract the numeric part and increment by 1
+                    string numericPart = latestBillAccount.BillAccountNumber.Substring(2);
+                    if (int.TryParse(numericPart, out int numericValue))
+                    {
+                        nextSequenceNumber = numericValue + 1;
+                    }
+                }
+
+                return nextSequenceNumber;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while getting the next sequence number from the database.", ex);
+            }
+        }
     }
 }
-

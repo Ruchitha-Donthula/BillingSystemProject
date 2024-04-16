@@ -1,26 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BillingSystemDataModel;
+﻿// <copyright file="InvoiceInstallmentDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with InvoiceInstallment entities.
+    /// </summary>
     public class InvoiceInstallmentDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceInstallmentDataAccess"/> class.
+        /// </summary>
         public InvoiceInstallmentDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves an InvoiceInstallment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the InvoiceInstallment to retrieve.</param>
+        /// <returns>The InvoiceInstallment entity corresponding to the provided ID, or null if not found.</returns>
         public InvoiceInstallment GetInvoiceInstallmentById(int id)
         {
             try
             {
-                return _context.InvoiceInstallments.FirstOrDefault(i => i.InvoiceInstallmentId == id);
+                return this.context.InvoiceInstallments.FirstOrDefault(i => i.InvoiceInstallmentId == id);
             }
             catch (Exception ex)
             {
@@ -28,11 +43,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all InvoiceInstallment entities.
+        /// </summary>
+        /// <returns>A list of all InvoiceInstallment entities.</returns>
         public List<InvoiceInstallment> GetAllInvoiceInstallments()
         {
             try
             {
-                return _context.InvoiceInstallments.ToList();
+                return this.context.InvoiceInstallments.ToList();
             }
             catch (Exception ex)
             {
@@ -40,12 +59,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new InvoiceInstallment entity.
+        /// </summary>
+        /// <param name="invoiceInstallment">The InvoiceInstallment entity to add.</param>
         public void AddInvoiceInstallment(InvoiceInstallment invoiceInstallment)
         {
             try
             {
-                _context.InvoiceInstallments.Add(invoiceInstallment);
-                _context.SaveChanges();
+                this.context.InvoiceInstallments.Add(invoiceInstallment);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -53,15 +76,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes an InvoiceInstallment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the InvoiceInstallment to delete.</param>
         public void DeleteInvoiceInstallment(int id)
         {
             try
             {
-                var invoiceInstallment = _context.InvoiceInstallments.Find(id);
+                var invoiceInstallment = this.context.InvoiceInstallments.Find(id);
                 if (invoiceInstallment != null)
                 {
-                    _context.InvoiceInstallments.Remove(invoiceInstallment);
-                    _context.SaveChanges();
+                    this.context.InvoiceInstallments.Remove(invoiceInstallment);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)

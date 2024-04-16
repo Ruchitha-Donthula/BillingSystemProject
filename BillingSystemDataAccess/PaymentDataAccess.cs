@@ -1,26 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BillingSystemDataModel;
+﻿// <copyright file="PaymentDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with Payment entities.
+    /// </summary>
     public class PaymentDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PaymentDataAccess"/> class.
+        /// </summary>
         public PaymentDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves a Payment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Payment to retrieve.</param>
+        /// <returns>The Payment entity corresponding to the provided ID, or null if not found.</returns>
         public Payment GetPaymentById(int id)
         {
             try
             {
-                return _context.Payments.FirstOrDefault(p => p.PaymentId == id);
+                return this.context.Payments.FirstOrDefault(p => p.PaymentId == id);
             }
             catch (Exception ex)
             {
@@ -28,11 +43,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all Payment entities.
+        /// </summary>
+        /// <returns>A list of all Payment entities.</returns>
         public List<Payment> GetAllPayments()
         {
             try
             {
-                return _context.Payments.ToList();
+                return this.context.Payments.ToList();
             }
             catch (Exception ex)
             {
@@ -40,12 +59,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new Payment entity.
+        /// </summary>
+        /// <param name="payment">The Payment entity to add.</param>
         public void AddPayment(Payment payment)
         {
             try
             {
-                _context.Payments.Add(payment);
-                _context.SaveChanges();
+                this.context.Payments.Add(payment);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -53,11 +76,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates an existing Payment entity.
+        /// </summary>
+        /// <param name="payment">The updated Payment entity.</param>
         public void UpdatePayment(Payment payment)
         {
             try
             {
-                var existingPayment = _context.Payments.Find(payment.PaymentId);
+                var existingPayment = this.context.Payments.Find(payment.PaymentId);
                 if (existingPayment != null)
                 {
                     existingPayment.PaymentMethod = payment.PaymentMethod;
@@ -69,7 +96,7 @@ namespace BillingSystemDataAccess
                     existingPayment.PaymentStatus = payment.PaymentStatus;
                     existingPayment.PaymentReference = payment.PaymentReference;
                     existingPayment.BillAccountId = payment.BillAccountId;
-                    _context.SaveChanges();
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -78,15 +105,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes a Payment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Payment to delete.</param>
         public void DeletePayment(int id)
         {
             try
             {
-                var payment = _context.Payments.Find(id);
+                var payment = this.context.Payments.Find(id);
                 if (payment != null)
                 {
-                    _context.Payments.Remove(payment);
-                    _context.SaveChanges();
+                    this.context.Payments.Remove(payment);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)

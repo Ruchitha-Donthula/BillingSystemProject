@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
-using BillingSystemDataAccess;
+﻿// <copyright file="InvoiceBusiness.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemBusiness
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataAccess;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides business logic for creating invoices.
+    /// </summary>
     public class InvoiceBusiness
     {
+        /// <summary>
+        /// Creates an invoice for the specified bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account for which to create the invoice.</param>
+        /// <returns>The created invoice.</returns>
         public Invoice CreateInvoice(BillAccount billAccount)
         {
             try
@@ -29,12 +41,12 @@ namespace BillingSystemBusiness
 
                 Invoice invoice = new Invoice
                 {
-                    InvoiceNumber = GenerateInvoiceNumber(),
+                    InvoiceNumber = this.GenerateInvoiceNumber(),
                     InvoiceDate = DateTime.Now.Date,
                     SendDate = DateTime.Now.Date,
-                    InvoiceAmount = CalculateTotalAmount(pendingInstallments),
+                    InvoiceAmount = this.CalculateTotalAmount(pendingInstallments),
                     BillAccountId = billAccount.BillAccountId,
-                    Status = "Invoice Sent"
+                    Status = "Invoice Sent",
                 };
 
                 new InvoiceDataAccess().AddInvoice(invoice);
@@ -45,7 +57,7 @@ namespace BillingSystemBusiness
                     var invoiceInstallment = new InvoiceInstallment
                     {
                         InvoiceId = invoice.InvoiceId,
-                        InstallmentId = installment.InstallmentId
+                        InstallmentId = installment.InstallmentId,
                     };
 
                     new InvoiceInstallmentDataAccess().AddInvoiceInstallment(invoiceInstallment);
@@ -59,11 +71,15 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Generates a unique invoice number.
+        /// </summary>
+        /// <returns>The generated invoice number.</returns>
         private string GenerateInvoiceNumber()
         {
             try
             {
-                int nextSequenceNumber = GetNextSequenceNumberFromDatabase();
+                int nextSequenceNumber = this.GetNextSequenceNumberFromDatabase();
                 string invoiceNumber = $"IN{nextSequenceNumber:D6}";
                 return invoiceNumber;
             }
@@ -73,6 +89,10 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Retrieves the next sequence number for generating invoice numbers from the database.
+        /// </summary>
+        /// <returns>The next sequence number.</returns>
         private int GetNextSequenceNumberFromDatabase()
         {
             try
@@ -86,7 +106,12 @@ namespace BillingSystemBusiness
             }
         }
 
-        public double CalculateTotalAmount(List<Installment> pendingInstallments)
+        /// <summary>
+        /// Calculates the total amount for the invoice based on the pending installments.
+        /// </summary>
+        /// <param name="pendingInstallments">The list of pending installments.</param>
+        /// <returns>The total amount for the invoice.</returns>
+        private double CalculateTotalAmount(List<Installment> pendingInstallments)
         {
             try
             {

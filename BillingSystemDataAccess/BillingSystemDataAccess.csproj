@@ -54,7 +54,6 @@
     <Compile Include="BillAccountDataAccess.cs" />
     <Compile Include="BillAccountPolicyDataAccess.cs" />
     <Compile Include="BillingTransactionDataAccess.cs" />
-    <Compile Include="GetNextSequenceNumberFromDataBase.cs" />
     <Compile Include="InstallmentDataAccess.cs" />
     <Compile Include="InstallmentSummaryDataAccess.cs" />
     <Compile Include="InvoiceDataAccess.cs" />
@@ -65,6 +64,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Settings.StyleCop" />
+    <None Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -74,6 +75,10 @@
       <Project>{d785744b-27d4-4992-990a-f6599bd9528b}</Project>
       <Name>BillingSystemDataModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

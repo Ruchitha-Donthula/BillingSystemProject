@@ -1,24 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
+﻿// <copyright file="BillingTransactionDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with BillingTransaction entities.
+    /// </summary>
     public class BillingTransactionDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BillingTransactionDataAccess"/> class.
+        /// </summary>
         public BillingTransactionDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves a BillingTransaction entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the BillingTransaction to retrieve.</param>
+        /// <returns>The BillingTransaction entity corresponding to the provided ID, or null if not found.</returns>
         public BillingTransaction GetBillingTransactionById(int id)
         {
             try
             {
-                return _context.BillingTransactions.FirstOrDefault(b => b.BillingTransactionId == id);
+                return this.context.BillingTransactions.FirstOrDefault(b => b.BillingTransactionId == id);
             }
             catch (Exception ex)
             {
@@ -26,11 +41,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all BillingTransaction entities.
+        /// </summary>
+        /// <returns>A list of all BillingTransaction entities.</returns>
         public List<BillingTransaction> GetAllBillingTransactions()
         {
             try
             {
-                return _context.BillingTransactions.ToList();
+                return this.context.BillingTransactions.ToList();
             }
             catch (Exception ex)
             {
@@ -38,12 +57,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new BillingTransaction entity.
+        /// </summary>
+        /// <param name="billingTransaction">The BillingTransaction entity to add.</param>
         public void AddBillingTransaction(BillingTransaction billingTransaction)
         {
             try
             {
-                _context.BillingTransactions.Add(billingTransaction);
-                _context.SaveChanges();
+                this.context.BillingTransactions.Add(billingTransaction);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -51,15 +74,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes a BillingTransaction entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the BillingTransaction to delete.</param>
         public void DeleteBillingTransaction(int id)
         {
             try
             {
-                var billingTransaction = _context.BillingTransactions.Find(id);
+                var billingTransaction = this.context.BillingTransactions.Find(id);
                 if (billingTransaction != null)
                 {
-                    _context.BillingTransactions.Remove(billingTransaction);
-                    _context.SaveChanges();
+                    this.context.BillingTransactions.Remove(billingTransaction);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
