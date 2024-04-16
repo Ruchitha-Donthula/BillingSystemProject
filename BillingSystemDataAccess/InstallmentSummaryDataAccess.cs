@@ -1,24 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
+﻿// <copyright file="InstallmentSummaryDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with InstallmentSummary entities.
+    /// </summary>
     public class InstallmentSummaryDataAccess
     {
-        private readonly BillingSystemEDMContainer _context;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InstallmentSummaryDataAccess"/> class.
+        /// </summary>
         public InstallmentSummaryDataAccess()
         {
-            _context = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Retrieves an InstallmentSummary entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the InstallmentSummary to retrieve.</param>
+        /// <returns>The InstallmentSummary entity corresponding to the provided ID, or null if not found.</returns>
         public InstallmentSummary GetInstallmentSummaryById(int id)
         {
             try
             {
-                return _context.InstallmentSummaries.FirstOrDefault(i => i.InstallmentSummaryId == id);
+                return this.context.InstallmentSummaries.FirstOrDefault(i => i.InstallmentSummaryId == id);
             }
             catch (Exception ex)
             {
@@ -26,11 +41,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all InstallmentSummary entities.
+        /// </summary>
+        /// <returns>A list of all InstallmentSummary entities.</returns>
         public List<InstallmentSummary> GetAllInstallmentSummaries()
         {
             try
             {
-                return _context.InstallmentSummaries.ToList();
+                return this.context.InstallmentSummaries.ToList();
             }
             catch (Exception ex)
             {
@@ -38,12 +57,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a new InstallmentSummary entity.
+        /// </summary>
+        /// <param name="installmentSummary">The InstallmentSummary entity to add.</param>
         public void AddInstallmentSummary(InstallmentSummary installmentSummary)
         {
             try
             {
-                _context.InstallmentSummaries.Add(installmentSummary);
-                _context.SaveChanges();
+                this.context.InstallmentSummaries.Add(installmentSummary);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -51,16 +74,20 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates an existing InstallmentSummary entity.
+        /// </summary>
+        /// <param name="installmentSummary">The updated InstallmentSummary entity.</param>
         public void UpdateInstallmentSummary(InstallmentSummary installmentSummary)
         {
             try
             {
-                var existingInstallmentSummary = _context.InstallmentSummaries.Find(installmentSummary.InstallmentSummaryId);
+                var existingInstallmentSummary = this.context.InstallmentSummaries.Find(installmentSummary.InstallmentSummaryId);
                 if (existingInstallmentSummary != null)
                 {
                     existingInstallmentSummary.PolicyNumber = installmentSummary.PolicyNumber;
                     existingInstallmentSummary.Status = installmentSummary.Status;
-                    _context.SaveChanges();
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -69,15 +96,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes an InstallmentSummary entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the InstallmentSummary to delete.</param>
         public void DeleteInstallmentSummary(int id)
         {
             try
             {
-                var installmentSummary = _context.InstallmentSummaries.Find(id);
+                var installmentSummary = this.context.InstallmentSummaries.Find(id);
                 if (installmentSummary != null)
                 {
-                    _context.InstallmentSummaries.Remove(installmentSummary);
-                    _context.SaveChanges();
+                    this.context.InstallmentSummaries.Remove(installmentSummary);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -86,12 +117,17 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves a list of InstallmentSummary entities associated with a specific bill account ID.
+        /// </summary>
+        /// <param name="billAccountId">The ID of the bill account to retrieve installment summaries for.</param>
+        /// <returns>A list of InstallmentSummary entities associated with the provided bill account ID.</returns>
         public List<InstallmentSummary> GetInstallmentSummariesByBillAccountId(int billAccountId)
         {
             try
             {
                 // Filter InstallmentSummaries by BillAccountId
-                var summaries = _context.InstallmentSummaries.Where(summary => summary.BillAccountId == billAccountId).ToList();
+                var summaries = this.context.InstallmentSummaries.Where(summary => summary.BillAccountId == billAccountId).ToList();
 
                 return summaries;
             }

@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BillingSystemDataModel;
-using BillingSystemDataAccess;
+﻿// <copyright file="PaymentBusiness.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemBusiness
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataAccess;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides business logic for applying payments.
+    /// </summary>
     public class PaymentBusiness
     {
+        /// <summary>
+        /// Applies a payment to the billing system.
+        /// </summary>
+        /// <param name="payment">The payment to apply.</param>
         public void ApplyPayment(Payment payment)
         {
             try
@@ -26,13 +37,13 @@ namespace BillingSystemBusiness
                         TransactionType = payment.PaymentMethod,
                         TransactionAmount = payment.Amount,
                         InvoiceId = invoice.InvoiceId,
-                        PaymentId = payment.PaymentId
+                        PaymentId = payment.PaymentId,
                     };
                     new BillingTransactionDataAccess().AddBillingTransaction(billingTransaction);
 
-                    UpdateBillAccount(payment, billAccount, invoice);
+                    this.UpdateBillAccount(payment, billAccount, invoice);
 
-                    UpdateInstallments(payment, billAccount);
+                    this.UpdateInstallments(payment, billAccount);
                 }
                 else
                 {
@@ -46,6 +57,12 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Updates the bill account after applying a payment.
+        /// </summary>
+        /// <param name="payment">The payment applied.</param>
+        /// <param name="billAccount">The bill account to update.</param>
+        /// <param name="invoice">The invoice associated with the payment.</param>
         private void UpdateBillAccount(Payment payment, BillAccount billAccount, Invoice invoice)
         {
             try
@@ -62,7 +79,7 @@ namespace BillingSystemBusiness
                     pastDue = invoice.InvoiceAmount - newAmountPaid;
                 }
 
-                double futureDue = GetTotalFutureDueAmount(billAccount);
+                double futureDue = this.GetTotalFutureDueAmount(billAccount);
 
                 billAccount.PastDue = pastDue;
                 billAccount.FutureDue = futureDue;
@@ -78,6 +95,11 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Updates the installments associated with the payment.
+        /// </summary>
+        /// <param name="payment">The payment applied.</param>
+        /// <param name="billAccount">The bill account associated with the payment.</param>
         private void UpdateInstallments(Payment payment, BillAccount billAccount)
         {
             try
@@ -106,7 +128,12 @@ namespace BillingSystemBusiness
             }
         }
 
-        public double GetTotalFutureDueAmount(BillAccount billAccount)
+        /// <summary>
+        /// Calculates the total future due amount for the bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account to calculate the future due amount for.</param>
+        /// <returns>The total future due amount.</returns>
+        private double GetTotalFutureDueAmount(BillAccount billAccount)
         {
             try
             {

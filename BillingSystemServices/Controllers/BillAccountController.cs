@@ -1,19 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BillingSystemDataModel;
-using BillingSystemBusiness;
-using System.Web.Http;
-using BillingSystemServices.Filters;
-using log4net;
+﻿// <copyright file="BillAccountController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemServices.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Http;
+    using BillingSystemBusiness;
+    using BillingSystemDataModel;
+    using BillingSystemServices.Filters;
+    using log4net;
+
+    /// <summary>
+    /// Controller for managing bill accounts.
+    /// </summary>
     public class BillAccountController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(BillAccountController));
 
+        /// <summary>
+        /// Creates a new bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account data to create.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [HttpPost]
         [Route("api/CreateBillAccount")]
@@ -23,42 +35,46 @@ namespace BillingSystemServices.Controllers
             {
                 if (billAccount == null)
                 {
-                    return BadRequest("Invalid bill account data");
+                    return this.BadRequest("Invalid bill account data");
                 }
 
                 new BillAccountBusiness().CreateBillAccount(billAccount);
-                return Ok("BillAccount added successfully");
+                return this.Ok("BillAccount added successfully");
             }
             catch (Exception ex)
             {
                 // Log the exception
                 Log.Error("An error occurred while creating bill account", ex);
+
                 // Return an Internal Server Error response
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Associates a bill account with one or more policies.
+        /// </summary>
+        /// <param name="request">The request object containing bill account, policy numbers, and pay plan.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/AssociateBillAccountWithPolicy")]
         [HttpPost]
         public IHttpActionResult AssociateBillAccountWithPolicy(BillAccountAndPolicyRequest request)
         {
-            if (request==null || request.BillAccount == null || request.PolicyNumbers == null || string.IsNullOrEmpty(request.Payplan))
+            if (request == null || request.BillAccount == null || request.PolicyNumbers == null || string.IsNullOrEmpty(request.Payplan))
             {
-                return BadRequest("One or more parameters are null or empty.");
+                return this.BadRequest("One or more parameters are null or empty.");
             }
 
             new BillAccountBusiness().AssociateBillAccountWithPolicy(request.BillAccount, request.PolicyNumbers, request.Payplan);
-            return Ok("Bill account associated with policies successfully.");
+            return this.Ok("Bill account associated with policies successfully.");
         }
 
-        public class BillAccountAndPolicyRequest
-        {
-            public BillAccount BillAccount { get; set; }
-            public List<string> PolicyNumbers { get; set; }
-            public string Payplan { get; set; }
-        }
-
+        /// <summary>
+        /// Retrieves a bill account by its ID.
+        /// </summary>
+        /// <param name="billAccountId">The ID of the bill account to retrieve.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/GetBillAccountById")]
         [HttpGet]
@@ -69,17 +85,23 @@ namespace BillingSystemServices.Controllers
                 var billAccount = new BillAccountBusiness().GetBillAccountById(billAccountId);
                 if (billAccount == null)
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
-                return Json(billAccount);
+
+                return this.Json(billAccount);
             }
             catch (Exception ex)
             {
                 Log.Error("An error occurred while retrieving the bill account by ID", ex);
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Retrieves a bill account by its number.
+        /// </summary>
+        /// <param name="billAccountNumber">The number of the bill account to retrieve.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/GetBillAccountByNumber")]
         [HttpGet]
@@ -90,17 +112,23 @@ namespace BillingSystemServices.Controllers
                 var billAccount = new BillAccountBusiness().GetBillAccountByNumber(billAccountNumber);
                 if (billAccount == null)
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
-                return Json(billAccount);
+
+                return this.Json(billAccount);
             }
             catch (Exception ex)
             {
                 Log.Error("An error occurred while retrieving the bill account by number", ex);
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Updates a bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account data to update.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/UpdateBillAccount")]
         [HttpPost]
@@ -110,18 +138,24 @@ namespace BillingSystemServices.Controllers
             {
                 if (billAccount == null)
                 {
-                    return BadRequest("Invalid bill account data");
+                    return this.BadRequest("Invalid bill account data");
                 }
+
                 new BillAccountBusiness().UpdateBillAccount(billAccount);
-                return Ok("Bill account updated successfully");
+                return this.Ok("Bill account updated successfully");
             }
             catch (Exception ex)
             {
                 Log.Error("An error occurred while updating the bill account", ex);
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Suspends a bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account to suspend.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/SuspendBillAccount")]
         [HttpPost]
@@ -131,18 +165,24 @@ namespace BillingSystemServices.Controllers
             {
                 if (billAccount == null)
                 {
-                    return BadRequest("Invalid bill account data");
+                    return this.BadRequest("Invalid bill account data");
                 }
+
                 new BillAccountBusiness().SuspendBillAccount(billAccount);
-                return Ok("Bill account suspended successfully");
+                return this.Ok("Bill account suspended successfully");
             }
             catch (Exception ex)
             {
                 Log.Error("An error occurred while suspending the bill account", ex);
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Releases a suspended bill account.
+        /// </summary>
+        /// <param name="billAccount">The bill account to release.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/ReleaseBillAccount")]
         [HttpPost]
@@ -152,17 +192,38 @@ namespace BillingSystemServices.Controllers
             {
                 if (billAccount == null)
                 {
-                    return BadRequest("Invalid bill account data");
+                    return this.BadRequest("Invalid bill account data");
                 }
+
                 new BillAccountBusiness().ReleaseBillAccount(billAccount);
-                return Ok("Bill account released successfully");
+                return this.Ok("Bill account released successfully");
             }
             catch (Exception ex)
             {
                 Log.Error("An error occurred while releasing the bill account", ex);
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
 
+        /// <summary>
+        /// Represents a request object containing a bill account, policy numbers, and pay plan.
+        /// </summary>
+        public class BillAccountAndPolicyRequest
+        {
+            /// <summary>
+            /// Gets or sets billAccount.
+            /// </summary>
+            public BillAccount BillAccount { get; set; }
+
+            /// <summary>
+            /// Gets or sets policyNumbers.
+            /// </summary>
+            public List<string> PolicyNumbers { get; set; }
+
+            /// <summary>
+            /// Gets or sets payplan.
+            /// </summary>
+            public string Payplan { get; set; }
+        }
     }
 }

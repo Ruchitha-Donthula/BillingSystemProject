@@ -1,25 +1,39 @@
-﻿using BillingSystemDataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// <copyright file="InstallmentDataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides data access methods for interacting with Installment entities.
+    /// </summary>
     public class InstallmentDataAccess
     {
-        private readonly BillingSystemEDMContainer _dbContext;
+        private readonly BillingSystemEDMContainer context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InstallmentDataAccess"/> class.
+        /// </summary>
         public InstallmentDataAccess()
         {
-            _dbContext = new BillingSystemEDMContainer();
+            this.context = new BillingSystemEDMContainer();
         }
 
+        /// <summary>
+        /// Adds a new Installment entity.
+        /// </summary>
+        /// <param name="installment">The Installment entity to add.</param>
         public void AddInstallment(Installment installment)
         {
             try
             {
-                _dbContext.Installments.Add(installment);
-                _dbContext.SaveChanges();
+                this.context.Installments.Add(installment);
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -27,11 +41,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates an existing Installment entity.
+        /// </summary>
+        /// <param name="installment">The updated Installment entity.</param>
         public void UpdateInstallment(Installment installment)
         {
             try
             {
-                var existingInstallment = _dbContext.Installments.Find(installment.InstallmentId);
+                var existingInstallment = this.context.Installments.Find(installment.InstallmentId);
                 if (existingInstallment != null)
                 {
                     // Update properties
@@ -44,7 +62,7 @@ namespace BillingSystemDataAccess
                     existingInstallment.InvoiceStatus = installment.InvoiceStatus;
                     existingInstallment.InstallmentSummaryId = installment.InstallmentSummaryId;
 
-                    _dbContext.SaveChanges();
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -53,15 +71,19 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes an Installment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Installment to delete.</param>
         public void DeleteInstallmentById(int id)
         {
             try
             {
-                var installment = _dbContext.Installments.Find(id);
+                var installment = this.context.Installments.Find(id);
                 if (installment != null)
                 {
-                    _dbContext.Installments.Remove(installment);
-                    _dbContext.SaveChanges();
+                    this.context.Installments.Remove(installment);
+                    this.context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -70,11 +92,16 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves an Installment entity by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the Installment to retrieve.</param>
+        /// <returns>The Installment entity corresponding to the provided ID, or null if not found.</returns>
         public Installment GetInstallmentById(int id)
         {
             try
             {
-                return _dbContext.Installments.Find(id);
+                return this.context.Installments.Find(id);
             }
             catch (Exception ex)
             {
@@ -82,11 +109,15 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves all Installment entities.
+        /// </summary>
+        /// <returns>A list of all Installment entities.</returns>
         public List<Installment> GetAllInstallments()
         {
             try
             {
-                return _dbContext.Installments.ToList();
+                return this.context.Installments.ToList();
             }
             catch (Exception ex)
             {
@@ -94,13 +125,17 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Activates the status of an Installment entity to "Billed".
+        /// </summary>
+        /// <param name="installment">The Installment entity to activate.</param>
         public void ActivateInstallmentStatus(Installment installment)
         {
             try
             {
-                Installment installmentToBeActivated = GetInstallmentById(installment.InstallmentId);
+                Installment installmentToBeActivated = this.GetInstallmentById(installment.InstallmentId);
                 installmentToBeActivated.InvoiceStatus = "Billed";
-                _dbContext.SaveChanges();
+                this.context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -108,6 +143,11 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves a list of Installment entities associated with a specific invoice number.
+        /// </summary>
+        /// <param name="invoiceNumber">The invoice number to retrieve installments for.</param>
+        /// <returns>A list of Installment entities associated with the provided invoice number.</returns>
         public List<Installment> GetInstallmentsByInvoiceNumber(string invoiceNumber)
         {
             try
@@ -135,6 +175,11 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Retrieves future Installment entities associated with a specific bill account ID.
+        /// </summary>
+        /// <param name="billAccountId">The ID of the bill account to retrieve future installments for.</param>
+        /// <returns>A list of future Installment entities associated with the provided bill account ID.</returns>
         public List<Installment> GetFutureInstallmentsByBillAccountId(int billAccountId)
         {
             try

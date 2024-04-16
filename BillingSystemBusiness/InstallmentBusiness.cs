@@ -1,30 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using BillingSystemDataModel;
-using BillingSystemDataAccess;
+﻿// <copyright file="InstallmentBusiness.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemBusiness
 {
+    using System;
+    using System.Collections.Generic;
+    using BillingSystemDataAccess;
+    using BillingSystemDataModel;
+
+    /// <summary>
+    /// Provides business logic for managing installment schedules.
+    /// </summary>
     public class InstallmentBusiness
     {
-        public void CreateInstallmentSchedule(BillAccount BillAccount, BillAccountPolicy billAccountPolicy, double premium)
+        /// <summary>
+        /// Creates an installment schedule for a bill account based on the provided premium amount and payment plan.
+        /// </summary>
+        /// <param name="billAccount">The bill account for which to create the installment schedule.</param>
+        /// <param name="billAccountPolicy">The policy associated with the bill account.</param>
+        /// <param name="premium">The premium amount to be split into installments.</param>
+        public void CreateInstallmentSchedule(BillAccount billAccount, BillAccountPolicy billAccountPolicy, double premium)
         {
             try
             {
-                BillAccount billAccount = new BillAccountDataAccess().GetBillAccountById(BillAccount.BillAccountId);
-                if (billAccount == null)
+                BillAccount billaccount = new BillAccountDataAccess().GetBillAccountById(billAccount.BillAccountId);
+                if (billaccount == null)
+                {
                     throw new Exception("Bill account not found.");
+                }
 
-                InitializeBillAccount(billAccount, premium);
+                this.InitializeBillAccount(billaccount, premium);
 
                 InstallmentSummary parentRecord = new InstallmentSummary
                 {
                     PolicyNumber = billAccountPolicy.PolicyNumber,
                     Status = "Active",
-                    BillAccountId = billAccount.BillAccountId
+                    BillAccountId = billaccount.BillAccountId,
                 };
                 new InstallmentSummaryDataAccess().AddInstallmentSummary(parentRecord);
-                List<Installment> installments = GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billAccount.DueDay);
+                List<Installment> installments = this.GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billAccount.DueDay);
                 foreach (var installment in installments)
                 {
                     new InstallmentDataAccess().AddInstallment(installment);
@@ -36,12 +51,19 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Initializes the bill account with the premium amount.
+        /// </summary>
+        /// <param name="billAccount">The bill account to initialize.</param>
+        /// <param name="premium">The premium amount to be added to the bill account.</param>
         private void InitializeBillAccount(BillAccount billAccount, double premium)
         {
             try
             {
                 if (billAccount == null)
+                {
                     throw new ArgumentNullException(nameof(billAccount), "Bill account cannot be null.");
+                }
 
                 double accountTotal = (double)(billAccount.AccountTotal + premium);
                 billAccount.AccountTotal = accountTotal;
@@ -54,6 +76,14 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Generates a list of installments based on the provided payment plan and premium amount.
+        /// </summary>
+        /// <param name="parentRecord">The parent installment summary record.</param>
+        /// <param name="payPlan">The payment plan for the installments.</param>
+        /// <param name="premium">The premium amount to be split into installments.</param>
+        /// <param name="dueDay">The due day for each installment.</param>
+        /// <returns>The list of generated installments.</returns>
         private List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
         {
             try
@@ -66,34 +96,38 @@ namespace BillingSystemBusiness
                         double monthlyPremium = premium / 12;
                         for (int installmentNumber = 1; installmentNumber <= 12; installmentNumber++)
                         {
-                            installment = CreateInstallment(parentRecord, installmentNumber, monthlyPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, monthlyPremium, payPlan, dueDay);
                             installments.Add(installment);
                         }
+
                         break;
                     case "Quarterly":
                         double quarterlyPremium = premium / 4;
                         for (int installmentNumber = 1; installmentNumber <= 4; installmentNumber++)
                         {
-                            installment = CreateInstallment(parentRecord, installmentNumber, quarterlyPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, quarterlyPremium, payPlan, dueDay);
                             installments.Add(installment);
                         }
+
                         break;
                     case "Semiannual":
                         double semiannualPremium = premium / 2;
                         for (int installmentNumber = 1; installmentNumber <= 2; installmentNumber++)
                         {
-                            installment = CreateInstallment(parentRecord, installmentNumber, semiannualPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, semiannualPremium, payPlan, dueDay);
                             installments.Add(installment);
                         }
+
                         break;
                     case "Annual":
                         double annualPremium = premium;
-                        installment = CreateInstallment(parentRecord, 1, annualPremium, payPlan, dueDay);
+                        installment = this.CreateInstallment(parentRecord, 1, annualPremium, payPlan, dueDay);
                         installments.Add(installment);
                         break;
                     default:
                         break;
                 }
+
                 return installments;
             }
             catch (Exception ex)
@@ -102,12 +136,21 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Creates a single installment record.
+        /// </summary>
+        /// <param name="parentRecord">The parent installment summary record.</param>
+        /// <param name="installmentNumber">The sequence number of the installment.</param>
+        /// <param name="dueAmount">The due amount for the installment.</param>
+        /// <param name="payPlan">The payment plan for the installment.</param>
+        /// <param name="dueDay">The due day for the installment.</param>
+        /// <returns>The created installment record.</returns>
         private Installment CreateInstallment(InstallmentSummary parentRecord, int installmentNumber, double dueAmount, string payPlan, int dueDay)
         {
             try
             {
-                DateTime installmentDueDate = CalculateDueDate(installmentNumber, payPlan, dueDay);
-                DateTime installmentSendDate = CalculateSendDate(installmentDueDate);
+                DateTime installmentDueDate = this.CalculateDueDate(installmentNumber, payPlan, dueDay);
+                DateTime installmentSendDate = this.CalculateSendDate(installmentDueDate);
                 return new Installment
                 {
                     InstallmentSequenceNumber = installmentNumber,
@@ -126,11 +169,23 @@ namespace BillingSystemBusiness
             }
         }
 
+        /// <summary>
+        /// Calculates the send date for an installment based on its due date.
+        /// </summary>
+        /// <param name="installmentDueDate">The due date of the installment.</param>
+        /// <returns>The calculated send date for the installment.</returns>
         private DateTime CalculateSendDate(DateTime installmentDueDate)
         {
             return installmentDueDate.AddDays(-10);
         }
 
+        /// <summary>
+        /// Calculates the due date for an installment based on its sequence number, payment plan, and due day.
+        /// </summary>
+        /// <param name="installmentNumber">The sequence number of the installment.</param>
+        /// <param name="payPlan">The payment plan for the installment.</param>
+        /// <param name="dueDay">The due day for each installment.</param>
+        /// <returns>The calculated due date for the installment.</returns>
         private DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay)
         {
             try
@@ -151,6 +206,7 @@ namespace BillingSystemBusiness
                         dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
                         break;
                 }
+
                 return dueDate;
             }
             catch (Exception ex)

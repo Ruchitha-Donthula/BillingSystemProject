@@ -1,16 +1,28 @@
-﻿using System;
-using System.Web.Http;
-using BillingSystemBusiness;
-using BillingSystemDataModel;
-using BillingSystemServices.Filters;
-using log4net;
+﻿// <copyright file="PaymentController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace BillingSystemServices.Controllers
 {
+    using System;
+    using System.Web.Http;
+    using BillingSystemBusiness;
+    using BillingSystemDataModel;
+    using BillingSystemServices.Filters;
+    using log4net;
+
+    /// <summary>
+    /// Controller for managing payments.
+    /// </summary>
     public class PaymentController : ApiController
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PaymentController));
 
+        /// <summary>
+        /// Applies a payment to the specified account.
+        /// </summary>
+        /// <param name="payment">The payment to apply.</param>
+        /// <returns>IHttpActionResult.</returns>
         [RequestResponseLoggingFilter]
         [Route("api/ApplyPayment")]
         [HttpPost]
@@ -20,11 +32,11 @@ namespace BillingSystemServices.Controllers
             {
                 if (payment == null)
                 {
-                    return BadRequest("Invalid payment data");
+                    return this.BadRequest("Invalid payment data");
                 }
 
                 new PaymentBusiness().ApplyPayment(payment);
-                return Ok("Payment applied successfully");
+                return this.Ok("Payment applied successfully");
             }
             catch (Exception ex)
             {
@@ -32,7 +44,7 @@ namespace BillingSystemServices.Controllers
                 Log.Error("An error occurred while applying payment", ex);
 
                 // Return an Internal Server Error response
-                return InternalServerError(ex);
+                return this.InternalServerError(ex);
             }
         }
     }
