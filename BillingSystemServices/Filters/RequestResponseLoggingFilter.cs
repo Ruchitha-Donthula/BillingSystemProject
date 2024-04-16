@@ -21,9 +21,17 @@ namespace BillingSystemServices.Filters
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            LogResponse(actionExecutedContext.Response);
+            if (actionExecutedContext.Exception != null)
+            {
+                Log.Error("An error occurred during action execution:", actionExecutedContext.Exception);
+            }
+            else
+            {
+                LogResponse(actionExecutedContext.Response);
+            }
             base.OnActionExecuted(actionExecutedContext);
         }
+
 
         private void LogRequest(HttpRequestMessage request)
         {

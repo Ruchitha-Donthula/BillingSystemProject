@@ -13,7 +13,7 @@ namespace BillingSystemDataAccess
 
         public PaymentDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); 
+            _context = new BillingSystemEDMContainer();
         }
 
         public Payment GetPaymentById(int id)
@@ -24,8 +24,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving Payment by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving Payment by Id.", ex);
             }
         }
 
@@ -37,8 +36,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all Payments: " + ex.Message);
-                return new List<Payment>();
+                throw new Exception("An error occurred while retrieving all Payments.", ex);
             }
         }
 
@@ -51,7 +49,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding Payment: " + ex.Message);
+                throw new Exception("An error occurred while adding Payment.", ex);
             }
         }
 
@@ -76,7 +74,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while updating Payment: " + ex.Message);
+                throw new Exception("An error occurred while updating Payment.", ex);
             }
         }
 
@@ -93,7 +91,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting Payment: " + ex.Message);
+                throw new Exception("An error occurred while deleting Payment.", ex);
             }
         }
     }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BillingSystemDataAccess;
 using BillingSystemDataModel;
 
@@ -12,61 +9,134 @@ namespace BillingSystemBusiness
     {
         public BillAccount CreateBillAccount(BillAccount billAccount)
         {
-            string billAccountNumber = GenerateBillAccountNumber();
-            billAccount.BillAccountNumber = billAccountNumber;
-            new BillAccountDataAccess().AddBillAccount(billAccount);
-            return billAccount;
+            try
+            {
+                string billAccountNumber = GenerateBillAccountNumber();
+                billAccount.BillAccountNumber = billAccountNumber;
+                new BillAccountDataAccess().AddBillAccount(billAccount);
+                return billAccount;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
 
-        private String GenerateBillAccountNumber()
+        private string GenerateBillAccountNumber()
         {
-            int nextSequenceNumber = GetNextSequenceNumberFromDataBase();
-            String billAccountNumber = $"BA{nextSequenceNumber:D6}";
-            return billAccountNumber;
+            try
+            {
+                int nextSequenceNumber = GetNextSequenceNumberFromDataBase();
+                string billAccountNumber = $"BA{nextSequenceNumber:D6}";
+                return billAccountNumber;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
+
         private int GetNextSequenceNumberFromDataBase()
         {
-            int nextSequenceNumberFromDataBase= new GetNextSequenceNumberFromDataBase().GetNextSequenceNumber();
-            return nextSequenceNumberFromDataBase;
+            try
+            {
+                int nextSequenceNumberFromDataBase = new GetNextSequenceNumberFromDataBase().GetNextSequenceNumber();
+                return nextSequenceNumberFromDataBase;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
 
         public void AssociateBillAccountWithPolicy(BillAccount billAccount, List<string> policyNumbers, string payplan)
         {
-            foreach (var policyNumber in policyNumbers)
+            try
             {
-                BillAccountPolicy billAccountPolicy = new BillAccountPolicy
+                foreach (var policyNumber in policyNumbers)
                 {
-                    BillAccountId = billAccount.BillAccountId,
-                    PolicyNumber = policyNumber,
-                    PayPlan=payplan
-                };
-                new BillAccountPolicyDataAccess().AddBillAccountPolicy(billAccountPolicy);
+                    BillAccountPolicy billAccountPolicy = new BillAccountPolicy
+                    {
+                        BillAccountId = billAccount.BillAccountId,
+                        PolicyNumber = policyNumber,
+                        PayPlan = payplan
+                    };
+                    new BillAccountPolicyDataAccess().AddBillAccountPolicy(billAccountPolicy);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
             }
         }
 
         public BillAccount GetBillAccountById(int billAccountId)
         {
-           return  new BillAccountDataAccess().GetBillAccountById(billAccountId);
-
+            try
+            {
+                return new BillAccountDataAccess().GetBillAccountById(billAccountId);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
 
         public BillAccount GetBillAccountByNumber(string billAccountNumber)
         {
-            return new BillAccountDataAccess().GetBillAccountByNumber(billAccountNumber);
+            try
+            {
+                return new BillAccountDataAccess().GetBillAccountByNumber(billAccountNumber);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
+        }
 
-        }
-        public  void UpdateBillAccount(BillAccount billAccount)
+        public void UpdateBillAccount(BillAccount billAccount)
         {
-            new BillAccountDataAccess().UpdateBillAccount(billAccount);
+            try
+            {
+                new BillAccountDataAccess().UpdateBillAccount(billAccount);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
+
         public void SuspendBillAccount(BillAccount billAccount)
         {
-            new BillAccountDataAccess().SuspendBillAccount(billAccount);
-        }
-        public void ReleaseBillAccount(BillAccount billAccount)
-        {
-            new BillAccountDataAccess().ReleaseBillAccount(billAccount);
+            try
+            {
+                new BillAccountDataAccess().SuspendBillAccount(billAccount);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
         }
 
+        public void ReleaseBillAccount(BillAccount billAccount)
+        {
+            try
+            {
+                new BillAccountDataAccess().ReleaseBillAccount(billAccount);
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw ex;
+            }
+        }
     }
 }

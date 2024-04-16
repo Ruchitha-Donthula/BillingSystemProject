@@ -6,23 +6,36 @@ using BillingSystemDataModel;
 using BillingSystemBusiness;
 using System.Web.Http;
 using BillingSystemServices.Filters;
+using log4net;
 
 namespace BillingSystemServices.Controllers
 {
     public class BillAccountController : ApiController
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BillAccountController));
+
         [RequestResponseLoggingFilter]
         [HttpPost]
         [Route("api/CreateBillAccount")]
         public IHttpActionResult CreateBillAccount(BillAccount billAccount)
         {
-            if (billAccount == null)
+            try
             {
-                return BadRequest("Invalid bill account data");
-            }
+                if (billAccount == null)
+                {
+                    return BadRequest("Invalid bill account data");
+                }
 
-            new BillAccountBusiness().CreateBillAccount(billAccount);
-            return Ok("BillAccount added successfully");
+                new BillAccountBusiness().CreateBillAccount(billAccount);
+                return Ok("BillAccount added successfully");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Log.Error("An error occurred while creating bill account", ex);
+                // Return an Internal Server Error response
+                return InternalServerError(ex);
+            }
         }
 
         [RequestResponseLoggingFilter]
@@ -51,12 +64,20 @@ namespace BillingSystemServices.Controllers
         [HttpGet]
         public IHttpActionResult GetBillAccountById(int billAccountId)
         {
-            var billAccount = new BillAccountBusiness().GetBillAccountById(billAccountId);
-            if (billAccount == null)
+            try
             {
-                return NotFound();
+                var billAccount = new BillAccountBusiness().GetBillAccountById(billAccountId);
+                if (billAccount == null)
+                {
+                    return NotFound();
+                }
+                return Json(billAccount);
             }
-            return Json(billAccount);
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred while retrieving the bill account by ID", ex);
+                return InternalServerError(ex);
+            }
         }
 
         [RequestResponseLoggingFilter]
@@ -64,12 +85,20 @@ namespace BillingSystemServices.Controllers
         [HttpGet]
         public IHttpActionResult GetBillAccountByNumber(string billAccountNumber)
         {
-            var billAccount = new BillAccountBusiness().GetBillAccountByNumber(billAccountNumber);
-            if (billAccount == null)
+            try
             {
-                return NotFound();
+                var billAccount = new BillAccountBusiness().GetBillAccountByNumber(billAccountNumber);
+                if (billAccount == null)
+                {
+                    return NotFound();
+                }
+                return Json(billAccount);
             }
-            return Json(billAccount);
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred while retrieving the bill account by number", ex);
+                return InternalServerError(ex);
+            }
         }
 
         [RequestResponseLoggingFilter]
@@ -77,12 +106,20 @@ namespace BillingSystemServices.Controllers
         [HttpPost]
         public IHttpActionResult UpdateBillAccount(BillAccount billAccount)
         {
-            if (billAccount == null)
+            try
             {
-                return BadRequest("Invalid bill account data");
+                if (billAccount == null)
+                {
+                    return BadRequest("Invalid bill account data");
+                }
+                new BillAccountBusiness().UpdateBillAccount(billAccount);
+                return Ok("Bill account updated successfully");
             }
-            new BillAccountBusiness().UpdateBillAccount(billAccount);
-            return Ok("Bill account updated successfully");
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred while updating the bill account", ex);
+                return InternalServerError(ex);
+            }
         }
 
         [RequestResponseLoggingFilter]
@@ -90,12 +127,20 @@ namespace BillingSystemServices.Controllers
         [HttpPost]
         public IHttpActionResult SuspendBillAccount(BillAccount billAccount)
         {
-            if (billAccount == null)
+            try
             {
-                return BadRequest("Invalid bill account data");
+                if (billAccount == null)
+                {
+                    return BadRequest("Invalid bill account data");
+                }
+                new BillAccountBusiness().SuspendBillAccount(billAccount);
+                return Ok("Bill account suspended successfully");
             }
-            new BillAccountBusiness().SuspendBillAccount(billAccount);
-            return Ok("Bill account suspended successfully");
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred while suspending the bill account", ex);
+                return InternalServerError(ex);
+            }
         }
 
         [RequestResponseLoggingFilter]
@@ -103,12 +148,21 @@ namespace BillingSystemServices.Controllers
         [HttpPost]
         public IHttpActionResult ReleaseBillAccount(BillAccount billAccount)
         {
-            if (billAccount == null)
+            try
             {
-                return BadRequest("Invalid bill account data");
+                if (billAccount == null)
+                {
+                    return BadRequest("Invalid bill account data");
+                }
+                new BillAccountBusiness().ReleaseBillAccount(billAccount);
+                return Ok("Bill account released successfully");
             }
-            new BillAccountBusiness().ReleaseBillAccount(billAccount);
-            return Ok("Bill account released successfully");
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred while releasing the bill account", ex);
+                return InternalServerError(ex);
+            }
         }
+
     }
 }

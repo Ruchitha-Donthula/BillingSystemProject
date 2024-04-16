@@ -13,7 +13,7 @@ namespace BillingSystemDataAccess
 
         public InvoiceInstallmentDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); 
+            _context = new BillingSystemEDMContainer();
         }
 
         public InvoiceInstallment GetInvoiceInstallmentById(int id)
@@ -24,8 +24,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving InvoiceInstallment by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving InvoiceInstallment by Id.", ex);
             }
         }
 
@@ -37,8 +36,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all InvoiceInstallments: " + ex.Message);
-                return new List<InvoiceInstallment>();
+                throw new Exception("An error occurred while retrieving all InvoiceInstallments.", ex);
             }
         }
 
@@ -51,7 +49,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding InvoiceInstallment: " + ex.Message);
+                throw new Exception("An error occurred while adding InvoiceInstallment.", ex);
             }
         }
 
@@ -68,7 +66,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting InvoiceInstallment: " + ex.Message);
+                throw new Exception("An error occurred while deleting InvoiceInstallment.", ex);
             }
         }
     }

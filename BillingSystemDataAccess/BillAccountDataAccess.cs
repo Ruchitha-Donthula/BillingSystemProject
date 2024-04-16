@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BillingSystemDataModel;
 
 namespace BillingSystemDataAccess
@@ -24,8 +22,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving BillAccount by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving BillAccount by Id.", ex);
             }
         }
 
@@ -37,8 +34,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving BillAccount by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving BillAccount by Number.", ex);
             }
         }
 
@@ -50,8 +46,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all BillAccounts: " + ex.Message);
-                return new List<BillAccount>();
+                throw new Exception("An error occurred while retrieving all BillAccounts.", ex);
             }
         }
 
@@ -64,7 +59,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding BillAccount: " + ex.Message);
+                throw new Exception("An error occurred while adding BillAccount.", ex);
             }
         }
 
@@ -75,6 +70,7 @@ namespace BillingSystemDataAccess
                 var billAccountToUpdate = GetBillAccountByNumber(updatedBillAccount.BillAccountNumber);
                 if (billAccountToUpdate != null)
                 {
+                    // Update properties
                     billAccountToUpdate.BillingType = updatedBillAccount.BillingType;
                     billAccountToUpdate.Status = updatedBillAccount.Status;
                     billAccountToUpdate.PayorName = updatedBillAccount.PayorName;
@@ -93,7 +89,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while updating BillAccount: " + ex.Message);
+                throw new Exception("An error occurred while updating BillAccount.", ex);
             }
         }
 
@@ -110,22 +106,37 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting BillAccount: " + ex.Message);
+                throw new Exception("An error occurred while deleting BillAccount.", ex);
             }
         }
 
         public void SuspendBillAccount(BillAccount billAccount)
         {
-            BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
-            billAccountToSuspend.Status = "Suspend";
-            _context.SaveChanges();
+            try
+            {
+                BillAccount billAccountToSuspend = GetBillAccountById(billAccount.BillAccountId);
+                billAccountToSuspend.Status = "Suspend";
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while suspending BillAccount.", ex);
+            }
         }
 
         public void ReleaseBillAccount(BillAccount billAccount)
         {
-            BillAccount billAccountToRelease = GetBillAccountById(billAccount.BillAccountId);
-            billAccountToRelease.Status = "Active";
-            _context.SaveChanges();
+            try
+            {
+                BillAccount billAccountToRelease = GetBillAccountById(billAccount.BillAccountId);
+                billAccountToRelease.Status = "Active";
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while releasing BillAccount.", ex);
+            }
         }
     }
 }
+

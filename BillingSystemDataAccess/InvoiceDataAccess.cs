@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BillingSystemDataModel;
 
 namespace BillingSystemDataAccess
@@ -13,7 +11,7 @@ namespace BillingSystemDataAccess
 
         public InvoiceDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); 
+            _context = new BillingSystemEDMContainer();
         }
 
         public Invoice GetInvoiceById(int id)
@@ -24,8 +22,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving Invoice by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving Invoice by Id.", ex);
             }
         }
 
@@ -37,10 +34,10 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving Invoice by Number: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving Invoice by Number.", ex);
             }
         }
+
         public List<Invoice> GetAllInvoices()
         {
             try
@@ -49,8 +46,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all Invoices: " + ex.Message);
-                return new List<Invoice>();
+                throw new Exception("An error occurred while retrieving all Invoices.", ex);
             }
         }
 
@@ -63,7 +59,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding Invoice: " + ex.Message);
+                throw new Exception("An error occurred while adding Invoice.", ex);
             }
         }
 
@@ -85,7 +81,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while updating Invoice: " + ex.Message);
+                throw new Exception("An error occurred while updating Invoice.", ex);
             }
         }
 
@@ -102,25 +98,31 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting Invoice: " + ex.Message);
+                throw new Exception("An error occurred while deleting Invoice.", ex);
             }
         }
 
         public int GetNextSequenceNumber()
         {
-            var _dbContext = new BillingSystemEDMContainer();
-            int nextSequenceNumber = 1; // Default if no records exist
-            var latestInvoiceNumber = _dbContext.Invoices.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
-            if (latestInvoiceNumber != null)
+            try
             {
-                // Extract the numeric part and increment by 1
-                string numericPart = latestInvoiceNumber.InvoiceNumber.Substring(2);
-                if (int.TryParse(numericPart, out int numericValue))
+                int nextSequenceNumber = 1; // Default if no records exist
+                var latestInvoiceNumber = _context.Invoices.OrderByDescending(b => b.BillAccountId).FirstOrDefault();
+                if (latestInvoiceNumber != null)
                 {
-                    nextSequenceNumber = numericValue + 1;
+                    // Extract the numeric part and increment by 1
+                    string numericPart = latestInvoiceNumber.InvoiceNumber.Substring(2);
+                    if (int.TryParse(numericPart, out int numericValue))
+                    {
+                        nextSequenceNumber = numericValue + 1;
+                    }
                 }
+                return nextSequenceNumber;
             }
-            return nextSequenceNumber;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while getting the next sequence number.", ex);
+            }
         }
     }
 }

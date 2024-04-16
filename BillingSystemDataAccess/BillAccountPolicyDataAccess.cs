@@ -22,8 +22,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving BillAccountPolicy by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving BillAccountPolicy by Id.", ex);
             }
         }
 
@@ -35,8 +34,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all BillAccountPolicies: " + ex.Message);
-                return new List<BillAccountPolicy>();
+                throw new Exception("An error occurred while retrieving all BillAccountPolicies.", ex);
             }
         }
 
@@ -49,7 +47,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding BillAccountPolicy: " + ex.Message);
+                throw new Exception("An error occurred while adding BillAccountPolicy.", ex);
             }
         }
 
@@ -66,7 +64,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting BillAccountPolicy: " + ex.Message);
+                throw new Exception("An error occurred while deleting BillAccountPolicy.", ex);
             }
         }
     }

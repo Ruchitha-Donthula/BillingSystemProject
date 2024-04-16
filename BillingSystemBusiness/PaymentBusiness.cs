@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BillingSystemDataModel;
 using BillingSystemDataAccess;
 
@@ -32,7 +30,7 @@ namespace BillingSystemBusiness
                     };
                     new BillingTransactionDataAccess().AddBillingTransaction(billingTransaction);
 
-                    UpdateBillAccount(payment, billAccount,invoice);
+                    UpdateBillAccount(payment, billAccount, invoice);
 
                     UpdateInstallments(payment, billAccount);
                 }
@@ -47,57 +45,81 @@ namespace BillingSystemBusiness
                 throw new Exception("ApplyPaymentFailed", ex);
             }
         }
-        private void UpdateBillAccount(Payment payment, BillAccount billAccount,Invoice invoice)
+
+        private void UpdateBillAccount(Payment payment, BillAccount billAccount, Invoice invoice)
         {
-            double newAmountPaid = (double)(billAccount.AccountPaid + payment.Amount);
-            double newBalanceAmount = (double)(billAccount.AccountTotal - newAmountPaid);
-
-            billAccount.LastPaymentDate = DateTime.Now;
-            billAccount.LastPaymentAmount = payment.Amount;
-
-            double pastDue = 0;
-            if (newBalanceAmount > 0)
+            try
             {
-                pastDue = invoice.InvoiceAmount - newAmountPaid;
+                double newAmountPaid = (double)(billAccount.AccountPaid + payment.Amount);
+                double newBalanceAmount = (double)(billAccount.AccountTotal - newAmountPaid);
+
+                billAccount.LastPaymentDate = DateTime.Now;
+                billAccount.LastPaymentAmount = payment.Amount;
+
+                double pastDue = 0;
+                if (newBalanceAmount > 0)
+                {
+                    pastDue = invoice.InvoiceAmount - newAmountPaid;
+                }
+
+                double futureDue = GetTotalFutureDueAmount(billAccount);
+
+                billAccount.PastDue = pastDue;
+                billAccount.FutureDue = futureDue;
+
+                billAccount.AccountPaid = newAmountPaid;
+                billAccount.AccountBalance = newBalanceAmount;
+
+                new BillAccountDataAccess().UpdateBillAccount(billAccount);
             }
-
-            double futureDue = GetTotalFutureDueAmount(billAccount);
-
-            billAccount.PastDue = pastDue;
-            billAccount.FutureDue = futureDue;
-
-            billAccount.AccountPaid = newAmountPaid;
-            billAccount.AccountBalance = newBalanceAmount;
-
-            new BillAccountDataAccess().UpdateBillAccount(billAccount);
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating bill account.", ex);
+            }
         }
+
         private void UpdateInstallments(Payment payment, BillAccount billAccount)
         {
-            List<Installment> installmentsToUpdate = new InstallmentDataAccess().GetInstallmentsByInvoiceNumber(payment.InvoiceNumber);
-
-            double totalDueAmount = installmentsToUpdate.Sum(installment => installment.DueAmount);
-
-            foreach (var installment in installmentsToUpdate)
+            try
             {
-                double ratio = installment.DueAmount / totalDueAmount;
+                List<Installment> installmentsToUpdate = new InstallmentDataAccess().GetInstallmentsByInvoiceNumber(payment.InvoiceNumber);
 
-                double installmentPayment = payment.Amount * ratio;
-                double newPaidAmount = (double)(installment.PaidAmount + installmentPayment);
-                installment.PaidAmount = newPaidAmount;
+                double totalDueAmount = installmentsToUpdate.Sum(installment => installment.DueAmount);
 
-                double newBalanceAmount = installment.DueAmount - newPaidAmount;
-                installment.BalanceAmount = newBalanceAmount;
+                foreach (var installment in installmentsToUpdate)
+                {
+                    double ratio = installment.DueAmount / totalDueAmount;
 
-                new InstallmentDataAccess().UpdateInstallment(installment);
+                    double installmentPayment = payment.Amount * ratio;
+                    double newPaidAmount = (double)(installment.PaidAmount + installmentPayment);
+                    installment.PaidAmount = newPaidAmount;
+
+                    double newBalanceAmount = installment.DueAmount - newPaidAmount;
+                    installment.BalanceAmount = newBalanceAmount;
+
+                    new InstallmentDataAccess().UpdateInstallment(installment);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating installments.", ex);
             }
         }
+
         public double GetTotalFutureDueAmount(BillAccount billAccount)
         {
-            List<Installment> futureInstallments = new InstallmentDataAccess().GetFutureInstallmentsByBillAccountId(billAccount.BillAccountId);
+            try
+            {
+                List<Installment> futureInstallments = new InstallmentDataAccess().GetFutureInstallmentsByBillAccountId(billAccount.BillAccountId);
 
-            double totalFutureDue = futureInstallments.Sum(installment => installment.DueAmount);
+                double totalFutureDue = futureInstallments.Sum(installment => installment.DueAmount);
 
-            return totalFutureDue;
+                return totalFutureDue;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while calculating total future due amount.", ex);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BillingSystemDataAccess
 
         public InstallmentSummaryDataAccess()
         {
-            _context = new BillingSystemEDMContainer(); 
+            _context = new BillingSystemEDMContainer();
         }
 
         public InstallmentSummary GetInstallmentSummaryById(int id)
@@ -22,8 +22,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving InstallmentSummary by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving InstallmentSummary by Id.", ex);
             }
         }
 
@@ -35,8 +34,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all InstallmentSummaries: " + ex.Message);
-                return new List<InstallmentSummary>();
+                throw new Exception("An error occurred while retrieving all InstallmentSummaries.", ex);
             }
         }
 
@@ -49,7 +47,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding InstallmentSummary: " + ex.Message);
+                throw new Exception("An error occurred while adding InstallmentSummary.", ex);
             }
         }
 
@@ -67,7 +65,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while updating InstallmentSummary: " + ex.Message);
+                throw new Exception("An error occurred while updating InstallmentSummary.", ex);
             }
         }
 
@@ -84,7 +82,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting InstallmentSummary: " + ex.Message);
+                throw new Exception("An error occurred while deleting InstallmentSummary.", ex);
             }
         }
 
@@ -99,8 +97,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while fetching installment summaries: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while fetching installment summaries by BillAccountId.", ex);
             }
         }
     }

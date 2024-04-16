@@ -22,8 +22,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving BillingTransaction by Id: " + ex.Message);
-                return null;
+                throw new Exception("An error occurred while retrieving BillingTransaction by Id.", ex);
             }
         }
 
@@ -35,8 +34,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while retrieving all BillingTransactions: " + ex.Message);
-                return new List<BillingTransaction>();
+                throw new Exception("An error occurred while retrieving all BillingTransactions.", ex);
             }
         }
 
@@ -49,7 +47,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while adding BillingTransaction: " + ex.Message);
+                throw new Exception("An error occurred while adding BillingTransaction.", ex);
             }
         }
 
@@ -66,7 +64,7 @@ namespace BillingSystemDataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error occurred while deleting BillingTransaction: " + ex.Message);
+                throw new Exception("An error occurred while deleting BillingTransaction.", ex);
             }
         }
     }
