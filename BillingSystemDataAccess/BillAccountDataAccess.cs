@@ -42,6 +42,22 @@ namespace BillingSystemDataAccess
         }
 
         /// <summary>
+        /// Retrieves all BillAccount entities.
+        /// </summary>
+        /// <returns>The BillAccount entity corresponding to the provided ID, or null if not found.</returns>
+        public List<BillAccount> GetAllBillAccounts()
+        {
+            try
+            {
+                return this.context.BillAccounts.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all BillAccounts.", ex);
+            }
+        }
+
+        /// <summary>
         /// Retrieves a BillAccount entity by its account number.
         /// </summary>
         /// <param name="billAccountNumber">The account number of the BillAccount to retrieve.</param>
@@ -55,22 +71,6 @@ namespace BillingSystemDataAccess
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while retrieving BillAccount by Number.", ex);
-            }
-        }
-
-        /// <summary>
-        /// Retrieves all BillAccount entities.
-        /// </summary>
-        /// <returns>A list of all BillAccount entities.</returns>
-        public List<BillAccount> GetAllBillAccounts()
-        {
-            try
-            {
-                return this.context.BillAccounts.ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving all BillAccounts.", ex);
             }
         }
 
@@ -155,7 +155,7 @@ namespace BillingSystemDataAccess
             try
             {
                 BillAccount billAccountToSuspend = this.GetBillAccountById(billAccount.BillAccountId);
-                billAccountToSuspend.Status = "Suspend";
+                billAccountToSuspend.Status = ApplicationConstants.BILL_ACCOUNT_SUSPEND_STATUS;
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -173,7 +173,7 @@ namespace BillingSystemDataAccess
             try
             {
                 BillAccount billAccountToRelease = this.GetBillAccountById(billAccount.BillAccountId);
-                billAccountToRelease.Status = "Active";
+                billAccountToRelease.Status = ApplicationConstants.BILL_ACCOUNT_ACTIVE_STATUS;
                 this.context.SaveChanges();
             }
             catch (Exception ex)

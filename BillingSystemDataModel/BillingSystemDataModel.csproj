@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationConstants.cs" />
     <Compile Include="BillAccount.cs">
       <DependentUpon>BillingSystemEDM.tt</DependentUpon>
     </Compile>

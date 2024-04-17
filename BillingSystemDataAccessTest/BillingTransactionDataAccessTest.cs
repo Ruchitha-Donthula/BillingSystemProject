@@ -49,7 +49,7 @@ namespace BillingSystemDataAccessTest
             var newBillingTransaction = new BillingTransaction
             {
                 ActivityDate = DateTime.Now,
-                TransactionType = "TypeA",
+                TransactionType = ApplicationConstants.BILL_ACCOUNT_CASH_PAYMENT_METHOD,
                 TransactionAmount = 100.0,
                 BillAccountId = 3 
             };

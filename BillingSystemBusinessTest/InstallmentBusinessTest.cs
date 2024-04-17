@@ -10,15 +10,15 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 16
+                BillAccountId = 1015
             };
 
             BillAccountPolicy billAccountPolicy = new BillAccountPolicy
             {
-                BillAccountPolicyId=17,
-                BillAccountId = 15,
-                PayPlan = "Semiannual",
-                PolicyNumber = "POL124"
+                BillAccountPolicyId=1011,
+                BillAccountId = 1015,
+                PayPlan = ApplicationConstants.POLICY_PAYPLAN_SEMIANNUAL,
+                PolicyNumber = "POL127"
             };
             double premium = 1000.00;
 
