@@ -9,7 +9,7 @@ using System.Web.Http.Filters;
 
 namespace BillingSystemServices.Filters
 {
-    public class RequestResponseLoggingFilter:ActionFilterAttribute
+    public class RequestResponseLoggingFilter : ActionFilterAttribute
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RequestResponseLoggingFilter));
 

@@ -19,7 +19,7 @@ namespace BillingSystemDataAccessTest
                 DueAmount = 500.0,
                 PaidAmount = null,
                 BalanceAmount = null,
-                InvoiceStatus = "Pending",
+                InvoiceStatus = ApplicationConstants.INSTALLMENT_INVOICE_STATUS_PENDING,
                 InstallmentSummaryId = 8,
             };
 
@@ -58,7 +58,7 @@ namespace BillingSystemDataAccessTest
             if (installment != null)
             {
                 installment.DueAmount = 600.0;
-                installment.InvoiceStatus = "Paid";
+                installment.InvoiceStatus = ApplicationConstants.INSTALLMENT_INVOICE_STATUS_BILLED;
 
                 new InstallmentDataAccess().UpdateInstallment(installment);
                 Console.WriteLine("Installment updated successfully.");

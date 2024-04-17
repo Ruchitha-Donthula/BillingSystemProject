@@ -12,12 +12,12 @@ namespace BillingSystemBusinessTest
             Console.WriteLine("Testing AddBillAccount:");
             var newBillAccount = new BillAccount
             {
-                BillingType = "Agent",
-                Status = "Active",
-                PayorName = "Mahalaxmi",
-                PayorAddress = "Ramnagar",
-                PaymentMethod = "Credit Card",
-                DueDay = 25,
+                BillingType = ApplicationConstants.BILLING_TYPE_AGENT,
+                Status = ApplicationConstants.BILL_ACCOUNT_ACTIVE_STATUS,
+                PayorName = "Mahii",
+                PayorAddress = "hyd",
+                PaymentMethod =ApplicationConstants.BILL_ACCOUNT_DEBITCARD_PAYMENT_METHOD,
+                DueDay = 27,
                 AccountTotal = 0.0,
                 AccountPaid = 0.0,
                 AccountBalance = 0.0,
@@ -34,10 +34,10 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 16,
+                BillAccountId = 1015,
             };
-            List<string> policyNumbers = new List<string> { "POL124" };
-            string payplan = "Semiannual";
+            List<string> policyNumbers = new List<string> { "POL127" };
+            string payplan = ApplicationConstants.POLICY_PAYPLAN_SEMIANNUAL;
             new BillAccountBusiness().AssociateBillAccountWithPolicy(billAccount, policyNumbers, payplan);
             Console.WriteLine("BillAccountPolicies added successfully.");
 

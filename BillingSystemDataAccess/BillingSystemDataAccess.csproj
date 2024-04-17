@@ -55,9 +55,7 @@
     <Compile Include="BillAccountPolicyDataAccess.cs" />
     <Compile Include="BillingTransactionDataAccess.cs" />
     <Compile Include="InstallmentDataAccess.cs" />
-    <Compile Include="InstallmentSummaryDataAccess.cs" />
     <Compile Include="InvoiceDataAccess.cs" />
-    <Compile Include="InvoiceInstallmentDataAccess.cs" />
     <Compile Include="PaymentDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

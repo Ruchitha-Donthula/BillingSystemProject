@@ -11,7 +11,7 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("Testing GetInstallmentSummaryById:");
 
-            var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
+            var installmentSummary = new InstallmentDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
             {
@@ -27,7 +27,7 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting GetAllInstallmentSummaries:");
 
-            var installmentSummaries = new InstallmentSummaryDataAccess().GetAllInstallmentSummaries();
+            var installmentSummaries = new InstallmentDataAccess().GetAllInstallmentSummaries();
 
             if (installmentSummaries.Count > 0)
             {
@@ -51,10 +51,10 @@ namespace BillingSystemDataAccessTest
             {
                 BillAccountId = 3,
                 PolicyNumber = "POL123456",
-                Status = "Active",
+                Status = ApplicationConstants.INSTALLMENT_SUMMARY_ACTIVE_STATUS,
             };
 
-            new InstallmentSummaryDataAccess().AddInstallmentSummary(newInstallmentSummary);
+            new InstallmentDataAccess().AddInstallmentSummary(newInstallmentSummary);
             Console.WriteLine("InstallmentSummary added successfully.");
         }
 
@@ -62,13 +62,13 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting UpdateInstallmentSummary:");
 
-            var installmentSummary = new InstallmentSummaryDataAccess().GetInstallmentSummaryById(1);
+            var installmentSummary = new InstallmentDataAccess().GetInstallmentSummaryById(1);
 
             if (installmentSummary != null)
             {
-                installmentSummary.Status = "Inactive";
+                installmentSummary.Status = ApplicationConstants.INSTALLMENT_SUMMARY_INACTIVE_STATUS;
 
-                new InstallmentSummaryDataAccess().UpdateInstallmentSummary(installmentSummary);
+                new InstallmentDataAccess().UpdateInstallmentSummary(installmentSummary);
                 Console.WriteLine("InstallmentSummary updated successfully.");
             }
             else
@@ -81,13 +81,13 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting DeleteInstallmentSummary:");
 
-            new InstallmentSummaryDataAccess().DeleteInstallmentSummary(1);
+            new InstallmentDataAccess().DeleteInstallmentSummary(1);
             Console.WriteLine("InstallmentSummary deleted successfully.");
         }
 
         public void GetInstallmentSummariesByBillAccountId()
         {
-            var summaries = new InstallmentSummaryDataAccess().GetInstallmentSummariesByBillAccountId(5);
+            var summaries = new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(5);
 
             if (summaries != null && summaries.Any())
             {

@@ -55,13 +55,13 @@ namespace BillingSystemDataAccessTest
             // Create a new Payment object
             var newPayment = new Payment
             {
-                PaymentMethod = "Credit Card",
+                PaymentMethod =ApplicationConstants.BILL_ACCOUNT_CREDITCARD_PAYMENT_METHOD,
                 PaymentFrom = "John Doe",
                 Amount = 500.0,
                 BillAccountNumber = "BA123456",
                 PaymentDate = DateTime.Now,
                 InvoiceNumber = "INV789",
-                PaymentStatus = "Completed",
+                PaymentStatus = ApplicationConstants.PAYMENT_STATUS_SUCCESS,
                 PaymentReference = "REF123456",
                 BillAccountId = 3 // Assuming BillAccountId exists in the database
                 // Add other properties as needed
@@ -82,7 +82,7 @@ namespace BillingSystemDataAccessTest
             if (payment != null)
             {
                 // Update Payment properties
-                payment.PaymentStatus = "Pending";
+                payment.PaymentStatus = ApplicationConstants.PAYMENT_STATUS_PENDING;
 
                 // Update the Payment
                 new PaymentDataAccess().UpdatePayment(payment);

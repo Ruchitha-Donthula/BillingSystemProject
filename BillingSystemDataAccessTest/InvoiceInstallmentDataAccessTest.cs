@@ -14,7 +14,7 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("Testing GetInvoiceInstallmentById:");
 
-            var invoiceInstallment = new InvoiceInstallmentDataAccess().GetInvoiceInstallmentById(1);
+            var invoiceInstallment = new InvoiceDataAccess().GetInvoiceInstallmentById(1);
 
             if (invoiceInstallment != null)
             {
@@ -30,7 +30,7 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting GetAllInvoiceInstallments:");
 
-            var invoiceInstallments = new InvoiceInstallmentDataAccess().GetAllInvoiceInstallments();
+            var invoiceInstallments = new InvoiceDataAccess().GetAllInvoiceInstallments();
 
             if (invoiceInstallments.Count > 0)
             {
@@ -56,7 +56,7 @@ namespace BillingSystemDataAccessTest
                 InstallmentId = 172
             };
 
-            new InvoiceInstallmentDataAccess().AddInvoiceInstallment(newInvoiceInstallment);
+            new InvoiceDataAccess().AddInvoiceInstallment(newInvoiceInstallment);
             Console.WriteLine("InvoiceInstallment added successfully.");
         }
 
@@ -64,7 +64,7 @@ namespace BillingSystemDataAccessTest
         {
             Console.WriteLine("\nTesting DeleteInvoiceInstallment:");
 
-            new InvoiceInstallmentDataAccess().DeleteInvoiceInstallment(1);
+            new InvoiceDataAccess().DeleteInvoiceInstallment(1);
             Console.WriteLine("InvoiceInstallment deleted successfully.");
         }
     }

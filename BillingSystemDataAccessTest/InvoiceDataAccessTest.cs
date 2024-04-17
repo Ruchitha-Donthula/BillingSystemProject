@@ -52,7 +52,7 @@ namespace BillingSystemDataAccessTest
                 InvoiceDate = DateTime.Now,
                 SendDate = DateTime.Now.AddDays(1),
                 BillAccountId = 2,
-                Status = "Pending",
+                Status = ApplicationConstants.INSTALLMENT_INVOICE_STATUS_PENDING,
                 InvoiceAmount = 1000.0
             };
 
@@ -68,7 +68,7 @@ namespace BillingSystemDataAccessTest
 
             if (invoice != null)
             {
-                invoice.Status = "Paid";
+                invoice.Status = ApplicationConstants.INSTALLMENT_INVOICE_STATUS_BILLED;
 
                 new InvoiceDataAccess().UpdateInvoice(invoice);
                 Console.WriteLine("Invoice updated successfully.");

@@ -14,15 +14,15 @@ namespace BillingSystemBusinessTest
         {
             Payment payment = new Payment
             {
-                BillAccountId=16,
-                BillAccountNumber = "BA000001", 
-                InvoiceNumber = "IN000001",
-                PaymentMethod = "Credit Card", 
-                PaymentFrom="Mahalaxmi",
+                BillAccountId=1015,
+                BillAccountNumber = "BA000004", 
+                InvoiceNumber = "IN000003",
+                PaymentMethod = ApplicationConstants.BILL_ACCOUNT_CREDITCARD_PAYMENT_METHOD, 
+                PaymentFrom="Mahii",
                 PaymentDate=DateTime.Now.Date,
-                Amount = 174.0,
+                Amount = 500.0,
                 PaymentStatus="Success",
-                PaymentReference="REF123456"
+                PaymentReference="REF123458"
             };
 
             try

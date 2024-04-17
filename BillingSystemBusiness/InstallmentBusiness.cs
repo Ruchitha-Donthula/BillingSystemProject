@@ -6,6 +6,7 @@ namespace BillingSystemBusiness
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using BillingSystemDataAccess;
     using BillingSystemDataModel;
 
@@ -35,11 +36,11 @@ namespace BillingSystemBusiness
                 InstallmentSummary parentRecord = new InstallmentSummary
                 {
                     PolicyNumber = billAccountPolicy.PolicyNumber,
-                    Status = "Active",
+                    Status = ApplicationConstants.INSTALLMENT_SUMMARY_ACTIVE_STATUS,
                     BillAccountId = billaccount.BillAccountId,
                 };
-                new InstallmentSummaryDataAccess().AddInstallmentSummary(parentRecord);
-                List<Installment> installments = this.GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billAccount.DueDay);
+                new InstallmentDataAccess().AddInstallmentSummary(parentRecord);
+                List<Installment> installments = this.GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billaccount.DueDay);
                 foreach (var installment in installments)
                 {
                     new InstallmentDataAccess().AddInstallment(installment);
@@ -159,7 +160,7 @@ namespace BillingSystemBusiness
                     DueAmount = dueAmount,
                     PaidAmount = 0.0,
                     BalanceAmount = dueAmount,
-                    InvoiceStatus = "Pending",
+                    InvoiceStatus = ApplicationConstants.INSTALLMENT_INVOICE_STATUS_PENDING,
                     InstallmentSummaryId = parentRecord.InstallmentSummaryId,
                 };
             }
@@ -176,7 +177,9 @@ namespace BillingSystemBusiness
         /// <returns>The calculated send date for the installment.</returns>
         private DateTime CalculateSendDate(DateTime installmentDueDate)
         {
-            return installmentDueDate.AddDays(-10);
+            // senddate = due date - send date buffer days
+            int send_date_buffer_days = Convert.ToInt32(ConfigurationManager.AppSettings["Send_date_buffer_days"]);
+            return installmentDueDate.AddDays(-send_date_buffer_days);
         }
 
         /// <summary>

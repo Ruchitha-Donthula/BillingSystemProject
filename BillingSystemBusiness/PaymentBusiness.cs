@@ -43,7 +43,7 @@ namespace BillingSystemBusiness
 
                     this.UpdateBillAccount(payment, billAccount, invoice);
 
-                    this.UpdateInstallments(payment, billAccount);
+                    this.UpdateInstallments(payment);
                 }
                 else
                 {
@@ -99,8 +99,7 @@ namespace BillingSystemBusiness
         /// Updates the installments associated with the payment.
         /// </summary>
         /// <param name="payment">The payment applied.</param>
-        /// <param name="billAccount">The bill account associated with the payment.</param>
-        private void UpdateInstallments(Payment payment, BillAccount billAccount)
+        private void UpdateInstallments(Payment payment)
         {
             try
             {

@@ -25,7 +25,7 @@ namespace BillingSystemBusiness
             try
             {
                 var currentDate = DateTime.Now;
-                var installmentSummaries = new InstallmentSummaryDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
+                var installmentSummaries = new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
                 var pendingInstallments = new List<Installment>();
 
                 foreach (var summary in installmentSummaries)
@@ -46,7 +46,7 @@ namespace BillingSystemBusiness
                     SendDate = DateTime.Now.Date,
                     InvoiceAmount = this.CalculateTotalAmount(pendingInstallments),
                     BillAccountId = billAccount.BillAccountId,
-                    Status = "Invoice Sent",
+                    Status = ApplicationConstants.INVOICE_STATUS_SENT,
                 };
 
                 new InvoiceDataAccess().AddInvoice(invoice);
@@ -60,7 +60,7 @@ namespace BillingSystemBusiness
                         InstallmentId = installment.InstallmentId,
                     };
 
-                    new InvoiceInstallmentDataAccess().AddInvoiceInstallment(invoiceInstallment);
+                    new InvoiceDataAccess().AddInvoiceInstallment(invoiceInstallment);
                 }
 
                 return invoice;

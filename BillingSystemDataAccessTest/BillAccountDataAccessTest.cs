@@ -12,11 +12,11 @@ namespace BillingSystemDataAccessTest
 
             var newBillAccount = new BillAccount
             {
-                BillingType = "Direct",
-                Status = "Active",
+                BillingType = ApplicationConstants.BILLING_TYPE_DIRECT,
+                Status = ApplicationConstants.BILL_ACCOUNT_ACTIVE_STATUS,
                 PayorName = "Prakash",
                 PayorAddress = "SubashNagar",
-                PaymentMethod = "Credit Card",
+                PaymentMethod = ApplicationConstants.BILL_ACCOUNT_CREDITCARD_PAYMENT_METHOD,
                 DueDay = 15,
                 AccountTotal = 1000.0,
                 AccountPaid = 0.0,
@@ -37,7 +37,7 @@ namespace BillingSystemDataAccessTest
             var billAccount = new BillAccountDataAccess().GetBillAccountByNumber("BA123457");
             if (billAccount != null)
             {
-                billAccount.BillingType = "Yearly";
+                billAccount.BillingType = ApplicationConstants.BILLING_TYPE_AGENT;
 
                 new BillAccountDataAccess().UpdateBillAccount(billAccount);
                 Console.WriteLine("BillAccount updated successfully.");
@@ -85,26 +85,6 @@ namespace BillingSystemDataAccessTest
             else
             {
                 Console.WriteLine("BillAccount not found.");
-            }
-        }
-
-        public void TestGetAllBillAccounts()
-        {
-            Console.WriteLine("\nTesting GetAllBillAccounts:");
-
-            var billAccounts = new BillAccountDataAccess().GetAllBillAccounts();
-
-            if (billAccounts.Count > 0)
-            {
-                Console.WriteLine("BillAccounts found:");
-                foreach (var billAccount in billAccounts)
-                {
-                    Console.WriteLine($"Id = {billAccount.BillAccountId}, BillAccountNumber = {billAccount.BillAccountNumber}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("No BillAccounts found.");
             }
         }
 
