@@ -14,8 +14,8 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 1017,
-                DueDay = 28,
+                BillAccountId = 26,
+                DueDay = 27,
             };
             var invoice = new InvoiceBusiness().CreateInvoice(billAccount);
             if (invoice != null)

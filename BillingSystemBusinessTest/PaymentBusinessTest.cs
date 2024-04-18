@@ -14,13 +14,13 @@ namespace BillingSystemBusinessTest
         {
             Payment payment = new Payment
             {
-                BillAccountId=1017,
-                BillAccountNumber = "BA000006", 
-                InvoiceNumber = "IN000005",
+                BillAccountId=26,
+                BillAccountNumber = "BA000001", 
+                InvoiceNumber = "IN000001",
                 PaymentMethod = ApplicationConstants.BILL_ACCOUNT_CASH_PAYMENT_METHOD, 
                 PaymentFrom="Ganesh",
                 PaymentDate=DateTime.Now.Date,
-                Amount = 200.0,
+                Amount = 50.0,
                 PaymentStatus="Success",
                 PaymentReference="REF123460"
             };

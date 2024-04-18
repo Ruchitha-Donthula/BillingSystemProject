@@ -26,8 +26,10 @@ namespace BillingSystemBusinessTest
 
             //new PaymentBusinessTest().TestApplyPayment();
 
-            new InstallmentBusinessTest().TestInstallmentRescheduling();
-            
+            //new InstallmentBusinessTest().TestInstallmentRescheduling();
+            new InstallmentBusinessTest().TestOnChangeOfPayPlan();
+
+
             Console.ReadLine();
         }
     }

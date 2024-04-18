@@ -71,5 +71,93 @@ namespace BillingSystemBusiness
                 new InstallmentDataAccess().AddInstallment(pendingInstallment);
             }
         }
+
+        public void OnChangeOfPayPlan(BillAccount billAccount, BillAccountPolicy newPayPlan)
+        {
+            InstallmentSummary newInstallmentSummary = CreateNewInstallmentSummary(billAccount, newPayPlan);
+
+            new InstallmentDataAccess().AddInstallmentSummary(newInstallmentSummary);
+
+            CopyPaidInstallmentsToNewSchedule(billAccount, newPayPlan, newInstallmentSummary);
+
+           double updatedPremium=GetRemainingPremium(billAccount,newPayPlan);
+
+            // Add remaining installments based on the new pay plan
+            AddRemainingInstallmentsToNewSchedule(newInstallmentSummary, newPayPlan, updatedPremium, billAccount.DueDay);
+
+            // Mark the previous installment schedule as 'Expired'
+            MarkPreviousScheduleAsExpired(billAccount,newPayPlan);
+        }
+
+        private double GetRemainingPremium(BillAccount billAccount,BillAccountPolicy newPayPlan)
+        {
+            List<InstallmentSummary> InstallmentSummaries = new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
+            InstallmentSummary OldSummary = InstallmentSummaries.FirstOrDefault(summary => summary.PolicyNumber == newPayPlan.PolicyNumber);
+            List<Installment> PendingInstallments = new InstallmentDataAccess().GetPendingInstallmentsBySummaryId(OldSummary.InstallmentSummaryId);
+            double updatedPremium = 0.0;
+            foreach(var pendingInstallment in PendingInstallments)
+            {
+                updatedPremium += (double)pendingInstallment.BalanceAmount;
+            }
+            return updatedPremium;
+        }
+
+        private InstallmentSummary CreateNewInstallmentSummary(BillAccount billAccount, BillAccountPolicy newPayPlan)
+        {
+            return new InstallmentSummary
+            {
+                PolicyNumber = newPayPlan.PolicyNumber,
+                Status = ApplicationConstants.INSTALLMENT_SUMMARY_ACTIVE_STATUS,
+                BillAccountId = billAccount.BillAccountId,
+            };
+        }
+
+        private void CopyPaidInstallmentsToNewSchedule(BillAccount billAccount, BillAccountPolicy newPayPlan, InstallmentSummary newInstallmentSummary)
+        {
+            // Retrieve paid installments from the old schedule
+            List<InstallmentSummary> InstallmentSummaries= new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
+            InstallmentSummary OldSummary = InstallmentSummaries.FirstOrDefault(summary => summary.PolicyNumber == newPayPlan.PolicyNumber);
+
+            List<Installment> billedInstallments = new InstallmentDataAccess().GetBilledInstallmentsBySummaryId(OldSummary.InstallmentSummaryId);
+
+            // Copy paid installments to the new schedule
+            foreach (var billedInstallment in billedInstallments)
+            {
+                Installment newInstallment = new Installment
+                {
+                    InstallmentSequenceNumber = billedInstallment.InstallmentSequenceNumber,
+                    InstallmentSendDate = billedInstallment.InstallmentSendDate,
+                    InstallmentDueDate = billedInstallment.InstallmentDueDate,
+                    DueAmount = billedInstallment.DueAmount,
+                    PaidAmount = billedInstallment.PaidAmount,
+                    BalanceAmount = billedInstallment.BalanceAmount,
+                    InvoiceStatus = billedInstallment.InvoiceStatus,
+                    InstallmentSummaryId = newInstallmentSummary.InstallmentSummaryId
+                };
+                new InstallmentDataAccess().AddInstallment(newInstallment);
+            }
+        }
+
+        private void AddRemainingInstallmentsToNewSchedule(InstallmentSummary newInstallmentSummary, BillAccountPolicy newPayPlan, double premium, int dueDay)
+        {
+            // Generate and add remaining installments based on the new pay plan
+            List<Installment> remainingInstallments = new InstallmentBusiness().GenerateInstallments(newInstallmentSummary, newPayPlan.PayPlan, premium, dueDay);
+            foreach (var installment in remainingInstallments)
+            {
+                new InstallmentDataAccess().AddInstallment(installment);
+            }
+        }
+
+        private void MarkPreviousScheduleAsExpired(BillAccount billAccount,BillAccountPolicy newPayPlan)
+        {
+            // Update the status of the previous installment summary to 'Expired'
+            List<InstallmentSummary> InstallmentSummaries = new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
+            InstallmentSummary OldSummary = InstallmentSummaries.FirstOrDefault(summary => summary.PolicyNumber == newPayPlan.PolicyNumber);
+           
+                OldSummary.Status =ApplicationConstants.INSTALLMENT_SUMMARY_INACTIVE_STATUS;
+                new InstallmentDataAccess().UpdateInstallmentSummary(OldSummary);
+            
+        }
     }
 }
+

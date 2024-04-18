@@ -10,17 +10,17 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 1017
+                BillAccountId = 26
             };
 
             BillAccountPolicy billAccountPolicy = new BillAccountPolicy
             {
-                BillAccountPolicyId=1013,
-                BillAccountId = 1017,
+                BillAccountPolicyId=116,
+                BillAccountId = 26,
                 PayPlan = ApplicationConstants.POLICY_PAYPLAN_MONTHLY,
-                PolicyNumber = "POL129"
+                PolicyNumber = "POL123"
             };
-            double premium = 2400.00;
+            double premium = 1200.00;
 
            new InstallmentBusiness().CreateInstallmentSchedule(billAccount, billAccountPolicy, premium);
             Console.WriteLine("Installments added successfully.");
@@ -34,5 +34,24 @@ namespace BillingSystemBusinessTest
             int DueDay = 15;
             new InstallmentRescheduling().OnChangeOfBillAccountDueDay(billAccount, DueDay);
         }
+
+        public void TestOnChangeOfPayPlan()
+        {
+            var billAccount = new BillAccount
+            {
+                BillAccountId = 26,
+                DueDay=21,
+            };
+
+            BillAccountPolicy billAccountPolicy = new BillAccountPolicy
+            {
+                BillAccountPolicyId = 16,
+                BillAccountId = 26,
+                PayPlan = ApplicationConstants.POLICY_PAYPLAN_QUARTERLY,
+                PolicyNumber = "POL123"
+            };
+            new InstallmentRescheduling().OnChangeOfPayPlan(billAccount, billAccountPolicy);
+        }
+        
     }
 }
