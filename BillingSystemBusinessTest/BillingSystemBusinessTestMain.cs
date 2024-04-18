@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BillingSystemDataAccess;
 using BillingSystemDataModel;
 
 namespace BillingSystemBusinessTest
@@ -23,7 +24,9 @@ namespace BillingSystemBusinessTest
 
             //new InvoiceBusinessTest().TestCreateInvoice();
 
-            new PaymentBusinessTest().TestApplyPayment();
+            //new PaymentBusinessTest().TestApplyPayment();
+
+            new InstallmentBusinessTest().TestInstallmentRescheduling();
             
             Console.ReadLine();
         }

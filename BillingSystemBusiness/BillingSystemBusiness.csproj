@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BillAccountBusiness.cs" />
     <Compile Include="InstallmentBusiness.cs" />
+    <Compile Include="InstallmentRescheduling.cs" />
     <Compile Include="InvoiceBusiness.cs" />
     <Compile Include="PaymentBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

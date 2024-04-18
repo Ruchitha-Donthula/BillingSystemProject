@@ -321,5 +321,27 @@ namespace BillingSystemDataAccess
                 throw new Exception("An error occurred while fetching installment summaries by BillAccountId.", ex);
             }
         }
+
+        public List<Installment> GetBilledInstallmentsBySummaryId(int summaryId)
+        {
+            using (var context = new BillingSystemEDMContainer())
+            {
+                // Retrieve billed Installments by SummaryId
+                return context.Installments
+                    .Where(installment => installment.InstallmentSummaryId == summaryId && installment.InvoiceStatus == ApplicationConstants.INSTALLMENT_INVOICE_STATUS_BILLED)
+                    .ToList();
+            }
+        }
+
+        public List<Installment> GetPendingInstallmentsBySummaryId(int summaryId)
+        {
+            using (var context = new BillingSystemEDMContainer())
+            {
+                // Retrieve pending Installments by SummaryId
+                return context.Installments
+                    .Where(installment => installment.InstallmentSummaryId == summaryId && installment.InvoiceStatus == ApplicationConstants.INSTALLMENT_INVOICE_STATUS_PENDING)
+                    .ToList();
+            }
+        }
     }
 }
