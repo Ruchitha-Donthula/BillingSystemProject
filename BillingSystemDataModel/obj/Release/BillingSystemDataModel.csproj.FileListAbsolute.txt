@@ -39,4 +39,3 @@ C:\Users\Admin\source\repos\BillingSystemProject\BillingSystemDataModel\obj\Rele
 C:\Users\Admin\source\repos\BillingSystemProject\BillingSystemDataModel\obj\Release\BillingSystemDataModel.csproj.CopyComplete
 C:\Users\Admin\source\repos\BillingSystemProject\BillingSystemDataModel\obj\Release\BillingSystemDataModel.dll
 C:\Users\Admin\source\repos\BillingSystemProject\BillingSystemDataModel\obj\Release\BillingSystemDataModel.pdb
-C:\Users\Admin\source\repos\BillingSystemProject\BillingSystemDataModel\obj\Release\BillingSystemDataModel.csproj.AssemblyReference.cache

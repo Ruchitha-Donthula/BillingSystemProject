@@ -217,6 +217,5 @@ namespace BillingSystemBusiness
                 throw new Exception("An error occurred while creating installment.", ex);
             }
         }
-
-    }
+     }
 }

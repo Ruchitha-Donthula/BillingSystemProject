@@ -322,6 +322,11 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Get Billed Installments By SummaryId.
+        /// </summary>
+        /// <param name="summaryId">InstallmentSummaryId.</param>
+        /// <returns>List of Installments.</returns>
         public List<Installment> GetBilledInstallmentsBySummaryId(int summaryId)
         {
             using (var context = new BillingSystemEDMContainer())
@@ -333,6 +338,11 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// Get Pending Installments By SummaryId.
+        /// </summary>
+        /// <param name="summaryId">InstallmentSummaryId.</param>
+        /// <returns>List of Installments.</returns>
         public List<Installment> GetPendingInstallmentsBySummaryId(int summaryId)
         {
             using (var context = new BillingSystemEDMContainer())

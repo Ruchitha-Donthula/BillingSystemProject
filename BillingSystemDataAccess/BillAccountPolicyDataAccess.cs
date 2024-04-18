@@ -44,13 +44,13 @@ namespace BillingSystemDataAccess
         /// <summary>
         /// Retrieves a BillAccountPolicy entity by its Number.
         /// </summary>
-        /// <param name="id">The Number of the BillAccountPolicy to retrieve.</param>
+        /// <param name="policyNumber">The Number of the BillAccountPolicy to retrieve.</param>
         /// <returns>The BillAccountPolicy entity corresponding to the provided ID, or null if not found.</returns>
-        public BillAccountPolicy GetBillAccountPolicyByNumber(string PolicyNumber)
+        public BillAccountPolicy GetBillAccountPolicyByNumber(string policyNumber)
         {
             try
             {
-                return this.context.BillAccountPolicies.FirstOrDefault(b => b.PolicyNumber == PolicyNumber);
+                return this.context.BillAccountPolicies.FirstOrDefault(b => b.PolicyNumber == policyNumber);
             }
             catch (Exception ex)
             {
@@ -112,6 +112,11 @@ namespace BillingSystemDataAccess
             }
         }
 
+        /// <summary>
+        /// To get Payplan by PolicyNumber.
+        /// </summary>
+        /// <param name="policyNumber">PolicyNumber.</param>
+        /// <returns>payplan.</returns>
         public string GetPayPlanByPolicyNumber(string policyNumber)
         {
             try
@@ -133,6 +138,34 @@ namespace BillingSystemDataAccess
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while getting pay plan by policy number.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Updates an existing BillAccountPolicy entity.
+        /// </summary>
+        /// <param name="billAccountPolicy">The BillAccountPolicy entity with updated values.</param>
+        /// <returns>The updated BillAccountPolicy entity.</returns>
+        public BillAccountPolicy UpdateBillAccountPolicy(BillAccountPolicy billAccountPolicy)
+        {
+            try
+            {
+                var existingPolicy = this.context.BillAccountPolicies.Find(billAccountPolicy.BillAccountPolicyId);
+                if (existingPolicy != null)
+                {
+                    // Update properties of the existing policy with values from the provided policy
+                    existingPolicy.PolicyNumber = billAccountPolicy.PolicyNumber;
+                    existingPolicy.PayPlan = billAccountPolicy.PayPlan;
+
+                    // Update other properties as needed
+                    this.context.SaveChanges(); // Save changes to the database
+                }
+
+                return existingPolicy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating BillAccountPolicy.", ex);
             }
         }
     }

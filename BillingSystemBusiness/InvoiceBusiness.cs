@@ -24,7 +24,7 @@ namespace BillingSystemBusiness
         {
             try
             {
-                var currentDate =new DateTime(2025,03,11);
+                var currentDate = new DateTime(2025, 03, 11);
                 var installmentSummaries = new InstallmentDataAccess().GetInstallmentSummariesByBillAccountId(billAccount.BillAccountId);
                 var pendingInstallments = new List<Installment>();
 

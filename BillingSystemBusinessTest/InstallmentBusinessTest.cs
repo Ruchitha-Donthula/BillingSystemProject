@@ -32,7 +32,7 @@ namespace BillingSystemBusinessTest
                 BillAccountId = 1017
             };
             int DueDay = 15;
-            new InstallmentRescheduling().OnChangeOfBillAccountDueDay(billAccount, DueDay);
+            new InstallmentReschedulingBusiness().OnChangeOfBillAccountDueDay(billAccount, DueDay);
         }
 
         public void TestOnChangeOfPayPlan()
@@ -50,7 +50,7 @@ namespace BillingSystemBusinessTest
                 PayPlan = ApplicationConstants.POLICY_PAYPLAN_QUARTERLY,
                 PolicyNumber = "POL123"
             };
-            new InstallmentRescheduling().OnChangeOfPayPlan(billAccount, billAccountPolicy);
+            new InstallmentReschedulingBusiness().OnChangeOfPolicyPayPlan(billAccount, billAccountPolicy);
         }
         
     }
