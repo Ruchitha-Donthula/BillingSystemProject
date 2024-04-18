@@ -53,31 +53,6 @@ namespace BillingSystemBusiness
         }
 
         /// <summary>
-        /// Initializes the bill account with the premium amount.
-        /// </summary>
-        /// <param name="billAccount">The bill account to initialize.</param>
-        /// <param name="premium">The premium amount to be added to the bill account.</param>
-        private void InitializeBillAccount(BillAccount billAccount, double premium)
-        {
-            try
-            {
-                if (billAccount == null)
-                {
-                    throw new ArgumentNullException(nameof(billAccount), "Bill account cannot be null.");
-                }
-
-                double accountTotal = (double)(billAccount.AccountTotal + premium);
-                billAccount.AccountTotal = accountTotal;
-                billAccount.AccountBalance = billAccount.AccountTotal - billAccount.AccountPaid;
-                new BillAccountDataAccess().UpdateBillAccount(billAccount);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while initializing bill account.", ex);
-            }
-        }
-
-        /// <summary>
         /// Generates a list of installments based on the provided payment plan and premium amount.
         /// </summary>
         /// <param name="parentRecord">The parent installment summary record.</param>
@@ -85,7 +60,7 @@ namespace BillingSystemBusiness
         /// <param name="premium">The premium amount to be split into installments.</param>
         /// <param name="dueDay">The due day for each installment.</param>
         /// <returns>The list of generated installments.</returns>
-        private List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
+        public List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
         {
             try
             {
@@ -138,6 +113,79 @@ namespace BillingSystemBusiness
         }
 
         /// <summary>
+        /// Calculates the send date for an installment based on its due date.
+        /// </summary>
+        /// <param name="installmentDueDate">The due date of the installment.</param>
+        /// <returns>The calculated send date for the installment.</returns>
+        public DateTime CalculateSendDate(DateTime installmentDueDate)
+        {
+            // senddate = due date - send date buffer days
+            int send_date_buffer_days = Convert.ToInt32(ConfigurationManager.AppSettings["Send_date_buffer_days"]);
+            return installmentDueDate.AddDays(-send_date_buffer_days);
+        }
+
+        /// <summary>
+        /// Calculates the due date for an installment based on its sequence number, payment plan, and due day.
+        /// </summary>
+        /// <param name="installmentNumber">The sequence number of the installment.</param>
+        /// <param name="payPlan">The payment plan for the installment.</param>
+        /// <param name="dueDay">The due day for each installment.</param>
+        /// <returns>The calculated due date for the installment.</returns>
+        public DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay)
+        {
+            try
+            {
+                DateTime dueDate = DateTime.MinValue;
+                switch (payPlan)
+                {
+                    case "Monthly":
+                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths(installmentNumber - 1);
+                        break;
+                    case "Quarterly":
+                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
+                        break;
+                    case "Semiannual":
+                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
+                        break;
+                    case "Annual":
+                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
+                        break;
+                }
+
+                return dueDate;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while calculating due date.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the bill account with the premium amount.
+        /// </summary>
+        /// <param name="billAccount">The bill account to initialize.</param>
+        /// <param name="premium">The premium amount to be added to the bill account.</param>
+        public void InitializeBillAccount(BillAccount billAccount, double premium)
+        {
+            try
+            {
+                if (billAccount == null)
+                {
+                    throw new ArgumentNullException(nameof(billAccount), "Bill account cannot be null.");
+                }
+
+                double accountTotal = (double)(billAccount.AccountTotal + premium);
+                billAccount.AccountTotal = accountTotal;
+                billAccount.AccountBalance = billAccount.AccountTotal - billAccount.AccountPaid;
+                new BillAccountDataAccess().UpdateBillAccount(billAccount);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while initializing bill account.", ex);
+            }
+        }
+
+        /// <summary>
         /// Creates a single installment record.
         /// </summary>
         /// <param name="parentRecord">The parent installment summary record.</param>
@@ -170,52 +218,5 @@ namespace BillingSystemBusiness
             }
         }
 
-        /// <summary>
-        /// Calculates the send date for an installment based on its due date.
-        /// </summary>
-        /// <param name="installmentDueDate">The due date of the installment.</param>
-        /// <returns>The calculated send date for the installment.</returns>
-        private DateTime CalculateSendDate(DateTime installmentDueDate)
-        {
-            // senddate = due date - send date buffer days
-            int send_date_buffer_days = Convert.ToInt32(ConfigurationManager.AppSettings["Send_date_buffer_days"]);
-            return installmentDueDate.AddDays(-send_date_buffer_days);
-        }
-
-        /// <summary>
-        /// Calculates the due date for an installment based on its sequence number, payment plan, and due day.
-        /// </summary>
-        /// <param name="installmentNumber">The sequence number of the installment.</param>
-        /// <param name="payPlan">The payment plan for the installment.</param>
-        /// <param name="dueDay">The due day for each installment.</param>
-        /// <returns>The calculated due date for the installment.</returns>
-        private DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay)
-        {
-            try
-            {
-                DateTime dueDate = DateTime.MinValue;
-                switch (payPlan)
-                {
-                    case "Monthly":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths(installmentNumber - 1);
-                        break;
-                    case "Quarterly":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
-                        break;
-                    case "Semiannual":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
-                        break;
-                    case "Annual":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
-                        break;
-                }
-
-                return dueDate;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while calculating due date.", ex);
-            }
-        }
     }
 }

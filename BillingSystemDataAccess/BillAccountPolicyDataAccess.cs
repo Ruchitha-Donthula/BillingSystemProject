@@ -42,6 +42,23 @@ namespace BillingSystemDataAccess
         }
 
         /// <summary>
+        /// Retrieves a BillAccountPolicy entity by its Number.
+        /// </summary>
+        /// <param name="id">The Number of the BillAccountPolicy to retrieve.</param>
+        /// <returns>The BillAccountPolicy entity corresponding to the provided ID, or null if not found.</returns>
+        public BillAccountPolicy GetBillAccountPolicyByNumber(string PolicyNumber)
+        {
+            try
+            {
+                return this.context.BillAccountPolicies.FirstOrDefault(b => b.PolicyNumber == PolicyNumber);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving BillAccountPolicy by PolicyNumber.", ex);
+            }
+        }
+
+        /// <summary>
         /// Retrieves all BillAccountPolicy entities.
         /// </summary>
         /// <returns>A list of all BillAccountPolicy entities.</returns>
@@ -92,6 +109,30 @@ namespace BillingSystemDataAccess
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while deleting BillAccountPolicy.", ex);
+            }
+        }
+
+        public string GetPayPlanByPolicyNumber(string policyNumber)
+        {
+            try
+            {
+                using (var context = new BillingSystemEDMContainer())
+                {
+                    var policy = context.BillAccountPolicies.FirstOrDefault(p => p.PolicyNumber == policyNumber);
+                    if (policy != null)
+                    {
+                        return policy.PayPlan;
+                    }
+                    else
+                    {
+                        // Handle case where policy number is not found
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while getting pay plan by policy number.", ex);
             }
         }
     }

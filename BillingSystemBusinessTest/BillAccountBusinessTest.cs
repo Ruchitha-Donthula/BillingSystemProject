@@ -14,10 +14,10 @@ namespace BillingSystemBusinessTest
             {
                 BillingType = ApplicationConstants.BILLING_TYPE_AGENT,
                 Status = ApplicationConstants.BILL_ACCOUNT_ACTIVE_STATUS,
-                PayorName = "Mahii",
-                PayorAddress = "hyd",
-                PaymentMethod =ApplicationConstants.BILL_ACCOUNT_DEBITCARD_PAYMENT_METHOD,
-                DueDay = 27,
+                PayorName = "Ganesh",
+                PayorAddress = "krmr",
+                PaymentMethod =ApplicationConstants.BILL_ACCOUNT_CASH_PAYMENT_METHOD,
+                DueDay = 28,
                 AccountTotal = 0.0,
                 AccountPaid = 0.0,
                 AccountBalance = 0.0,
@@ -34,10 +34,10 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 1015,
+                BillAccountId = 1017,
             };
-            List<string> policyNumbers = new List<string> { "POL127" };
-            string payplan = ApplicationConstants.POLICY_PAYPLAN_SEMIANNUAL;
+            List<string> policyNumbers = new List<string> { "POL129" };
+            string payplan = ApplicationConstants.POLICY_PAYPLAN_MONTHLY;
             new BillAccountBusiness().AssociateBillAccountWithPolicy(billAccount, policyNumbers, payplan);
             Console.WriteLine("BillAccountPolicies added successfully.");
 
