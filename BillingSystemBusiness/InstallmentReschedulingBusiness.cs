@@ -142,13 +142,19 @@ namespace BillingSystemBusiness
         /// Adds remaining installments based on the new pay plan to the new schedule.
         /// </summary>
         /// <param name="newInstallmentSummary">The new installment summary to add installments to.</param>
-        /// <param name="newPayPlan">The new pay plan to be applied.</param>
         /// <param name="premium">The remaining premium amount.</param>
         /// <param name="dueDay">The due day for the new installments.</param>
         private void AddRemainingInstallmentsToNewSchedule(InstallmentSummary newInstallmentSummary, BillAccountPolicy billAccountPolicy, double premium, int dueDay)
         {
+            // Get the current date
+            DateTime currentDate = DateTime.Now.Date;
+
+            // Check if there are any billed installments for the current month
+            bool billedThisMonth = new InstallmentDataAccess().GetBilledInstallmentsBySummaryId(newInstallmentSummary.InstallmentSummaryId)
+                .Any(installment => installment.InstallmentDueDate.Year == currentDate.Year && installment.InstallmentDueDate.Month == currentDate.Month);
+
             // Generate and add remaining installments based on the new pay plan
-            List<Installment> remainingInstallments = new InstallmentBusiness().GenerateInstallments(newInstallmentSummary, billAccountPolicy.PayPlan, premium, dueDay);
+            List<Installment> remainingInstallments = new InstallmentBusiness().GenerateInstallments(newInstallmentSummary, billAccountPolicy.PayPlan, premium, dueDay, billedThisMonth);
             foreach (var installment in remainingInstallments)
             {
                 new InstallmentDataAccess().AddInstallment(installment);

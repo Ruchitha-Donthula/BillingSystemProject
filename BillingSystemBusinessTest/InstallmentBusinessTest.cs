@@ -10,17 +10,17 @@ namespace BillingSystemBusinessTest
         {
             var billAccount = new BillAccount
             {
-                BillAccountId = 26
+                BillAccountId = 1020
             };
 
             BillAccountPolicy billAccountPolicy = new BillAccountPolicy
             {
-                BillAccountPolicyId=116,
-                BillAccountId = 26,
+                BillAccountPolicyId=1018,
+                BillAccountId = 1020,
                 PayPlan = ApplicationConstants.POLICY_PAYPLAN_MONTHLY,
-                PolicyNumber = "POL123"
+                PolicyNumber = "POL133"
             };
-            double premium = 1200.00;
+            double premium = 1500.00;
 
            new InstallmentBusiness().CreateInstallmentSchedule(billAccount, billAccountPolicy, premium);
             Console.WriteLine("Installments added successfully.");

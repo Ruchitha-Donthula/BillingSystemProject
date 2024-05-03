@@ -40,6 +40,7 @@ namespace BillingSystemBusiness
                     BillAccountId = billaccount.BillAccountId,
                 };
                 new InstallmentDataAccess().AddInstallmentSummary(parentRecord);
+
                 List<Installment> installments = this.GenerateInstallments(parentRecord, billAccountPolicy.PayPlan, premium, billaccount.DueDay);
                 foreach (var installment in installments)
                 {
@@ -59,8 +60,9 @@ namespace BillingSystemBusiness
         /// <param name="payPlan">The payment plan for the installments.</param>
         /// <param name="premium">The premium amount to be split into installments.</param>
         /// <param name="dueDay">The due day for each installment.</param>
+        /// <param name="billedThisMonth">Billing done this month or not.</param>
         /// <returns>The list of generated installments.</returns>
-        public List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay)
+        public List<Installment> GenerateInstallments(InstallmentSummary parentRecord, string payPlan, double premium, int dueDay, bool billedThisMonth = false)
         {
             try
             {
@@ -72,7 +74,7 @@ namespace BillingSystemBusiness
                         double monthlyPremium = premium / 12;
                         for (int installmentNumber = 1; installmentNumber <= 12; installmentNumber++)
                         {
-                            installment = this.CreateInstallment(parentRecord, installmentNumber, monthlyPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, monthlyPremium, payPlan, dueDay, billedThisMonth);
                             installments.Add(installment);
                         }
 
@@ -81,7 +83,7 @@ namespace BillingSystemBusiness
                         double quarterlyPremium = premium / 4;
                         for (int installmentNumber = 1; installmentNumber <= 4; installmentNumber++)
                         {
-                            installment = this.CreateInstallment(parentRecord, installmentNumber, quarterlyPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, quarterlyPremium, payPlan, dueDay, billedThisMonth);
                             installments.Add(installment);
                         }
 
@@ -90,14 +92,14 @@ namespace BillingSystemBusiness
                         double semiannualPremium = premium / 2;
                         for (int installmentNumber = 1; installmentNumber <= 2; installmentNumber++)
                         {
-                            installment = this.CreateInstallment(parentRecord, installmentNumber, semiannualPremium, payPlan, dueDay);
+                            installment = this.CreateInstallment(parentRecord, installmentNumber, semiannualPremium, payPlan, dueDay, billedThisMonth);
                             installments.Add(installment);
                         }
 
                         break;
                     case "Annual":
                         double annualPremium = premium;
-                        installment = this.CreateInstallment(parentRecord, 1, annualPremium, payPlan, dueDay);
+                        installment = this.CreateInstallment(parentRecord, 1, annualPremium, payPlan, dueDay, billedThisMonth);
                         installments.Add(installment);
                         break;
                     default:
@@ -130,26 +132,39 @@ namespace BillingSystemBusiness
         /// <param name="installmentNumber">The sequence number of the installment.</param>
         /// <param name="payPlan">The payment plan for the installment.</param>
         /// <param name="dueDay">The due day for each installment.</param>
+        /// <param name="billedThisMonth">Billing done this month or not.</param>
         /// <returns>The calculated due date for the installment.</returns>
-        public DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay)
+        public DateTime CalculateDueDate(int installmentNumber, string payPlan, int dueDay, bool billedThisMonth = false)
         {
             try
             {
-                DateTime dueDate = DateTime.MinValue;
+                DateTime dueDate;
+                DateTime currentDate = DateTime.Now.Date;
+
+                // Check if the current date is after the due day
+                if (currentDate.Day > dueDay || billedThisMonth)
+                {
+                    // If so, schedule the first installment for the next month
+                    currentDate = currentDate.AddMonths(1);
+                }
+
+                // Calculate due date based on the adjusted current date
                 switch (payPlan)
                 {
                     case "Monthly":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths(installmentNumber - 1);
+                        dueDate = new DateTime(currentDate.Year, currentDate.Month, dueDay).AddMonths(installmentNumber - 1);
                         break;
                     case "Quarterly":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
+                        dueDate = new DateTime(currentDate.Year, currentDate.Month, dueDay).AddMonths((installmentNumber - 1) * 3);
                         break;
                     case "Semiannual":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
+                        dueDate = new DateTime(currentDate.Year, currentDate.Month, dueDay).AddMonths((installmentNumber - 1) * 6);
                         break;
                     case "Annual":
-                        dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, dueDay).AddYears(installmentNumber - 1);
+                        dueDate = new DateTime(currentDate.Year, currentDate.Month, dueDay).AddYears(installmentNumber - 1);
                         break;
+                    default:
+                        throw new ArgumentException("Invalid pay plan specified.");
                 }
 
                 return dueDate;
@@ -194,11 +209,11 @@ namespace BillingSystemBusiness
         /// <param name="payPlan">The payment plan for the installment.</param>
         /// <param name="dueDay">The due day for the installment.</param>
         /// <returns>The created installment record.</returns>
-        private Installment CreateInstallment(InstallmentSummary parentRecord, int installmentNumber, double dueAmount, string payPlan, int dueDay)
+        private Installment CreateInstallment(InstallmentSummary parentRecord, int installmentNumber, double dueAmount, string payPlan, int dueDay, bool billedThisMonth)
         {
             try
             {
-                DateTime installmentDueDate = this.CalculateDueDate(installmentNumber, payPlan, dueDay);
+                DateTime installmentDueDate = this.CalculateDueDate(installmentNumber, payPlan, dueDay, billedThisMonth);
                 DateTime installmentSendDate = this.CalculateSendDate(installmentDueDate);
                 return new Installment
                 {
